@@ -4,7 +4,7 @@ Procedures and results of identified toggled repositories.
 
 ## Usage
 
-The compilation of all the trace sets is located in `trace-sets.csv`. These trace sets were mirrored into Libraries.io and githubdisco scripts to identify toggled repositories.
+The compilation of all the trace sets is located in `trace-sets.csv`. These trace sets were mirrored into the tools used in the Libraries.io and githubdisco sections to identify toggled repositories.
 
 ### Libraries.io
 
