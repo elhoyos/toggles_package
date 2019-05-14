@@ -1,0 +1,1083 @@
+Library,Name in PM,Platform,Languages,Snippets - Dependencies,Snippets - Imports,Import or Usage,Path SQL Trace Set (GitHub + BigQuery),Content SQL Trace Set (GitHub + BigQuery),Repositories,Notes
+unleash-client-dotnet,"Unleash.FeatureToggle.Client,NuGet", .NET,"C#,Visual Basic","
+In package.json:
+<source lang=""json"">
+{
+  ""dependencies"": {
+    ""Unleash.FeatureToggle.Client"": [{}, ""version_constraint""]
+  }
+}
+</source>
+
+In packages.config:
+<source lang=""xml"">
+<packages>
+  <package id=""Unleash.FeatureToggle.Client"" version=""..."" targetFramework=""..."" />
+</packages>
+</source>
+
+In *.{csproj,vbproj}:
+<source lang=""xml"">
+...
+  <PackageReference Include=""Unleash.FeatureToggle.Client"" ... />
+...
+  <Reference Include=""Unleash.FeatureToggle.Client"" ... />
+...
+</source>","
+https://github.com/stiano/unleash-client-dotnet/blob/927cc4a4391cfbc5e63207dd7b019cfe49ce314b/src/samples/WinFormsApp/UnleashForm.cs#L5
+<source lang=""cs"">
+using Unleash;
+</source>",Unleash,"REGEXP_CONTAINS(path, r'(?i)\.(?:cs|json|config|csproj|vbproj)$')","(REGEXP_CONTAINS(path, r'(?i)\.(?:config|csproj|vbproj)$') AND REGEXP_CONTAINS(content, r'(?i)(?:<package\s*id=|<PackageReference\s*Include=|<Reference\s*Include=)""Unleash.FeatureToggle.Client'))
+OR (REGEXP_CONTAINS(path, r'(?i)\.json$') AND REGEXP_CONTAINS(content, r'dependencies"":\s*{(?:\s|.)*?""Unleash.FeatureToggle.Client'))
+OR (REGEXP_CONTAINS(path, r'(?i)\.cs$') AND REGEXP_CONTAINS(content, r'(?i)using.+Unleash'))", https://github.com/stiano/unleash-client-dotnet,"https://docs.microsoft.com/en-us/nuget/consume-packages/dependency-resolution
+https://docs.microsoft.com/en-us/aspnet/web-forms/overview/deployment/web-deployment-in-the-enterprise/understanding-the-project-file
+https://docs.microsoft.com/en-us/nuget/archive/project-json"
+GroundControl,,,Objective-C,,"
+<source>
+#import ""NSUserDefaults+GroundControl.h""
+</source>",, ,,," No evident toggle points. '''DISCARD'''
+"
+FeatureKit,,,Swift,, ,, ,,," No proper documentation. '''DISCARD'''
+"
+unleash-client,"unleash.client,NuGet", .NET,"C#,Visual Basic","
+In package.json:
+<source lang=""json"">
+{
+  ""dependencies"": {
+    ""unleash.client"": [{}, ""version_constraint""]
+  }
+}
+</source>
+
+In packages.config:
+<source lang=""xml"">
+<packages>
+  <package id=""unleash.client"" version=""..."" targetFramework=""..."" />
+</packages>
+</source>
+
+In *.{csproj,vbproj}:
+<source lang=""xml"">
+...
+  <PackageReference Include=""unleash.client"" ... />
+...
+  <Reference Include=""unleash.client"" ... />
+...
+</source>",,,"REGEXP_CONTAINS(path, r'(?i)\.(?:json|config|csproj|vbproj)$')","(REGEXP_CONTAINS(path, r'(?i)\.(?:config|csproj|vbproj)$') AND REGEXP_CONTAINS(content, r'(?i)(?:<package\s*id=|<PackageReference\s*Include=|<Reference\s*Include=)""unleash.client'))
+OR (REGEXP_CONTAINS(path, r'(?i)\.json$') AND REGEXP_CONTAINS(content, r'dependencies"":\s*{(?:\s|.)*?""unleash.client'))", https://github.com/onybo/unleash-client-core," 
+"
+Android Flagger,, Android,,,,, ,,," Considered incomplete by author. '''DISCARD'''
+"
+launchdarkly,"LaunchDarkly.Client,NuGet", .NET,"C#,Visual Basic","
+In package.json:
+<source lang=""json"">
+{
+  ""dependencies"": {
+    ""LaunchDarkly.Client"": [{}, ""version_constraint""]
+  }
+}
+</source>
+
+In packages.config:
+<source lang=""xml"">
+<packages>
+  <package id=""LaunchDarkly.Client"" version=""..."" targetFramework=""..."" />
+</packages>
+</source>
+
+In *.{csproj,vbproj}:
+<source lang=""xml"">
+...
+  <PackageReference Include=""LaunchDarkly.Client"" ... />
+...
+  <Reference Include=""LaunchDarkly.Client"" ... />
+...
+</source>","
+https://github.com/Damovisa/WeatherView/blob/cf4b86316983029f2f98a37cd63f48e2b56adab0/WeatherView/Controllers/HomeController.cs#L5
+<source lang=""c#"">
+using LaunchDarkly.Client;
+</source>",,"REGEXP_CONTAINS(path, r'(?i)\.(?:cs|json|config|csproj|vbproj)$')","(REGEXP_CONTAINS(path, r'(?i)\.(?:config|csproj|vbproj)$') AND REGEXP_CONTAINS(content, r'(?i)(?:<package\s*id=|<PackageReference\s*Include=|<Reference\s*Include=)""LaunchDarkly.Client'))
+OR (REGEXP_CONTAINS(path, r'(?i)\.json$') AND REGEXP_CONTAINS(content, r'dependencies"":\s*{(?:\s|.)*?""LaunchDarkly.Client'))
+OR (REGEXP_CONTAINS(path, r'(?i)\.cs$') AND REGEXP_CONTAINS(content, r'(?i)using LaunchDarkly\.Client'))", https://github.com/launchdarkly/dotnet-client,https://docs.launchdarkly.com/docs/dotnet-sdk-reference
+NFeature,"NFeature,NuGet", .NET,"C#,Visual Basic","
+In package.json:
+<source lang=""json"">
+{
+  ""dependencies"": {
+    ""NFeature"": [{}, ""version_constraint""]
+  }
+}
+</source>
+
+In packages.config:
+<source lang=""xml"">
+<packages>
+  <package id=""NFeature"" version=""..."" targetFramework=""..."" />
+</packages>
+</source>
+
+In *.{csproj,vbproj}:
+<source lang=""xml"">
+...
+  <PackageReference Include=""NFeature"" ... />
+...
+  <Reference Include=""NFeature"" ... />
+...
+</source>",,,"REGEXP_CONTAINS(path, r'(?i)\.(?:json|config|csproj|vbproj)$')","(REGEXP_CONTAINS(path, r'(?i)\.(?:config|csproj|vbproj)$') AND REGEXP_CONTAINS(content, r'(?i)(?:<package\s*id=|<PackageReference\s*Include=|<Reference\s*Include=)""NFeature'))
+OR (REGEXP_CONTAINS(path, r'(?i)\.json$') AND REGEXP_CONTAINS(content, r'dependencies"":\s*{(?:\s|.)*?""NFeature'))", https://github.com/benaston/NFeature," 
+"
+Feature flags API in Go,, Go,Go,,,, ,,," https://github.com/AntoineAugusti/feature-flags
+ Server only. No toggle points. '''DISCARD'''"
+FeatureToggle,"FeatureToggle,NuGet", .NET,"C#,Visual Basic","
+In package.json:
+<source lang=""json"">
+{
+  ""dependencies"": {
+    ""FeatureToggle"": [{}, ""version_constraint""]
+  }
+}
+</source>
+
+In packages.config:
+<source lang=""xml"">
+<packages>
+  <package id=""FeatureToggle"" version=""..."" targetFramework=""..."" />
+</packages>
+</source>
+
+In *.{csproj,vbproj}:
+<source lang=""xml"">
+...
+  <PackageReference Include=""FeatureToggle"" ... />
+...
+  <Reference Include=""FeatureToggle"" ... />
+...
+</source>",,,"REGEXP_CONTAINS(path, r'(?i)\.(?:json|config|csproj|vbproj)$')","(REGEXP_CONTAINS(path, r'(?i)\.(?:config|csproj|vbproj)$') AND REGEXP_CONTAINS(content, r'(?i)(?:<package\s*id=|<PackageReference\s*Include=|<Reference\s*Include=)""FeatureToggle'))
+OR (REGEXP_CONTAINS(path, r'(?i)\.json$') AND REGEXP_CONTAINS(content, r'dependencies"":\s*{(?:\s|.)*?""FeatureToggle'))", https://github.com/jason-roberts/FeatureToggle," 
+"
+FeatureSwitcher,"FeatureSwitcher,NuGet", .NET,"C#,Visual Basic","
+In package.json:
+<source lang=""json"">
+{
+  ""dependencies"": {
+    ""FeatureSwitcher"": [{}, ""version_constraint""]
+  }
+}
+</source>
+
+In packages.config:
+<source lang=""xml"">
+<packages>
+  <package id=""FeatureSwitcher"" version=""..."" targetFramework=""..."" />
+</packages>
+</source>
+
+In *.{csproj,vbproj}:
+<source lang=""xml"">
+...
+  <PackageReference Include=""FeatureSwitcher"" ... />
+...
+  <Reference Include=""FeatureSwitcher"" ... />
+...
+</source>",,,"REGEXP_CONTAINS(path, r'(?i)\.(?:json|config|csproj|vbproj)$')","(REGEXP_CONTAINS(path, r'(?i)\.(?:config|csproj|vbproj)$') AND REGEXP_CONTAINS(content, r'(?i)(?:<package\s*id=|<PackageReference\s*Include=|<Reference\s*Include=)""FeatureSwitcher'))
+OR (REGEXP_CONTAINS(path, r'(?i)\.json$') AND REGEXP_CONTAINS(content, r'dependencies"":\s*{(?:\s|.)*?""FeatureSwitcher'))", https://github.com/mexx/FeatureSwitcher,https://github.com/picklesdoc/pickles/blob/7b433c3adbc6ade80a7da54998897a36205e279a/src/Pickles/Pickles/Pickles.csproj
+nToggle,, .NET,"C#,Visual Basic","
+In package.json:
+<source lang=""json"">
+{
+  ""dependencies"": {
+    ""nToggle"": [{}, ""version_constraint""]
+  }
+}
+</source>
+
+In packages.config:
+<source lang=""xml"">
+<packages>
+  <package id=""nToggle"" version=""..."" targetFramework=""..."" />
+</packages>
+</source>
+
+In *.{csproj,vbproj}:
+<source lang=""xml"">
+...
+  <PackageReference Include=""nToggle"" ... />
+...
+  <Reference Include=""nToggle"" ... />
+...
+</source>",,,"REGEXP_CONTAINS(path, r'(?i)\.(?:json|config|csproj|vbproj)$')","(REGEXP_CONTAINS(path, r'(?i)\.(?:config|csproj|vbproj)$') AND REGEXP_CONTAINS(content, r'(?i)(?:<package\s*id=|<PackageReference\s*Include=|<Reference\s*Include=)""nToggle'))
+OR (REGEXP_CONTAINS(path, r'(?i)\.json$') AND REGEXP_CONTAINS(content, r'dependencies"":\s*{(?:\s|.)*?""nToggle'))", https://github.com/SteveMoyer/nToggle," Not registered in NuGet
+"
+Toggler,"Toggler,NuGet", .NET,"C#,Visual Basic","
+In package.json:
+<source lang=""json"">
+{
+  ""dependencies"": {
+    ""Toggler"": [{}, ""version_constraint""]
+  }
+}
+</source>
+
+In packages.config:
+<source lang=""xml"">
+<packages>
+  <package id=""Toggler"" version=""..."" targetFramework=""..."" />
+</packages>
+</source>
+
+In *.{csproj,vbproj}:
+<source lang=""xml"">
+...
+  <PackageReference Include=""Toggler"" ... />
+...
+  <Reference Include=""Toggler"" ... />
+...
+</source>",,,"REGEXP_CONTAINS(path, r'(?i)\.(?:json|config|csproj|vbproj)$')","(REGEXP_CONTAINS(path, r'(?i)\.(?:config|csproj|vbproj)$') AND REGEXP_CONTAINS(content, r'(?i)(?:<package\s*id=|<PackageReference\s*Include=|<Reference\s*Include=)""Toggler'))
+OR (REGEXP_CONTAINS(path, r'(?i)\.json$') AND REGEXP_CONTAINS(content, r'dependencies"":\s*{(?:\s|.)*?""Toggler'))", https://github.com/manojlds/Toggler," 
+"
+launchdarkly,"github.com/launchdarkly/go-client,Go", Go,Go,,"
+<source lang=""go"">
+import ld ""gopkg.in/launchdarkly/go-client.v4""
+</source>
+
+https://github.com/mlafeldt/launchdarkly-dynamo-store/blob/df41c91dc1b4baa38287499ef761a31c353d6176/dynamodb/dynamodb_test.go#L7
+<source lang=""go"">
+import (
+	""os""
+	""testing""
+
+	ld ""gopkg.in/launchdarkly/go-client.v4""
+	ldtest ""gopkg.in/launchdarkly/go-client.v4/shared_test""
+
+	""github.com/mlafeldt/launchdarkly-dynamo-store/dynamodb""
+)
+</source>",launchdarkly/go-client,"REGEXP_CONTAINS(path, r'(?i)\.go$')","REGEXP_CONTAINS(content, r'(?i)""gopkg\.in\/launchdarkly\/go-client.*""')", https://github.com/launchdarkly/go-client," https://docs.launchdarkly.com/docs/go-sdk-reference
+"
+Toggle,"github.com/xchapter7x/toggle,Go", Go,Go,,"
+<source lang=""go"">
+import ""github.com/xchapter7x/toggle""
+</source>
+
+https://github.com/xchapter7x/toggle/blob/137362ddbccf68d9dde83bb61b0e614d4df85fdf/sample/local/main.go#L7
+<source lang=""go"">
+import (
+	""fmt""
+
+	""github.com/xchapter7x/goutil""
+	""github.com/xchapter7x/toggle""
+	""github.com/xchapter7x/toggle/engines/localengine""
+)
+</source>",xchapter7x/toggle,"REGEXP_CONTAINS(path, r'(?i)\.go$')","REGEXP_CONTAINS(content, r'(?i)""github.com\/xchapter7x\/toggle""')", https://github.com/xchapter7x/toggle," 
+"
+dcdr,"github.com/vsco/dcdr,Go", Go,Go,,"
+<source lang=""go"">
+import ""github.com/vsco/dcdr/client""
+</source>",vsco/dcdr/client,"REGEXP_CONTAINS(path, r'(?i)\.go$')","REGEXP_CONTAINS(content, r'(?i)""github.com\/vsco\/dcdr\/client""')", https://github.com/vsco/dcdr," 
+"
+unleash-client-go,"github.com/unleash/unleash-client-go,Go", Go,Go,,"
+https://github.com/fabric8-services/fabric8-tenant/blob/bbb086ec90ec3fa63d2d060b2bb71181aaf8900c/toggles/toggles.go#L9
+<source lang=""go"">
+import (
+	""context""
+	""os""
+	""time""
+
+	""fmt""
+	unleash ""github.com/Unleash/unleash-client-go""
+	ucontext ""github.com/Unleash/unleash-client-go/context""
+	jwt ""github.com/dgrijalva/jwt-go""
+	""github.com/fabric8-services/fabric8-common/log""
+	goajwt ""github.com/goadesign/goa/middleware/security/jwt""
+)
+</source>",Unleash/unleash-client-go,"REGEXP_CONTAINS(path, r'(?i)\.go$')","REGEXP_CONTAINS(content, r'(?i)""github.com\/Unleash\/unleash-client-go""')", https://github.com/unleash/unleash-client-go," 
+"
+unleash-client,, Python,Python,,"
+In *.py:
+<source lang=""py"">
+import unleash_client
+</source>",,,,," Considered alpha by author. '''DISCARD'''
+"
+unleash-client-node,"unleash-client,NPM", JavaScript,"JavaScript,TypeScript","
+In package.json:
+<source lang=""json"">
+{
+  ""dependencies"": {
+    ""unleash-client"": ""^3.1.0""
+  }
+}
+</source>","
+https://github.com/wellcometrust/wellcomecollection.org/blob/ab170f3b3a8ac5dfc1affc4b15c2b0f07a3c2c83/common/services/unleash/feature-toggles.js#L3
+<source lang=""js"">
+const { Strategy, initialize, isEnabled } = require('unleash-client');
+</source>",,"REGEXP_CONTAINS(path, r'(?i)\.(?:json|js|jsx|ts|tsx)$')","(REGEXP_CONTAINS(path, r'(?i)\.json$') AND REGEXP_CONTAINS(content, r'(?:devDependencies|dependencies)"":\s*{(?:\s|.)*?""unleash-client""'))
+OR (REGEXP_CONTAINS(path, r'(?i)\.(?:js|jsx|ts|tsx)$') AND REGEXP_CONTAINS(content, r'(?:require.+|import.+|from.+)(?:""|\')unleash-client(?:""|\')'))", https://github.com/unleash/unleash-client-node," 
+"
+launchdarkly,"ldclient-js,NPM", JavaScript,"JavaScript,TypeScript","
+<source lang=""html"">
+<script crossorigin=""anonymous"" src=""https://app.launchdarkly.com/snippet/ldclient.min.js""></script>
+</source>",,,"REGEXP_CONTAINS(path, r'(?i)\.html$')","REGEXP_CONTAINS(content, r'(?i)<script.+src=.*?snippet/ldclient.min.js')", https://github.com/launchdarkly/js-client, https://docs.launchdarkly.com/docs/js-sdk-reference
+ember-feature-flags,"ember-feature-flags,NPM", JavaScript,"JavaScript,TypeScript","
+In package.json:
+<source lang=""json"">
+""dependencies"": {
+  ""ember-feature-flags"": ""^6.6.0""
+},
+</source>",,,"REGEXP_CONTAINS(path, r'(?i)\.json$')","(REGEXP_CONTAINS(path, r'(?i)\.json$') AND REGEXP_CONTAINS(content, r'(?:devDependencies|dependencies)"":\s*{(?:\s|.)*?(""|\')ember-feature-flags(""|\')'))", https://github.com/kategengler/ember-feature-flags,https://github.com/travis-ci/travis-web/blob/d79f6259c02454c9571cfbf9f3aa9c02894566c9/package.json
+feature-toggles,"feature-toggles,NPM", JavaScript,"JavaScript,TypeScript","
+In package.json:
+<source lang=""json"">
+""dependencies"": {
+  ""feature-toggles"": ""^1.4.0""
+},
+</source>","
+https://github.com/DFEAGILEDEVOPS/MTC/blob/b65f65d037c58aa4660d4f00073f337f1d21094b/admin/app.js#L21
+<source lang=""js"">
+const featureToggles = require('feature-toggles')
+</source>",,"REGEXP_CONTAINS(path, r'(?i)\.(?:json|js|jsx|ts|tsx)$')","(REGEXP_CONTAINS(path, r'(?i)\.json$') AND REGEXP_CONTAINS(content, r'(?:devDependencies|dependencies)"":\s*{(?:\s|.)*?(""|\')feature-toggles(""|\')'))
+OR (REGEXP_CONTAINS(path, r'(?i)\.(?:js|jsx|ts|tsx)$') AND REGEXP_CONTAINS(content, r'(?:require.+|import.+|from.+)(?:""|\')feature-toggles(?:""|\')'))", https://github.com/alexlawrence/feature-toggles,"
+"
+React Feature Toggles,"@paralleldrive/react-feature-toggles,NPM", JavaScript,"JavaScript,TypeScript","
+In package.json:
+<source lang=""json"">
+""dependencies"": {
+  ""@paralleldrive/react-feature-toggles"": ""^2.0.2""
+},
+</source>","
+https://github.com/poetapp/frost-web/blob/61fc9c4662d9af521ab1ddc4287ec5e00e3f05bb/src/components/feature-toggles/features.tsx#L1
+<source lang=""tsx"">
+import { Feature } from '@paralleldrive/react-feature-toggles'
+</source>",,"REGEXP_CONTAINS(path, r'(?i)\.(?:json|js|jsx|ts|tsx)$')","(REGEXP_CONTAINS(path, r'(?i)\.json$') AND REGEXP_CONTAINS(content, r'(?:devDependencies|dependencies)"":\s*{(?:\s|.)*?(""|\')@paralleldrive\/react-feature-toggles(""|\')'))
+OR (REGEXP_CONTAINS(path, r'(?i)\.(?:js|jsx|ts|tsx)$') AND REGEXP_CONTAINS(content, r'(?:require.+|import.+|from.+)(?:""|\')@paralleldrive\/react-feature-toggles(?:""|\')'))", https://github.com/paralleldrive/react-feature-toggles,"
+"
+launchdarkly,"ldclient-node,NPM", Node.js,"JavaScript,TypeScript","
+In package.json:
+<source lang=""json"">
+{
+  ""dependencies"": {
+    ""ldclient-node"": ""^5.5.0""
+  }
+}
+</source>","
+https://github.com/meetup/meetup-web-platform/blob/7393d5708c06a422fdc9b2d1bd87534ed4cfa79a/packages/mwp-app-route-plugin/src/index.js#L2
+<source lang=""js"">
+import LaunchDarkly from 'ldclient-node';
+</source>",,"REGEXP_CONTAINS(path, r'(?i)\.(?:json|js|jsx|ts|tsx)$')","(REGEXP_CONTAINS(path, r'(?i)\.json$') AND REGEXP_CONTAINS(content, r'(?:devDependencies|dependencies)"":\s*{(?:\s|.)*?""ldclient-node""'))
+OR (REGEXP_CONTAINS(path, r'(?i)\.(?:js|jsx|ts|tsx)$') AND REGEXP_CONTAINS(content, r'(?:require.+|import.+|from.+)(?:""|\')ldclient-node(?:""|\')'))",https://github.com/launchdarkly/node-client," https://docs.launchdarkly.com/docs/getting-started
+https://docs.launchdarkly.com/docs/node-sdk-reference
+"
+JavaScript Feature Flags,, JavaScript,"JavaScript,TypeScript",,,,,,," Very generic toggle point signatures in *.js files or inside <script> tags. No package manager nor import. '''DISCARD'''
+"
+JavaScript Feature Flags,, JavaScript,"JavaScript,TypeScript","
+<source lang=""js"">
+var myApp = angular.module('app', ['feature-flags']);
+</source>",,,,,," ""This repo is no longer maintained"" '''DISCARD'''
+"
+flipit,"flipit,NPM", Node.js,"JavaScript,TypeScript","
+In package.json:
+<source lang=""json"">
+{
+  ""dependencies"": {
+    ""flipit"": ""^2.0.3""
+  }
+}
+</source>","
+https://github.com/gregstewart/hearthstone-tracker/blob/f3e56cd9e008f9e9806831adeb663802ecc63b60/index.js#L4
+<source lang=""js"">
+import flipit from 'flipit';
+</source>",,"REGEXP_CONTAINS(path, r'(?i)\.(?:json|js|jsx|ts|tsx)$')","(REGEXP_CONTAINS(path, r'(?i)\.json$') AND REGEXP_CONTAINS(content, r'(?:devDependencies|dependencies)"":\s*{(?:\s|.)*?""flipit""'))
+OR (REGEXP_CONTAINS(path, r'(?i)\.(?:js|jsx|ts|tsx)$') AND REGEXP_CONTAINS(content, r'(?:require.+|import.+|from.+)(?:""|\')flipit(?:""|\')'))",https://github.com/FenrirUnbound/flipit," 
+"
+Ember Feature Flag Guide,, JavaScript,"JavaScript,TypeScript",,,,,,," Not a library. '''DISCARD'''
+"
+flux-feature-flags,, JavaScript,"JavaScript,TypeScript",,,,,,," Not a library. An example app. '''DISCARD'''
+"
+feature-toggle,, JavaScript,"JavaScript,TypeScript",,,,,,," Deprecated '''DISCARD'''
+"
+fflip,"fflip,NPM", Node.js,"JavaScript,TypeScript","
+In package.json:
+<source lang=""json"">
+{
+  ""dependencies"": {
+    ""fflip"": ""^4.0.0""
+  }
+}
+</source>","
+https://github.com/dantehemerson/Gitter/blob/62dee8cf692f895f86694a92645618c67d37aa2f/server/api-web/features/index.js#L5
+<source lang=""js"">
+var fflip = require('fflip');
+</source>",,"REGEXP_CONTAINS(path, r'(?i)\.(?:json|js|jsx|ts|tsx)$')","(REGEXP_CONTAINS(path, r'(?i)\.json$') AND REGEXP_CONTAINS(content, r'(?:devDependencies|dependencies)"":\s*{(?:\s|.)*?""fflip""'))
+OR (REGEXP_CONTAINS(path, r'(?i)\.(?:js|jsx|ts|tsx)$') AND REGEXP_CONTAINS(content, r'(?:require.+|import.+|from.+)(?:""|\')fflip(?:""|\')'))", https://github.com/FredKSchott/fflip," 
+"
+Bandiera,"bandiera-client,NPM", Node.js,"JavaScript,TypeScript","
+In package.json:
+<source lang=""json"">
+{
+  ""dependencies"": {
+    ""bandiera-client"": ""^2.0.3""
+  }
+}
+</source>",,,"REGEXP_CONTAINS(path, r'(?i)\.(?:json|js|jsx|ts|tsx)$')","(REGEXP_CONTAINS(path, r'(?i)\.json$') AND REGEXP_CONTAINS(content, r'(?:devDependencies|dependencies)"":\s*{(?:\s|.)*?""bandiera-client""'))
+OR (REGEXP_CONTAINS(path, r'(?i)\.(?:js|jsx|ts|tsx)$') AND REGEXP_CONTAINS(content, r'(?:require.+|import.+|from.+)(?:""|\')bandiera-client(?:""|\')'))", https://github.com/springernature/bandiera-client-node,"
+"
+flopflip,"@flopflip/react-redux,NPM
+@flopflip/react-broadcast,NPM", Node.js,"JavaScript,TypeScript","
+In package.json:
+<source lang=""json"">
+{
+  ""dependencies"": {
+    ""@flopflip/react-redux"": ""^7.1.9""
+  }
+}
+
+https://github.com/commercetools/merchant-center-application-kit/blob/92e4dbafcb34864f4a98af69a679d8ce5c32432a/packages/application-shell/package.json#L56
+<source lang=""json"">
+{
+  ""dependencies"": {
+    ""@flopflip/react-broadcast"": ""7.2.3""
+  }
+}
+</source>","
+https://github.com/meetup/meetup-web-platform/blob/7393d5708c06a422fdc9b2d1bd87534ed4cfa79a/packages/mwp-app-route-plugin/src/index.js#L2
+<source lang=""js"">
+import {
+  ConfigureFlopFlip,
+  flopflipReducer,
+  FLOPFLIP_STATE_SLICE
+} from '@flopflip/react-redux';
+</source>",,"REGEXP_CONTAINS(path, r'(?i)\.(?:json|js|jsx|ts|tsx)$')","(REGEXP_CONTAINS(path, r'(?i)\.json$') AND REGEXP_CONTAINS(content, r'(?:devDependencies|dependencies)"":\s*{(?:\s|.)*?""(?:@flopflip\/react-redux|@flopflip\/react-broadcast)""'))
+OR (REGEXP_CONTAINS(path, r'(?i)\.(?:js|jsx|ts|tsx)$') AND REGEXP_CONTAINS(content, r'(?:require.+|import.+|from.+)(?:""|\')(?:@flopflip\/react-redux|@flopflip\/react-broadcast)(?:""|\')'))", https://github.com/tdeekens/flopflip," 
+"
+featureflags,, .NET,"C#,Visual Basic",,,,,,," Is archived, deprecated. '''DISCARD'''
+"
+launchdarkly,"com.launchdarkly:launchdarkly-android-client,Maven", Android,"Kotlin,Java"," 
+In *.gradle or *.gradle.kts:
+<source lang=""groovy"">
+compile 'com.launchdarkly:launchdarkly-android-client:2.4.1'
+</source>","
+In *.java
+<source>
+import com.launchdarkly.android.LDClient;
+import com.launchdarkly.android.LDConfig;
+import com.launchdarkly.android.LDUser;
+</source>",com.launchdarkly.android,"REGEXP_CONTAINS(path, r'(?i)\.(?:gradle|gradle\.kts)$')
+OR REGEXP_CONTAINS(path, r'(?i)\.java$')","REGEXP_CONTAINS(content, r'compile.+launchdarkly-android-client')
+OR REGEXP_CONTAINS(content, r'import.+com\.launchdarkly\.android')",https://github.com/launchdarkly/android-client," https://docs.launchdarkly.com/docs/getting-started
+https://docs.launchdarkly.com/docs/android-sdk-reference"
+toggle,"cc.soham:toggle,Maven", Android,"Kotlin,Java"," 
+Gradle:
+<source>
+implementation 'cc.soham:toggle:0.2'
+</source>
+
+Maven:
+<source lang=""xml"">
+<dependency>
+  <groupId>cc.soham</groupId>
+  <artifactId>toggle</artifactId>
+  <version>0.2</version>
+</dependency>
+</source>","
+https://github.com/s0h4m/toggle/blob/211c730b178aeb617eea6d2a95dadc4e280c330f/toggle-sample/src/androidTest/java/cc/soham/togglesample/ToggleNetworkTests.java#L14
+<source lang=""java"">
+import cc.soham.toggle.PersistUtils;
+import cc.soham.toggle.Toggle;
+</source>",cc.soham.toggle.Toggle,"REGEXP_CONTAINS(path, r'(?i)\.(?:java|xml|gradle|gradle\.kts)$')","REGEXP_CONTAINS(content, r'(?i)(?:groupid>cc\.soham<\/groupid>\s+<artifactid>toggle<\/artifactid>|implementation \'cc\.soham:toggle:)')
+OR REGEXP_CONTAINS(content, r'import.+cc\.soham\.toggle')", https://github.com/s0h4m/toggle," 
+"
+unleash-client-java,"no.finn.unleash:unleash-client-java,Maven", JVM,"Kotlin,Java","
+<source lang=""xml"">
+<dependency>
+    <groupId>no.finn.unleash</groupId>
+    <artifactId>unleash-client-java</artifactId>
+    <version>Latest version here</version>
+</dependency>
+</source>","
+https://github.com/redhat-developer/rh-che/blob/44fc4d1eca5ca75fe786341eb3e3afdbbeb2494e/plugins/fabric8-multi-tenant-manager/src/main/java/com/redhat/che/multitenant/toggle/CheServiceAccountTokenToggle.java#L17
+<source lang=""java"">
+import no.finn.unleash.DefaultUnleash;
+import no.finn.unleash.Unleash;
+import no.finn.unleash.UnleashContext;
+import no.finn.unleash.util.UnleashConfig;
+</source>",no.finn.unleash,"REGEXP_CONTAINS(path, r'(?i)\.(?:java|xml|gradle|gradle\.kts)$')","REGEXP_CONTAINS(content, r'(?i)(?:groupid>no\.finn\.unleash<\/groupid>\s+<artifactid>unleash-client-java<\/artifactid>|compile.+no\.finn\.unleash)')
+OR REGEXP_CONTAINS(content, r'import no\.finn\.unleash')", https://github.com/unleash/unleash-client-java," 
+"
+launchdarkly,"com.launchdarkly:launchdarkly-client,Maven", JVM,"Kotlin,Java","
+In pom.xml:
+<source lang=""groovy"">
+<dependency>
+  <groupId>com.launchdarkly</groupId>
+  <artifactId>launchdarkly-client</artifactId>
+  <version>4.5.1</version>
+</dependency>
+</source>
+
+In *.gradle or *.gradle.kts:
+<source lang=""groovy"">
+compile 'com.launchdarkly:launchdarkly-client:4.5.1'
+</source>","
+In *.java
+<source lang=""java"">
+import com.launchdarkly.client.*;
+</source>",com.launchdarkly.client,"REGEXP_CONTAINS(path, r'(?i)\.(?:java|xml|gradle|gradle\.kts)$')","REGEXP_CONTAINS(content, r'(?i)(?:groupid>com\.launchdarkly<\/groupid>\s+<artifactid>launchdarkly-client<\/artifactid>|compile.+launchdarkly-client)')
+OR REGEXP_CONTAINS(content, r'import.+com\.launchdarkly\.client')",https://github.com/launchdarkly/android-client," https://docs.launchdarkly.com/docs/getting-started
+https://docs.launchdarkly.com/docs/android-sdk-reference"
+Togglz,"org.togglz:togglz-core,Maven", JVM,"Kotlin,Java","
+In pom.xml:
+<source lang=""xml"">
+<!-- Togglz core module (mandatory) -->
+<dependency>
+  <groupId>org.togglz</groupId>
+  <artifactId>togglz-core</artifactId>
+  <version>2.6.1.Final</version>
+</dependency>
+
+<!-- Togglz for Servlet environments (mandatory) -->
+<dependency>
+  <groupId>org.togglz</groupId>
+  <artifactId>togglz-servlet</artifactId>
+  <version>2.6.1.Final</version>
+</dependency>
+
+<!-- CDI integration (optional) -->
+<dependency>
+  <groupId>org.togglz</groupId>
+  <artifactId>togglz-cdi</artifactId>
+  <version>2.6.1.Final</version>
+</dependency>
+
+<!-- Spring integration (optional) -->
+<dependency>
+  <groupId>org.togglz</groupId>
+  <artifactId>togglz-spring-web</artifactId>
+  <version>2.6.1.Final</version>
+</dependency>
+
+<!-- Spring Boot support -->
+<dependency>
+  <groupId>org.togglz</groupId>
+  <artifactId>togglz-spring-boot-starter</artifactId>
+  <version>2.6.1.Final</version>
+</dependency>
+
+<!-- JSF integration -->
+<dependency>
+  <groupId>org.togglz</groupId>
+  <artifactId>togglz-jsf</artifactId>
+  <version>2.6.1.Final</version>
+</dependency>
+</source>
+
+In *.gradle:
+<source lang=""groovy"">
+compile 'org.togglz:togglz-core:2.6.1.Final'
+compile(""org.togglz:togglz-spring-boot-starter:2.6.1.Final"")
+compile(""org.togglz:togglz-console:2.6.1.Final"")
+compile(""org.togglz:togglz-spring-security:2.6.1.Final"")
+</source>","
+https://github.com/lightblue-platform/lightblue-migrator/blob/4f1537627ab957a867b980c84d0a13408ae6a5eb/facade/src/main/java/com/redhat/lightblue/migrator/features/LightblueMigrationFeatures.java#L3
+<source lang=""java"">
+import org.togglz.core.Feature;
+import org.togglz.core.annotation.EnabledByDefault;
+import org.togglz.core.annotation.Label;
+import org.togglz.core.context.FeatureContext;
+</source>",org.togglz.core,"REGEXP_CONTAINS(path, r'(?i)\.(?:java|xml|gradle|gradle\.kts)$')","REGEXP_CONTAINS(content, r'(?i)(?:groupid>org\.togglz<\/groupid>\s+<artifactid>togglz-(core|servlet|cdi|spring-web|spring-boot-starter|jsf)<\/artifactid>|compile.+togglz-(core|spring-boot-starter|console|spring-security))')
+OR REGEXP_CONTAINS(content, r'import.+org\.togglz\.core')",https://github.com/togglz/togglz," https://www.togglz.org/
+https://github.com/estatio/estatio/blob/058a7032acd50f28f80dda289b67abdb39026f30/pom.xml"
+FF4J,"org.ff4j:ff4j-core,Maven", JVM,"Kotlin,Java","
+In pom.xml:
+<source lang=""xml"">
+<dependency>
+ <groupId>org.ff4j</groupId>
+ <artifactId>ff4j-core</artifactId>
+ <version>1.3.0</version>
+</dependency>
+
+<dependency>
+ <groupId>org.ff4j</groupId>
+ <artifactId>ff4j-web</artifactId>
+ <version>1.3.0</version>
+</dependency>
+</source>","
+https://github.com/ticket-monster-msa/monolith/blob/343e998d193e09d7a9366a10d4332ea80f6c66a5/backend-v2/src/main/java/org/jboss/examples/ticketmonster/rest/PingService.java#L19
+<source lang=""java"">
+import org.ff4j.FF4j;
+import org.ff4j.core.Feature;
+</source>","org.ff4j.FF4j,org.ff4j.core","REGEXP_CONTAINS(path, r'(?i)\.(?:java|xml)$')","REGEXP_CONTAINS(content, r'(?i)(?:groupid>org\.ff4j<\/groupid>\s+<artifactid>ff4j-(core|web)<\/artifactid>)')
+OR REGEXP_CONTAINS(content, r'import org\.ff4j')",https://github.com/ff4j/ff4j, https://ff4j.github.io
+Flip,"com.tacitknowledge.flip:core,Maven", JVM,"Kotlin,Java","
+In pom.xml:
+<source lang=""xml"">
+<dependency>
+  <groupId>com.tacitknowledge.flip</groupId>
+  <artifactId>core</artifactId>
+  <version>1.0</version>
+</dependency>
+
+<dependency>
+  <groupId>com.tacitknowledge.flip</groupId>
+  <artifactId>servlet</artifactId>
+  <version>1.0</version>
+</dependency>
+
+<dependency>
+  <groupId>com.tacitknowledge.flip</groupId>
+  <artifactId>spring</artifactId>
+  <version>1.0</version>
+</dependency>
+</source>
+
+In *.gradle:
+<source lang=""groovy"">
+compile 'com.tacitknowledge.flip:core:1.0'
+compile 'com.tacitknowledge.flip:servlet:1.0'
+compile 'com.tacitknowledge.flip:spring:1.0'
+</source>",,com.tacitknowledge.flip,"REGEXP_CONTAINS(path, r'(?i)\.(?:xml|gradle|gradle\.kts)$')","REGEXP_CONTAINS(content, r'(?i)(?:groupid>com\.tacitknowledge\.flip<\/groupid>\s+<artifactid>(core|servlet|spring)<\/artifactid>|compile.+com\.tacitknowledge\.flip:(core|servlet|spring))')", https://github.com/tacitknowledge/flip," 
+"
+feature-flags,, Node.js,"JavaScript,TypeScript",,,,,,," Alpha version (by author) '''DISCARD'''
+"
+launchdarkly,"LaunchDarkly,CocoaPods
+launchdarkly/ios-client,Carthage", iOS/MacOS,"Objective-C,Swift","
+<source>
+pod `LaunchDarkly`
+</source>","
+https://github.com/launchdarkly/hello-ios/blob/915b6afdbfbeb08dfbae611601ef206429e16511/hello-watchOS%20Extension/InterfaceController.m#L10
+<source lang=""objective-c"">
+#import ""Darkly.h""
+</source>
+
+https://github.com/particle-iot/photon-tinker-ios/blob/cb01ade5accbd66f63b8d2bea766f9a28fd796c2/Photon-Tinker/Particle-Bridging-Header.h#L18
+*Notice GitHub could identify these files as C. The `#include` expression is C, but is [also supported by Objective-C](http://cafe-o-babe.blogspot.com/2010/06/difference-between-import-include-and.html)*
+<source lang=""objective-c"">
+#include ""Darkly.h""
+</source>
+
+https://github.com/launchdarkly/hello-ios-swift/blob/637c85ed1682cbf20e376a910bf5ca11e7e99d4b/hello-ios-swift/AppDelegate.swift#L10
+<source lang=""swift"">
+import LaunchDarkly
+</source>","Darkly.h,LaunchDarkly","REGEXP_CONTAINS(path, r'(?i)\.(?:m|h|swift)$')","REGEXP_CONTAINS(content, r'pod (?:`|\'|"")LaunchDarkly(?:`|\'|"")')
+OR REGEXP_CONTAINS(content, r'(?:#(import|include) ""Darkly.h""|import LaunchDarkly)')",https://github.com/launchdarkly/ios-client," https://docs.launchdarkly.com/docs/getting-started
+https://docs.launchdarkly.com/docs/ios-sdk-reference"
+launchdarkly,"launchdarkly/launchdarkly-php,Packagist", PHP,PHP,"
+In composer.json:
+<source lang=""json"">
+{
+  ""require"": {
+    ""launchdarkly/launchdarkly-php"": ""^3.4.1""
+  }
+}
+</source>","
+In *.php:
+<source lang=""php"">
+$client = new LaunchDarkly\LDClient(""your_sdk_key"");
+</source>",LaunchDarkly\LDClient,"REGEXP_CONTAINS(path, r'(?i)\.?:(json|php)$')","REGEXP_CONTAINS(content, r'(?i)require"":\s*{(?:\s|.)*?""launchdarkly\/launchdarkly-php""')
+OR REGEXP_CONTAINS(content, r'(?i)LaunchDarkly\\LDClient')", https://github.com/launchdarkly/php-client," 
+"
+Feature API,, PHP,PHP,,,,,,," No longer maintained. '''DISCARD'''
+
+"
+Symfony FeatureFlagsBundle,"dzunke/feature-flags-bundle,Packagist", PHP,PHP,"
+In composer.json:
+<source lang=""json"">
+{
+  ""require"": {
+    ""dzunke/feature-flags-bundle"": ""dev-master""
+  }
+}
+</source>","
+In app/AppKernel.php:
+<source lang=""php"">
+public function registerBundles()
+{
+    $bundles = [
+        // [..]
+        new DZunke\FeatureFlagsBundle\DZunkeFeatureFlagsBundle(),
+    ];
+}
+</source>",DZunke\FeatureFlagsBundle\DZunkeFeatureFlagsBundle,"REGEXP_CONTAINS(path, r'(?i)\.?:(json|php)$')","REGEXP_CONTAINS(content, r'(?i)require"":\s*{(?:\s|.)*?""dzunke\/feature-flags-bundle""')
+OR REGEXP_CONTAINS(content, r'(?i)DZunke\\FeatureFlagsBundle\\DZunkeFeatureFlagsBundle')", https://github.com/DZunke/FeatureFlagsBundle," 
+"
+Toggle,, PHP,PHP,"
+In composer.json:
+<source lang=""json"">
+{
+  ""require"": {
+    ""qandidate/toggle"": ^1.0""
+  }
+}
+</source>","
+In *.php:
+<source lang=""php"">
+use Qandidate\Toggle\Context;
+use Qandidate\Toggle\Operator\LessThan;
+use Qandidate\Toggle\OperatorCondition;
+use Qandidate\Toggle\Toggle;
+use Qandidate\Toggle\ToggleCollection\InMemoryCollection;
+use Qandidate\Toggle\ToggleManager;
+
+// Create the ToggleManager
+$manager = new ToggleManager(new InMemoryCollection());
+</source>",Qandidate\Toggle,"REGEXP_CONTAINS(path, r'(?i)\.?:(json|php)$')","REGEXP_CONTAINS(content, r'(?i)require"":\s*{(?:\s|.)*?""qandidate\/toggle""')
+OR REGEXP_CONTAINS(content, r'(?i)Qandidate\\Toggle')", https://github.com/qandidate-labs/qandidate-toggle,Not registered in a package manager
+rollout,"opensoft/rollout,Packagist", PHP,PHP,"
+In composer.json:
+<source lang=""json"">
+{
+  ""require"": {
+    ""opensoft/rollout"": ^2.2.1""
+  }
+}
+</source>","
+In *.php:
+<source lang=""php"">
+use Opensoft\Rollout\Rollout;
+use Opensoft\Rollout\Storage\ArrayStorage;
+
+$rollout = new Rollout(new ArrayStorage());
+</source>",Opensoft\Rollout,"REGEXP_CONTAINS(path, r'(?i)\.?:(json|php)$')","REGEXP_CONTAINS(content, r'(?i)require"":\s*{(?:\s|.)*?""opensoft\/rollout""')
+OR REGEXP_CONTAINS(content, r'(?i)Opensoft\\Rollout')", https://github.com/opensoft/rollout," 
+"
+PHP Feature Flags,, PHP,PHP,,,,,,," No package manager and the signature of the exposed class has no namespacing. Created to be bundled inside a project. '''DISCARD'''
+"
+FeatureFlagBundle,, PHP,PHP,,,,,,," ""this bundle is not production-ready - some features have not been fully developed or tested"". '''DISCARD'''
+"
+Bandiera,"npg/bandiera-client-php,Packagist", PHP,PHP,"
+In composer.json:
+<source lang=""json"">
+{
+    ""require"": {
+        ""npg/bandiera-client-php"": ""~1.0""
+    }
+}
+</source>","
+https://github.com/springernature/bandiera-client-php/blob/19f262d2e72c41d9b6d8b079dbc469db97463e2d/README.md
+<source lang=""php"">
+<?php
+
+include 'vendor/autoload.php';
+
+$bandiera = new Nature\Bandiera\Client('http://bandiera-demo.herokuapp.com');
+
+if ($bandiera->isEnabled('my_app', 'super_new_feature')) {
+    // show the super new feature!
+}
+</source>",Nature\Bandiera\Client,"REGEXP_CONTAINS(path, r'(?i)\.?:(json|php)$')","REGEXP_CONTAINS(content, r'(?i)require"":\s*{(?:\s|.)*?""npg\/bandiera-client-php""')
+OR REGEXP_CONTAINS(content, r'(?i)Nature\\Bandiera\\Client')", https://github.com/springernature/bandiera-client-php," 
+"
+unleash-client-python,"UnleashClient,Pypi", Python,Python,,"
+In *.py:
+<source lang=""py"">
+import UnleashClient
+</source>
+
+In *.py:
+<source lang=""py"">
+from UnleashClient import UnleashClient
+</source>",UnleashClient,"REGEXP_CONTAINS(path, r'(?i)\.(?:txt|py)$')","(REGEXP_CONTAINS(path, r'(?i)\.txt$') AND REGEXP_CONTAINS(content, r'(?m)^UnleashClient(?:\[|\s+|~|=|>|<|!|""|\')'))
+OR REGEXP_CONTAINS(content, r'(?i)install_requires=(?:\s|.)*?(?:""|\')UnleashClient(?:\[|\s+|~|=|>|<|!|""|\')')
+OR REGEXP_CONTAINS(content, r'(?:import|from).+UnleashClient')", https://github.com/Unleash/unleash-client-python,"
+"
+launchdarkly,"ldclient-py,Pypi", Python,Python,"
+https://github.com/apiaryio/polls-api/blob/10f6eb9fc8453dce04a93e87fcb6f589443f86b5/requirements.txt
+<source lang=""txt"">
+ldclient-py==0.16.2
+</source>
+
+https://github.com/launchdarkly/SupportService/blob/102efd17f0c333ce5a7b9516d62b114ac6f9e799/setup.py#L17
+<source lang=""py"">
+setup(
+    name='SupportService',
+    packages=find_packages(),
+    include_package_data=True,
+    install_requires=[
+        'redis',
+        'ldclient-py'
+    ]
+)
+</source>","
+In *.py:
+<source lang=""py"">
+import ldclient
+</source>",ldclient,"REGEXP_CONTAINS(path, r'(?i)\.(?:txt|py)$')","(REGEXP_CONTAINS(path, r'(?i)\.txt$') AND REGEXP_CONTAINS(content, r'(?m)^ldclient-py(?:\[|\s+|~|=|>|<|!|""|\')'))
+OR REGEXP_CONTAINS(content, r'(?i)install_requires=(?:\s|.)*?(?:""|\')ldclient-py(?:\[|\s+|~|=|>|<|!|""|\')')
+OR REGEXP_CONTAINS(content, r'(?:import|from).+ldclient')",https://github.com/launchdarkly/python-client, https://docs.launchdarkly.com/docs/python-sdk-reference
+Flask FeatureFlags,"Flask-FeatureFlags,Pypi", Python,Python,"
+https://github.com/govau/orams/blob/1b788475a2b51729817f6055a5600b642091d0d5/backend/requirements.txt#L36
+<source lang=""txt"">
+Flask-FeatureFlags==0.6
+</source>","
+In *.py:
+<source lang=""py"">
+from flask import Flask
+from flask_featureflags import FeatureFlag
+
+app = Flask(__name__)
+
+feature_flags = FeatureFlag(app)
+</source>",flask_featureflags,"REGEXP_CONTAINS(path, r'(?i)\.(?:txt|py)$')","(REGEXP_CONTAINS(path, r'(?i)\.txt$') AND REGEXP_CONTAINS(content, r'(?m)^Flask-FeatureFlags(?:\[|\s+|~|=|>|<|!|""|\')'))
+OR REGEXP_CONTAINS(content, r'(?i)install_requires=(?:\s|.)*?(?:""|\')Flask-FeatureFlags(?:\[|\s+|~|=|>|<|!|""|\')')
+OR REGEXP_CONTAINS(content, r'(?:import|from).+flask_featureflags')", https://github.com/trustrachel/Flask-FeatureFlags,"
+"
+Gutter,"gutter,Pypi", Python,Python,"
+https://github.com/morganjbruce/microservices-in-action/blob/58c81cb07965efd82bcfc0a2ec20d8e8c4d00979/chapter-7/feature/account_transactions/requirements.txt#L4
+<source lang=""txt"">
+gutter>=0.5.0
+</source>
+
+https://github.com/morganjbruce/microservices-in-action/blob/58c81cb07965efd82bcfc0a2ec20d8e8c4d00979/chapter-11/alerts/setup.py
+<source lang=""py"">
+setup(
+    classifiers=[
+        'Development Status :: 3 - Alpha'
+    ],
+
+    keywords='microservices alerts',
+
+    packages=find_packages(exclude=['contrib', 'docs', 'tests']),
+
+    install_requires=[
+        'nameko>=2.6.0',
+        'logstash_formatter>=0.5.16',
+        'statsd>=3.2.1',
+        ""circuitbreaker>=1.0.1"",
+        'gutter>=0.5.0',
+        'request-id>=0.2.1',
+        'nameko-sentry>=0.0.5',
+    ],
+)
+</source>","
+In *.py:
+<source lang=""py"">
+from gutter.client.default import gutter
+</source>",gutter.client.default,"REGEXP_CONTAINS(path, r'(?i)\.(?:txt|py)$')","(REGEXP_CONTAINS(path, r'(?i)\.txt$') AND REGEXP_CONTAINS(content, r'(?m)^gutter(?:\[|\s+|~|=|>|<|!|""|\')'))
+OR REGEXP_CONTAINS(content, r'(?i)install_requires=(?:\s|.)*?(?:""|\')gutter(?:\[|\s+|~|=|>|<|!|""|\')')
+OR REGEXP_CONTAINS(content, r'(?:import|from).+gutter\.client')", https://github.com/disqus/gutter,"
+"
+Feature Ramp,"feature_ramp,Pypi", Python,Python,,"
+In *.py:
+<source lang=""py"">
+from feature_ramp.Feature import Feature
+</source>",feature_ramp.Feature,"REGEXP_CONTAINS(path, r'(?i)\.(?:txt|py)$')","(REGEXP_CONTAINS(path, r'(?i)\.txt$') AND REGEXP_CONTAINS(content, r'(?m)^feature_ramp(?:\[|\s+|~|=|>|<|!|""|\')'))
+OR REGEXP_CONTAINS(content, r'(?i)install_requires=(?:\s|.)*?(?:""|\')feature_ramp(?:\[|\s+|~|=|>|<|!|""|\')')
+OR REGEXP_CONTAINS(content, r'(?:import|from).+feature_ramp\.Feature')", https://github.com/venmo/feature_ramp,"
+"
+flagon,"flagon,Pypi", Python,Python,,"
+In settings.py:
+<source lang=""py"">
+INSTALLED_APPS = (
+    'foo',
+    'flagon.backends.db_django',
+    'bar',
+)
+
+from flagon.backends.db_django import DjangoORMBackend
+from flagon.feature import Feature
+</source>","flagon.backends.db_django,flagon.feature","REGEXP_CONTAINS(path, r'(?i)\.(?:txt|py)$')","(REGEXP_CONTAINS(path, r'(?i)\.txt$') AND REGEXP_CONTAINS(content, r'(?m)^flagon(?:\[|\s+|~|=|>|<|!|""|\')'))
+OR REGEXP_CONTAINS(content, r'(?i)install_requires=(?:\s|.)*?(?:""|\')flagon(?:\[|\s+|~|=|>|<|!|""|\')')
+OR REGEXP_CONTAINS(content, r'(?:import|from).+flagon\.feature')", https://github.com/ashcrow/flagon,"
+"
+Waffle,"django-waffle,Pypi", Python,Python,"
+https://github.com/edx/edx-proctoring/blob/7fd2a014b9f88f65ce4fbc62afd136cb9ac6038c/requirements/base.txt#L11
+<source lang=""txt"">
+django-waffle==0.15.0
+</source>
+
+https://github.com/edx/edx-drf-extensions/blob/999efe54be2f2a4c115deda1fc2b88df339ad8ab/setup.py#L37
+<source lang=""py"">
+setup(
+    name='edx-drf-extensions',
+    
+    install_requires=[
+        'django>=1.8.9,<2.0',
+        'django-waffle'
+    ]
+)
+</source>","
+In *.py:
+<source lang=""py"">
+from waffle import flag_is_active, switch_is_active
+</source>
+
+In *.py:
+<source lang=""py"">
+import waffle
+</source>
+
+In settings.py:
+<source lang=""py"">
+INSTALLED_APPS = (
+    'foo',
+    'waffle',
+    'bar',
+)
+
+MIDDLEWARE_CLASSES = (
+    # ...
+    'waffle.middleware.WaffleMiddleware',
+    # ...
+)
+</source>",waffle,"REGEXP_CONTAINS(path, r'(?i)\.(?:txt|py)$')","(REGEXP_CONTAINS(path, r'(?i)\.txt$') AND REGEXP_CONTAINS(content, r'(?m)^django-waffle(?:\[|\s+|~|=|>|<|!|""|\')'))
+OR REGEXP_CONTAINS(content, r'(?i)install_requires=(?:\s|.)*?(?:""|\')django-waffle(?:\[|\s+|~|=|>|<|!|""|\')')
+OR REGEXP_CONTAINS(content, r'(?:(?:import|from).+waffle|(?:INSTALLED_APPS|THIRD_PARTY_APPS|MIDDLEWARE_CLASSES).+(?:""|\')waffle.*)')"," https://github.com/jsocol/django-waffle
+https://github.com/django-waffle/django-waffle", https://waffle.readthedocs.io/en/latest/index.html
+Gargoyle,"gargoyle,Pypi
+gargoyle-yplan,Pypi", Python,Python,"
+https://github.com/ianlewis/homepage/blob/7031781adaefcaa287d61b6614cd8b92a9008e72/requirements.txt#L7
+<source lang=""txt"">
+gargoyle-yplan==1.4.0
+</source>","
+In *.py:
+<source lang=""py"">
+from gargoyle.decorators import switch_is_active
+
+@switch_is_active('my switch name')
+def my_view(request):
+    return 'foo'
+</source>
+
+https://github.com/yrchen/CommonRepo/blob/340eb256ce375f0482f5ac93956ca937d13462ae/config/settings/common.py#L107
+<source lang=""py"">
+THIRD_PARTY_APPS = (
+    'licenses',  # django-licenses
+    'gargoyle',  # gargoyle-yplan
+    'robots',  # django-rebots
+    'sorl.thumbnail', # sorl-thumbnail
+)
+</source>","gargoyle.decorators,gargoyle","REGEXP_CONTAINS(path, r'(?i)\.(?:txt|py)$')","(REGEXP_CONTAINS(path, r'(?i)\.txt$') AND REGEXP_CONTAINS(content, r'(?m)^(?:gargoyle|gargoyle-yplan)(?:\[|\s+|~|=|>|<|!|""|\')'))
+OR REGEXP_CONTAINS(content, r'(?:(?:import|from).+gargoyle|(?:INSTALLED_APPS|THIRD_PARTY_APPS|MIDDLEWARE_CLASSES).+(?:""|\')gargoyle.*)')"," https://github.com/YPlan/gargoyle
+https://github.com/disqus/gargoyle"," https://gargoyle-yplan.readthedocs.io/en/latest/
+This should also match repositories from the original, now deprecated but still used, library https://github.com/disqus/gargoyle"
+unleash-client-ruby,"unleash,Rubygems", Ruby,Ruby,"
+In Gemfile:
+<source lang=""ruby"">
+gem 'unleash', '~> 0.1.3'
+</source>","
+In foo.rb:
+<source lang=""ruby"">
+require 'unleash'
+require 'unleash/context'
+</source>","unleash,unleash-context","REGEXP_CONTAINS(path, r'(?i)(?:\.rb|Gemfile)$')","REGEXP_CONTAINS(content, r'(?:require|gem) (?:""|\')unleash(?:""|\')')", https://github.com/unleash/unleash-client-ruby," 
+"
+Feature Switches,, Ruby,Ruby,"
+In Gemfile:
+<source lang=""ruby"">
+gem 'feature_switches', '~> 2.4.3'
+</source>","
+In *.rb:
+<source lang=""ruby"">
+require ""switches""
+require ""switches/tasks""
+</source>",,,,," Considered alpha by author. '''DISCARD'''
+"
+Fluid Features,, Ruby,Ruby,"
+In Gemfile:
+<source lang=""ruby"">
+gem 'fluidfeatures-rails', '~> 2.4.3'
+</source>",,,,,," No longer maintained: ""This service no longer exists"". '''DISCARD'''
+"
+Simple Feature Flags,, Ruby,Ruby,,,,,,," Not a library '''DISCARD'''
+"
+Rails Feature Flags,, Ruby,Ruby,,,,,,," Not a library '''DISCARD'''
+"
+A simple feature toggle for a Rails app,, Ruby,Ruby,,,,,,," Not a library '''DISCARD'''
+"
+launchdarkly,"ldclient-rb,Rubygems", Ruby,Ruby,"
+In Gemfile:
+<source lang=""ruby"">
+gem 'ldclient-rb', '~> 5.2.0'
+</source>","
+In *.rb:
+<source lang=""ruby"">
+require 'ldclient-rb'
+</source>",,"REGEXP_CONTAINS(path, r'(?i)(?:\.rb|Gemfile)$')","REGEXP_CONTAINS(content, r'(?:require|gem) (?:""|\')ldclient-rb(?:""|\')')", https://github.com/launchdarkly/ruby-client, https://docs.launchdarkly.com/docs/ruby-sdk-reference
+rollout,"rollout,Rubygems", Ruby,Ruby,"
+https://github.com/travis-ci/travis-hub/blob/e09b91ae7594bfa0e3bf39acfbaddcff445d16c6/Gemfile#L28
+In Gemfile:
+<source lang=""ruby"">
+gem 'rollout', '~> 2.4.3'
+</source>","
+In *.rb:
+<source lang=""ruby"">
+require ""rollout""
+</source>",,"REGEXP_CONTAINS(path, r'(?i)(?:\.rb|Gemfile)$')","REGEXP_CONTAINS(content, r'(?:require|gem) (?:""|\')rollout(?:""|\')')", https://github.com/fetlife/rollout,"
+"
+FeatureFlipper,"feature_flipper,Rubygems", Ruby,Ruby,"
+https://github.com/dtulibrary/toshokan/blob/0f5c7c8eae35369f87e3e9dbba0258007de9b1ee/Gemfile#L30
+In Gemfile:
+<source lang=""ruby"">
+gem 'feature_flipper', '~> 2.4.3'
+</source>","
+In *.rb:
+<source lang=""ruby"">
+require ""feature_flipper""
+</source>",,"REGEXP_CONTAINS(path, r'(?i)(?:\.rb|Gemfile)$')","REGEXP_CONTAINS(content, r'(?:require|gem) (?:""|\')feature_flipper(?:""|\')')", https://github.com/theflow/feature_flipper,"
+"
+Flip,"flip,Rubygems", Ruby,Ruby,"
+https://github.com/excellaco/open-cabinet/blob/fff245b65b2edf92385c4e77037666bb2f2b0aff/Gemfile#L51
+In Gemfile:
+<source lang=""ruby"">
+gem 'flip', git: 'git://github.com/jasonblalock/flip.git'
+</source>","
+In *.rb:
+<source lang=""ruby"">
+require ""feature""
+</source>",feature,"REGEXP_CONTAINS(path, r'(?i)(?:\.rb|Gemfile)$')","REGEXP_CONTAINS(content, r'(?:require|gem) (?:""|\')flip(?:""|\')')", https://github.com/pda/flip,"
+"
+Setler,"setler,Rubygems", Ruby,Ruby,"
+https://github.com/syafik/simple-accounting/blob/f5378e4ddedc2721825fae0f53e30b54a0596393/Gemfile#L19
+In Gemfile:
+<source lang=""ruby"">
+gem ""setler"", '0.0.11'
+</source>","
+In *.rb:
+<source lang=""ruby"">
+require ""setler""
+</source>",,"REGEXP_CONTAINS(path, r'(?i)(?:\.rb|Gemfile)$')","REGEXP_CONTAINS(content, r'(?:require|gem) (?:""|\')setler(?:""|\')')", https://github.com/ckdake/setler,"
+"
+Bandiera,"bandiera-client,Rubygems", Ruby,Ruby,"
+https://github.com/ukparliament/parliament.uk-prototype/blob/0936ba67f6999bf65aaa84a1397ff11bb36841f8/Gemfile#L25
+In Gemfile:
+<source lang=""ruby"">
+gem 'bandiera-client'
+</source>","
+In *.rb:
+<source lang=""ruby"">
+require 'bandiera/client'
+</source>",bandiera/client,"REGEXP_CONTAINS(path, r'(?i)(?:\.rb|Gemfile)$')","REGEXP_CONTAINS(content, r'gem (?:""|\')bandiera-client(?:""|\')')
+OR REGEXP_CONTAINS(content, r'require (?:""|\')bandiera\/client(?:""|\')')", https://github.com/springernature/bandiera-client-ruby,"
+"
+Feature,"feature,Rubygems", Ruby,Ruby,"
+https://github.com/openSUSE/osem/blob/5709821a498a536a603758b505ebea475457b513/Gemfile#L200
+In Gemfile:
+<source lang=""ruby"">
+gem 'feature'
+</source>","
+https://github.com/openSUSE/osem/blob/1e9765c1631077920a14240323f2143b356b783e/config/initializers/feature.rb#L1
+In *.rb:
+<source lang=""ruby"">
+require 'feature'
+</source>",,"REGEXP_CONTAINS(path, r'(?i)(?:\.rb|Gemfile)$')","REGEXP_CONTAINS(content, r'(?:require|gem) (?:""|\')feature(?:""|\')')", https://github.com/mgsnova/feature,"
+"
+Flipper,"flipper,Rubygems", Ruby,Ruby,"
+https://github.com/NixOS/nixpkgs/blob/478654da767f06ff695b2f46b8f8d04362652167/pkgs/applications/version-management/gitlab/rubyEnv-ce/Gemfile#L427
+In Gemfile:
+<source lang=""ruby"">
+gem 'flipper', '~> 0.13.0'
+</source>","
+In *.rb:
+<source lang=""ruby"">
+require 'flipper'
+</source>",,"REGEXP_CONTAINS(path, r'(?i)(?:\.rb|Gemfile)$')","REGEXP_CONTAINS(content, r'(?:require|gem) (?:""|\')flipper(?:""|\')')", https://github.com/jnunemaker/flipper,"
+"
+Bandiera,"com.springernature:bandiera-client-scala_2.12,Maven
+com.springernature:bandiera-client-scala_2.11,Maven", JVM,Scala,"
+In build.sbt:
+<source lang=""scala"">
+""com.springernature"" %% ""bandiera-client-scala"" % ""0.1.2""
+</source>","
+<source lang=""scala"">
+import com.springernature.bandieraclientscala._
+
+val client = new BandieraClient()
+</source>","com.springernature.bandieraclientscala,BandieraClient","REGEXP_CONTAINS(path, r'(?i)\.(?:sbt|scala|sc)$')","REGEXP_CONTAINS(content, r'(?i)bandiera-client-scala')
+OR REGEXP_CONTAINS(content, r'import.+com\.springernature\.bandieraclientscala')", https://github.com/springernature/bandiera-client-scala," 
+"

@@ -1,0 +1,60 @@
+﻿name,languages,package_manager_data,imports_or_usage,repositories
+unleash-client-dotnet,"C#,Visual Basic","Unleash.FeatureToggle.Client,NuGet",Unleash, https://github.com/stiano/unleash-client-dotnet
+unleash-client,"C#,Visual Basic","unleash.client,NuGet",, https://github.com/onybo/unleash-client-core
+launchdarkly,"C#,Visual Basic","LaunchDarkly.Client,NuGet",, https://github.com/launchdarkly/dotnet-client
+NFeature,"C#,Visual Basic","NFeature,NuGet",, https://github.com/benaston/NFeature
+FeatureToggle,"C#,Visual Basic","FeatureToggle,NuGet",, https://github.com/jason-roberts/FeatureToggle
+FeatureSwitcher,"C#,Visual Basic","FeatureSwitcher,NuGet",, https://github.com/mexx/FeatureSwitcher
+nToggle,"C#,Visual Basic",,, https://github.com/SteveMoyer/nToggle
+Toggler,"C#,Visual Basic","Toggler,NuGet",, https://github.com/manojlds/Toggler
+launchdarkly,Go,"github.com/launchdarkly/go-client,Go",launchdarkly/go-client, https://github.com/launchdarkly/go-client
+Toggle,Go,"github.com/xchapter7x/toggle,Go",xchapter7x/toggle, https://github.com/xchapter7x/toggle
+dcdr,Go,"github.com/vsco/dcdr,Go",vsco/dcdr/client, https://github.com/vsco/dcdr
+unleash-client-go,Go,"github.com/unleash/unleash-client-go,Go",Unleash/unleash-client-go, https://github.com/unleash/unleash-client-go
+unleash-client-node,"JavaScript,TypeScript","unleash-client,NPM",, https://github.com/unleash/unleash-client-node
+launchdarkly,"JavaScript,TypeScript","ldclient-js,NPM",, https://github.com/launchdarkly/js-client
+ember-feature-flags,"JavaScript,TypeScript","ember-feature-flags,NPM",, https://github.com/kategengler/ember-feature-flags
+feature-toggles,"JavaScript,TypeScript","feature-toggles,NPM",, https://github.com/alexlawrence/feature-toggles
+React Feature Toggles,"JavaScript,TypeScript","@paralleldrive/react-feature-toggles,NPM",, https://github.com/paralleldrive/react-feature-toggles
+launchdarkly,"JavaScript,TypeScript","ldclient-node,NPM",,https://github.com/launchdarkly/node-client
+flipit,"JavaScript,TypeScript","flipit,NPM",,https://github.com/FenrirUnbound/flipit
+fflip,"JavaScript,TypeScript","fflip,NPM",, https://github.com/FredKSchott/fflip
+Bandiera,"JavaScript,TypeScript","bandiera-client,NPM",, https://github.com/springernature/bandiera-client-node
+flopflip,"JavaScript,TypeScript","@flopflip/react-redux,NPM
+@flopflip/react-broadcast,NPM",, https://github.com/tdeekens/flopflip
+launchdarkly,"Kotlin,Java","com.launchdarkly:launchdarkly-android-client,Maven",com.launchdarkly.android,https://github.com/launchdarkly/android-client
+toggle,"Kotlin,Java","cc.soham:toggle,Maven",cc.soham.toggle.Toggle, https://github.com/s0h4m/toggle
+unleash-client-java,"Kotlin,Java","no.finn.unleash:unleash-client-java,Maven",no.finn.unleash, https://github.com/unleash/unleash-client-java
+launchdarkly,"Kotlin,Java","com.launchdarkly:launchdarkly-client,Maven",com.launchdarkly.client,https://github.com/launchdarkly/android-client
+Togglz,"Kotlin,Java","org.togglz:togglz-core,Maven",org.togglz.core,https://github.com/togglz/togglz
+FF4J,"Kotlin,Java","org.ff4j:ff4j-core,Maven","org.ff4j.FF4j,org.ff4j.core",https://github.com/ff4j/ff4j
+Flip,"Kotlin,Java","com.tacitknowledge.flip:core,Maven",com.tacitknowledge.flip, https://github.com/tacitknowledge/flip
+launchdarkly,"Objective-C,Swift","LaunchDarkly,CocoaPods
+launchdarkly/ios-client,Carthage","Darkly.h,LaunchDarkly",https://github.com/launchdarkly/ios-client
+launchdarkly,PHP,"launchdarkly/launchdarkly-php,Packagist",LaunchDarkly\LDClient, https://github.com/launchdarkly/php-client
+Symfony FeatureFlagsBundle,PHP,"dzunke/feature-flags-bundle,Packagist",DZunke\FeatureFlagsBundle\DZunkeFeatureFlagsBundle, https://github.com/DZunke/FeatureFlagsBundle
+Toggle,PHP,,Qandidate\Toggle, https://github.com/qandidate-labs/qandidate-toggle
+rollout,PHP,"opensoft/rollout,Packagist",Opensoft\Rollout, https://github.com/opensoft/rollout
+Bandiera,PHP,"npg/bandiera-client-php,Packagist",Nature\Bandiera\Client, https://github.com/springernature/bandiera-client-php
+unleash-client-python,Python,"UnleashClient,Pypi",UnleashClient, https://github.com/Unleash/unleash-client-python
+launchdarkly,Python,"ldclient-py,Pypi",ldclient,https://github.com/launchdarkly/python-client
+Flask FeatureFlags,Python,"Flask-FeatureFlags,Pypi",flask_featureflags, https://github.com/trustrachel/Flask-FeatureFlags
+Gutter,Python,"gutter,Pypi",gutter.client.default, https://github.com/disqus/gutter
+Feature Ramp,Python,"feature_ramp,Pypi",feature_ramp.Feature, https://github.com/venmo/feature_ramp
+flagon,Python,"flagon,Pypi","flagon.backends.db_django,flagon.feature", https://github.com/ashcrow/flagon
+Waffle,Python,"django-waffle,Pypi",waffle," https://github.com/jsocol/django-waffle
+https://github.com/django-waffle/django-waffle"
+Gargoyle,Python,"gargoyle,Pypi
+gargoyle-yplan,Pypi","gargoyle.decorators,gargoyle"," https://github.com/YPlan/gargoyle
+https://github.com/disqus/gargoyle"
+unleash-client-ruby,Ruby,"unleash,Rubygems","unleash,unleash-context", https://github.com/unleash/unleash-client-ruby
+launchdarkly,Ruby,"ldclient-rb,Rubygems",, https://github.com/launchdarkly/ruby-client
+rollout,Ruby,"rollout,Rubygems",, https://github.com/fetlife/rollout
+FeatureFlipper,Ruby,"feature_flipper,Rubygems",, https://github.com/theflow/feature_flipper
+Flip,Ruby,"flip,Rubygems",feature, https://github.com/pda/flip
+Setler,Ruby,"setler,Rubygems",, https://github.com/ckdake/setler
+Bandiera,Ruby,"bandiera-client,Rubygems",bandiera/client, https://github.com/springernature/bandiera-client-ruby
+Feature,Ruby,"feature,Rubygems",, https://github.com/mgsnova/feature
+Flipper,Ruby,"flipper,Rubygems",, https://github.com/jnunemaker/flipper
+Bandiera,Scala,"com.springernature:bandiera-client-scala_2.12,Maven
+com.springernature:bandiera-client-scala_2.11,Maven","com.springernature.bandieraclientscala,BandieraClient", https://github.com/springernature/bandiera-client-scala
