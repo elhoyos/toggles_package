@@ -34,8 +34,6 @@ And then, augment the information of the identified toggled repositories, using
 $ scrapy crawl augment_toggled_repos -a repos_filename=toggled_repositories.csv -o toggled_repositories_augmented.csv
 ```
 
-Checkout the queries in `summary_tables_queries.sql`.
-
 ## Results
 
 After decompressing `results.tar.gz`, you can locate the identified toggled repositories and the raw data at intermediary steps.
@@ -52,6 +50,8 @@ You can create some summary tables in a `toggles` PostgreSQL with the following 
 $ createdb toggles
 $ psql toggles -f summary/summary_tables.sql
 ```
+
+Checkout the queries in `summary_tables_queries.sql`.
 
 ### More summaries
 
