@@ -2,7 +2,7 @@
 
 1. Extract the toggles from a set of projects using bulktractor
 
-Make sure you have installed [bulktractor@23160ac](https://github.com/elhoyos/bulktractor/tree/23160ac76a786854cfc95fb5fc64136b295cceec) and its dependencies correctly, and then run:
+Make sure you have installed [bulktractor@02b4bf8](https://github.com/elhoyos/bulktractor/tree/02b4bf8c48cf4193da09c23f06e52a2a01b868b0) and its dependencies correctly, and then run:
 
 ```bash
 $ DEBUG=commit-parser:progress \
