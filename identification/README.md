@@ -12,7 +12,7 @@ Run `biquery/bigquery_librariesio.sql` against Google BigQuery or against your o
 
 ### githubdisco
 
-First, install [githubdisco](https://github.com/elhoyos/githubdisco) from its repository following its usage instructions.
+First, install [githubdisco@fd94b42](https://github.com/elhoyos/githubdisco/tree/fd94b42ff19a196514c8def7a45332c251916d69) from its repository following its usage instructions.
 
 Next, identify repositories in GitHub using the libraries registered in `libraries.py` by running
 
