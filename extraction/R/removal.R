@@ -68,14 +68,91 @@ ratios %>% filter(remaining_diff == 0 & del_points_ratio > 0 & del_points_ratio 
 summary(ratios$del_points_ratio)
 summary(ratios$del_routers_ratio)
 
-pdf("deteled_vs_number_vs_commits.pdf", width=5, height=4)
-par(mfrow=c(2, 3))
-boxplot(ratios$del_routers_ratio, horizontal = FALSE, ylab="% Deleted Routers")
-plot(ratios$num_toggles_aprox, ratios$del_routers_ratio, ylab="", xlab="Toggles")
-plot(ratios$number_of_commits, ratios$del_routers_ratio, ylab="", xlab="Commits")
-boxplot(ratios$del_points_ratio, horizontal = FALSE, ylab="% Deleted Points")
-plot(ratios$num_toggles_aprox, ratios$del_points_ratio, ylab="", xlab="Toggles")
-plot(ratios$number_of_commits, ratios$del_points_ratio, ylab="", xlab="Commits")
+del_routers_ratio <- ratios %>%
+  mutate(component = "Routers") %>%
+  select(
+    component,
+    ratio = del_routers_ratio)
+del_points_ratio <- ratios %>%
+  mutate(component = "Points") %>%
+  select(
+    component,
+    ratio = del_points_ratio)
+joined_ratios <- union_all(del_routers_ratio, del_points_ratio) %>%
+  arrange(!is.na(component))
+
+pdf("figure_deleted_ratio_by_component.pdf", width=2.5, height=4)
+par(mar=c(3, 4, 0.5, 0.6))
+boxplot(joined_ratios$ratio ~ joined_ratios$component,
+        horizontal = FALSE,
+        xlab = "",
+        ann = FALSE,
+        col = "grey")
+mtext("% deleted components", side = 2, line = 2.5)
+dev.off()
+
+pdf("figure_deleted_ratio_by_toggles_commits.pdf", width=6, height=3.2)
+ratio_range <- range(c(ratios$del_routers_ratio, ratios$del_points_ratio))
+min_ratio <- min(ratio_range)
+max_ratio <- max(ratio_range)
+
+toggles_range <- range(ratios$num_toggles_aprox)
+min_toggles <- min(toggles_range)
+max_toggles <- max(toggles_range)
+
+commits_range <- range(ratios$number_of_commits)
+min_commits <- min(commits_range)
+max_commits <- max(commits_range)
+
+par(mfcol=c(1, 2))
+par(mar=c(0, 0, 0, 0), oma=c(5, 4, 0.5, 1))
+
+plot(toggles_range,
+     ratio_range,
+     type = 'n',
+     axes = FALSE,
+     ann = FALSE)
+axis(1, at = seq(0, max_toggles, by = 10))
+axis(2, at = seq(min_ratio, max_ratio, by = 0.2))
+mtext("Toggles (approx.)", side = 1, line = 3)
+mtext("% deleted components", side = 2, line = 3)
+box()
+points(ratios$num_toggles_aprox,
+     ratios$del_routers_ratio,
+     pch = 1)
+points(ratios$num_toggles_aprox,
+     ratios$del_points_ratio,
+     pch = 3)
+
+plot(commits_range,
+     ratio_range,
+     type = 'n',
+     axes = FALSE,
+     ann = FALSE)
+axis(1, at = seq(0, 52000, by = 10000))
+mtext("Commits", side = 1, line = 3)
+box()
+points(ratios$number_of_commits,
+       ratios$del_routers_ratio,
+       pch = 1)
+points(ratios$number_of_commits,
+       ratios$del_points_ratio,
+       pch = 3)
+
+# Overlay a blank plot to create a legend
+# Borrowed from https://dr-k-lo.blogspot.com/2014/03/the-simplest-way-to-plot-legend-outside.html
+par(fig = c(0, 1, 0, 1),
+    oma = c(0, 0, 0, 0),
+    mar = c(0.1, 0, 0, 0.1),
+    new = TRUE)
+plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n")
+legend("bottomright",
+       legend=c("Routers","Points"),
+       xpd = TRUE,
+       horiz = FALSE,
+       inset = c(0, 0),
+       pch = c(1, 3),
+       cex = 0.8)
 dev.off()
 
 plot(ratios$number_of_commits, ratios$num_toggles_aprox, main="#Toggles vs #Commits")

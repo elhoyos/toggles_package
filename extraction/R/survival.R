@@ -58,32 +58,20 @@ summary(stable_points)
 
 options(scipen=999) # Disable scientific notation
 
-# pdf("removal_stabilization.pdf",  width=2, height=3)
-pdf("removal_stabilization.pdf",  width=3, height=2)
-par(mgp=c(2.3, 1, 0), mai=c(0.65, 0, 0, 0))
-# par(mgp=c(2.3, 1, 0), mai=c(0, 0.65, 0, 0))
-# beanplot(stable_points$time,
-#          col=list(c("#880f14")),
-#          horizontal = FALSE,
-#          log = "",
-#          ylab = "Weeks to stop removing toggles")
+pdf("figure_removal_stabilization.pdf",  width=3, height=2)
+par(mgp=c(2.3, 1, 0), mar=c(3.5, 0.1, 0.1, 0.1))
 boxplot(stable_points$time,
         horizontal = TRUE,
-        xlab="Weeks to stop removing components")
+        xlab="Weeks to stop removing components",
+        col = "grey")
 dev.off()
 
-# pdf("survival_stabilization.pdf",  width=2, height=3)
-pdf("survival_stabilization.pdf",  width=3, height=2)
-par(mgp=c(2.3, 1, 0), mai=c(0.65, 0, 0, 0))
-# par(mgp=c(2.3, 1, 0), mai=c(0, 0.65, 0, 0))
-# beanplot(stable_points$survival * 100,
-#          col=list(c("#E0E0E0")),
-#          horizontal = FALSE,
-#          log = "",
-#          ylab = "% of surviving toggles")
+pdf("figure_survival_stabilization.pdf",  width=3, height=2)
+par(mgp=c(2.3, 1, 0), mar=c(3.5, 0.1, 0.1, 0.1))
 boxplot(stable_points$survival * 100,
         horizontal = TRUE,
-        xlab="% remaining components")
+        xlab="% remaining components",
+        col = "grey")
 dev.off()
 
 ops_per_type <- stable_points %>%
@@ -91,7 +79,7 @@ ops_per_type <- stable_points %>%
   left_join(read_csv('analysis/waffle_repositories.csv')) %>%
   select(repo_name, num_toggles_aprox, number_of_commits, time, survival)
 
-pdf("survival_vs_toggles_vs_commits.pdf", width=5, height=4)
+pdf("figure_survival_vs_toggles_vs_commits.pdf", width=5, height=4)
 par(mfrow=c(1, 2))
 plot(ops_per_type$num_toggles_aprox,
      ops_per_type$survival * 100,
