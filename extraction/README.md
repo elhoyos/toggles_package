@@ -1,6 +1,8 @@
 # extraction
 
-1. Extract the toggles from a set of projects using bulktractor
+1. Extract the toggles from a set of projects using bulktractor.
+
+It is important to notice that these tools and the analysis preparation below heavily depend on `git`. Our experiments were run with `git version 2.17.2 (Apple Git-113)`. We recommend using that one or any recent version. In our experience, some previous versions gave the same results and others, usually older, did not.
 
 Make sure you have installed [bulktractor@b259fbf](https://github.com/elhoyos/bulktractor/tree/b259fbf15d5c789218e689569098442320e79c94) and its dependencies correctly, and then run:
 
