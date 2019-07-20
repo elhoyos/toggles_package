@@ -81,17 +81,17 @@ del_points_ratio <- ratios %>%
 joined_ratios <- union_all(del_routers_ratio, del_points_ratio) %>%
   arrange(!is.na(component))
 
-pdf("figure_deleted_ratio_by_component.pdf", width=2.5, height=4)
+pdf("figure_removed_ratio_by_component.pdf", width=2.5, height=4)
 par(mar=c(3, 4, 0.5, 0.6))
 boxplot(joined_ratios$ratio ~ joined_ratios$component,
         horizontal = FALSE,
         xlab = "",
         ann = FALSE,
         col = "grey")
-mtext("% deleted components", side = 2, line = 2.5)
+mtext("% removed components", side = 2, line = 2.5)
 dev.off()
 
-pdf("figure_deleted_ratio_by_toggles_commits.pdf", width=6, height=3.2)
+pdf("figure_removed_ratio_by_toggles_commits.pdf", width=6, height=3.2)
 ratio_range <- range(c(ratios$del_routers_ratio, ratios$del_points_ratio))
 min_ratio <- min(ratio_range)
 max_ratio <- max(ratio_range)
@@ -115,7 +115,7 @@ plot(toggles_range,
 axis(1, at = seq(0, max_toggles, by = 10))
 axis(2, at = seq(min_ratio, max_ratio, by = 0.2))
 mtext("Toggles (approx.)", side = 1, line = 3)
-mtext("% deleted components", side = 2, line = 3)
+mtext("% removed components", side = 2, line = 3)
 box()
 points(ratios$num_toggles_aprox,
      ratios$del_routers_ratio,
