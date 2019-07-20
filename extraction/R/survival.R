@@ -30,6 +30,10 @@ stable_points = data.frame(matrix(ncol = 3, nrow = 0))
 # Colors
 col = 1:4
 
+# Full set
+pdf(paste("figure_survival_all_projects.pdf", sep=""), width=6.83, height=12.35)
+par(mfrow = c(8, 5), mar=c(2.5,2,1.5,2), oma=c(0,0,3,0))
+
 for (i in 1:length(filenames)) {
   data <- read.csv(filenames[i])
   repo_name <- data$repo_name[1]
@@ -44,15 +48,31 @@ for (i in 1:length(filenames)) {
   # pdf(paste("survival_", project, ".pdf", sep=""), width=5, height=4)
   # # par needs to be here so the pdf gets the right margins
   # par(mar=c(4, 3.5, 2, 0))
-  # plot(kmsurvival, col=col)
+  plot(kmsurvival, col=col)
   # title(main=no_org(repo_name), ylab="Survival Function", xlab="Weeks", mgp=c(2.5, 0, 0), cex.lab=1.2, cex.main=2)
-  # box(lwd=1.95)
+  title(main=no_org(repo_name), mgp=c(2.5, 0, 0), cex.lab=1.2, cex.main=1)
+  box(lwd=1.95)
   # legend("topright", inset=c(0.01, 0), legend=c("Estimate","Lower 95%","Upper 95%"), col=col, lty=1, bty="n", cex=0.8, y.intersp=1.2)
   # dev.off()
 
   stable_point <- c(list(repo_name=repo_name), get_stable_point(kmsurvival, stabilization_delta))
   stable_points = rbind(stable_points, data.frame(stable_point))
 }
+
+par(fig = c(0, 1, 0, 1),
+    oma = c(0, 0, 0, 0),
+    mar = c(0.1, 0, 0, 0.1),
+    new = TRUE)
+plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n")
+legend("top",
+       legend = c("Esimate", "Lower 95%", "Upper 95%"),
+       col = col,
+       xpd = TRUE,
+       horiz = TRUE,
+       inset = c(0, 0),
+       lty = 1,
+       cex = 0.8)
+dev.off()
 
 summary(stable_points)
 
