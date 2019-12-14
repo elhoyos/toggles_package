@@ -24,11 +24,47 @@ banned_repo_names_regexps = [
     r'.+\/DefinitelyTyped',
     r'.+\/AngularTypings',
     r'.+\/repos-using-electron',
-]
-
-banned_paths_regexps = [
-    # Sprint Boot "Master Class"
-    r'.*baeldung.*',
+    r'Jacek1993/tutorial',
+    r'raser004/Tutorials',
+    r'DevJoseWeb/Java-Diversos',
+    r'ntthuat/HelloSpring',
+    r'nguyenhaidhcn/java-tutorial',
+    r'my-branding-repo/tutorials-master',
+    r'spring-open-source/projects',
+    r'hasitha3rd/spring-rest-security',
+    r'sjkendall88/GitHub',
+    r'jhavierc/spring',
+    r'phuongchuyentin/spring-master',
+    r'naitae99/tutorials',
+    r'a08maheshwari/MVC',
+    r'srilakshmichennu/mypipelinecode',
+    r'mksoni29/6sept',
+    r'cuidadoso/tuturials',
+    r'debjava/baeldungGIT',
+    r'chaakula/SpringPractice',
+    r'samarthsaxena/AllJavaTutorials',
+    r'vejandlakrishna/Tutorials',
+    r'itskautuk/tutorials',
+    r'lvt100191/spring_tutorial',
+    r'ashablj/spring-5',
+    r'luc-neulens/test',
+    r'retana/Tutoriales',
+    r'nishantverma160380/Spring-Security',
+    r'nishantverma160380/Spring-Cloud-Tutorial',
+    r'vinodkuliza/demo-pipeline2',
+    r'deepakpanda1/tutorials',
+    r'nangudeprashant/SpringMVC',
+    r'ngonzalez1981/tutorial',
+    r'nkadiri09/Spring_all',
+    r'nishantverma160380/aws-tutorials',
+    r'vermaabhishek19801/Eugenp_Tutorials',
+    r'chandansinghkiit/Spring_Webservice',
+    r'TehreemNisa/tutorials',
+    r'Java-Reference/Java_Practices',
+    r'GitHubRaju/https-github.com-eugenp-tutorials',
+    r'Vijaydaswani/Jenkins',
+    r'eugenp/tutorials',
+    r'pcf2cloud/Tutorial',
 ]
 
 def matches_any(patterns, string):
@@ -41,10 +77,6 @@ def matches_any(patterns, string):
 
 def is_banned(result):
     banned = matches_any(banned_repo_names_regexps, result['repo_name'])
-    if banned:
-        return banned
-
-    banned = matches_any(banned_paths_regexps, result['path'])
     return banned
 
 min_bytes = 1000 * 1000
