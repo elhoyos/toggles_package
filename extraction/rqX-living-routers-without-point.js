@@ -58,6 +58,16 @@ function seePoints(pendingPoints, points) {
   }
 }
 
+const ID_TO_NAMES_REGEXS = [
+  /-[0-9a-f]+$/, // matches the hash in my_feature-009873937372abcdef
+  /.+\./, // matches everything until last dot in features.MY_FEATURE
+  /.+?\n/, // matches everything until the last newline in "waffle.WAFFLE_NAMESPACE, waffle.\nMY_FEATURE"
+  /\W/g, // matches non word characters in ('my_feature')
+];
+function asToggleName(_id) {
+  return ID_TO_NAMES_REGEXS.reduce((id, regex) => id.replace(regex, ''), _id);
+}
+
 // Map types
 const lonelyRouters = [];
 const seenPoints = pointsIds.map(id => points[id]);
@@ -66,6 +76,7 @@ routersIds.reduce((memo, routerId) => {
   const router = routers[routerId];
   const points = lookupRouterPoints(allLivingPoints, router);
   if (points.length === 0) {
+    router.name = asToggleName(router.toggle.id)
     memo.push(router);
   } else {
     seePoints(seenPoints, points);
