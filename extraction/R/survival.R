@@ -10,6 +10,7 @@ options(
 )
 
 source("./R/get_stable_point.R")
+source("./R/projects.R")
 
 no_org <- function(repo_name) {
   return(unlist(strsplit(repo_name, "/", fixed = TRUE))[2])
@@ -17,12 +18,12 @@ no_org <- function(repo_name) {
 
 SECONDS = 86400 * 7 # Each week
 stabilization_delta = 0.01
-
 base_path <- "./analysis/raw/"
-projects <- c('edx__edx-enterprise', 'acfrmarine__squidle', 'azavea__nyc-trees', 'ccnmtl__capsim', 'ccnmtl__dmt', 'ccnmtl__footprints', 'ccnmtl__forest', 'ccnmtl__match', 'ccnmtl__mediathread', 'ccnmtl__nepi', 'ccnmtl__phtc', 'ccnmtl__smart_sa', 'ccnmtl__wardenclyffe', 'CenterForOpenScience__osf.io', 'dionyziz__crypto-class', 'djangocon__2015.djangocon.us-archived', 'edx__course-discovery', 'edx__credentials', 'edx__ecommerce', 'edx__edx-analytics-dashboard', 'edx__edx-platform', 'erudit__eruditorg', 'gbozee__pyconng', 'hmgoalie35__ayrabo', 'kh-004-webuipython__Jiller', 'mangroveorg__datawinners', 'ministryofjustice__manchester_traffic_offences_pleas', 'mozilla__bedrock', 'mozilla__fjord', 'mozilla__kitsune', 'mozilla__zamboni', 'mozilla-services__push-dev-dashboard', 'mozilla-services__socorro', 'ORGAN-IZE__register', 'python__pythondotorg', 'thraxil__artsho', 'thraxil__spokehub', 'tndatacommons__tndata_backend', 'trailhawks__lawrencetrailhawks', 'unicef__rhizome')
-# projects <- c('trailhawks__lawrencetrailhawks')
-paths <- paste(base_path, projects, sep="")
+as_filenames <- function(projects_as_repos) {
+  return(sub("/", "__", projects_as_repos))
+}
 
+paths <- paste(base_path, as_filenames(projects), sep="")
 filenames = dir(pattern="^rq3-survival.csv$", path = paths, full.names = TRUE, recursive = TRUE)
 survival <- data.frame()
 stable_points = data.frame(matrix(ncol = 3, nrow = 0))
@@ -96,7 +97,7 @@ dev.off()
 
 ops_per_type <- stable_points %>%
   left_join(read_csv('analysis/merged/rqX-operations-per-type.csv')) %>%
-  left_join(read_csv('analysis/waffle_repositories.csv')) %>%
+  left_join(read_csv('analysis/waffle_projects.csv')) %>%
   select(repo_name, num_toggles_aprox, number_of_commits, time, survival)
 
 pdf("figure_survival_vs_toggles_vs_commits.pdf", width=5, height=4)

@@ -2,9 +2,12 @@ library(readr)
 library(effsize)
 library(magrittr)
 library(dplyr)
+library(tidyr)
+
+source("./R/projects.R")
 
 data <- read_csv('analysis/merged/rqX-operations-per-type.csv')
-repos <- read_csv('analysis/waffle_repositories.csv')
+repos <- read_csv('analysis/waffle_projects.csv')
 
 # How different are ratios of Routers and Points?
 # Disable wilcox test temporarily (warning erroring)
@@ -12,6 +15,7 @@ repos <- read_csv('analysis/waffle_repositories.csv')
 cliff.delta(data$"DELETED-Router",data$"DELETED-Point")
 
 ratios <- data %>%
+  filter(repo_name %in% projects) %>%
   left_join(repos) %>%
   mutate(
     points = `ADDED-Point`,
@@ -19,9 +23,9 @@ ratios <- data %>%
     remaining_points = `ADDED-Point` - `DELETED-Point`,
     remaining_routers = `ADDED-Router` - `DELETED-Router`,
     remaining_diff = remaining_routers - remaining_points,
-    remaining_ratio = if_else(remaining_points == 0, 1, remaining_routers / remaining_points),
-    del_points_ratio = `DELETED-Point`/`ADDED-Point`,
-    del_routers_ratio = `DELETED-Router`/`ADDED-Router`
+    remaining_ratio = replace_na(remaining_routers / remaining_points, 1),
+    del_points_ratio = replace_na(`DELETED-Point`/`ADDED-Point`, 0),
+    del_routers_ratio = replace_na(`DELETED-Router`/`ADDED-Router`, 0)
   ) %>%
   select(
     repo_name,
@@ -41,6 +45,8 @@ par(mfrow=c(2, 1))
 summary(ratios$num_toggles_aprox)
 boxplot(ratios$num_toggles_aprox, horizontal = TRUE)
 title("Number of toggles (aprox.)")
+hist(ratios$num_toggles_aprox, breaks=15, main="Number of toggles Distribution")
+# plot(density(ratios$num_toggles_aprox), main="Number of toggles Distribution")
 
 summary(ratios$number_of_commits)
 boxplot(ratios$number_of_commits, horizontal = TRUE)
