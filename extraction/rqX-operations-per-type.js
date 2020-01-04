@@ -29,15 +29,18 @@ function asToggleName(_id) {
 }
 
 Object.keys(counts).forEach((type) => {
-  const toggles = data[type];
-  counts[type]['count'] =+ Object.values(toggles).length;
-  Object.values(toggles).forEach((events) => {
+  const components = data[type];
+  counts[type]['count'] =+ Object.values(components).length;
+  Object.values(components).forEach((events) => {
     events.forEach((event) => {
-      if (event.operation === 'ADDED' && event.toggle.type === 'Router') {
-        names.add(asToggleName(event.toggle.id));
+      const { operation, toggle } = event;
+      const { id } = toggle;
+
+      if (operation === 'ADDED' && type === 'Router') {
+        names.add(asToggleName(id));
       }
 
-      counts[type][event.operation] += 1;
+      counts[type][operation] += 1;
     });
   });
 });
