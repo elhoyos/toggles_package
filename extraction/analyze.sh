@@ -2,19 +2,19 @@
 
 # Usage:
 #
-# Prepare extracted toggles in JSON for analysis.
+# Analyze extracted toggles.
 #
 # Prepre and gzip output data
-# REPOS_STORE=repositories COMPRESS=true ./prepare-toggles.sh refocus MTC
+# REPOS_STORE=repositories COMPRESS=true ./analyze.sh refocus MTC
 
 set -e
 
-echo "<<<<< Prepare Toggles >>>>>"
+echo "<<<<< Analyze Toggles >>>>>"
 
 OUTPUT_BASE_DIR="analysis"
 OUTPUT_RAW="$OUTPUT_BASE_DIR/raw"
 OUTPUT_MERGED="$OUTPUT_BASE_DIR/merged"
-EXTRACTION="bulktractor/toggles"
+EXTRACTION="/home/jim/research/bulktractor/analysis/raw"
 OWNER_REPO_SEPARATOR="__"
 MERGE_SCRIPT="../identification/scripts/merge-results.sh"
 
