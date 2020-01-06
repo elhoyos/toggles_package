@@ -6,15 +6,14 @@ library(tidyr)
 
 source("./R/projects.R")
 
-data <- read_csv('analysis/merged/rqX-operations-per-type.csv')
+data <- read_csv('analysis/merged/operations-per-type.csv')
 repos <- read_csv('analysis/waffle_projects.csv')
 
-# How different are ratios of Routers and Points?
-# Disable wilcox test temporarily (warning erroring)
-# wilcox.test(data$"DELETED-Router",data$"DELETED-Point")
-cliff.delta(data$"DELETED-Router",data$"DELETED-Point")
-
 ratios <- data %>%
+  mutate(
+    router_ops = `ADDED-Router` + `MODIFIED-Router` + `DELETED-Router`,
+    point_ops = `ADDED-Point` + `MODIFIED-Point` + `DELETED-Point`
+  ) %>%
   filter(repo_name %in% projects) %>%
   left_join(repos) %>%
   mutate(
@@ -24,12 +23,16 @@ ratios <- data %>%
     remaining_routers = `ADDED-Router` - `DELETED-Router`,
     remaining_diff = remaining_routers - remaining_points,
     remaining_ratio = replace_na(remaining_routers / remaining_points, 1),
-    del_points_ratio = replace_na(`DELETED-Point`/`ADDED-Point`, 0),
-    del_routers_ratio = replace_na(`DELETED-Router`/`ADDED-Router`, 0)
+    del_points = `DELETED-Point`,
+    del_routers = `DELETED-Router`,
+    del_points_ratio = replace_na(del_points/`ADDED-Point`, 0),
+    del_routers_ratio = replace_na(del_routers/`ADDED-Router`, 0)
   ) %>%
   select(
     repo_name,
     num_toggles_aprox,
+    router_ops,
+    point_ops,
     number_of_commits,
     routers,
     remaining_routers,
@@ -37,9 +40,16 @@ ratios <- data %>%
     remaining_points,
     remaining_diff,
     remaining_ratio,
+    del_points,
+    del_routers,
     del_points_ratio,
     del_routers_ratio
   )
+
+# How different are ratios of Routers and Points?
+# Disable wilcox test temporarily (warning erroring)
+# wilcox.test(ratios$del_routers,ratios$del_points)
+# cliff.delta(ratios$del_routers,ratios$del_points)
 
 par(mfrow=c(2, 1))
 summary(ratios$num_toggles_aprox)
@@ -47,6 +57,8 @@ boxplot(ratios$num_toggles_aprox, horizontal = TRUE)
 title("Number of toggles (aprox.)")
 hist(ratios$num_toggles_aprox, breaks=15, main="Number of toggles Distribution")
 # plot(density(ratios$num_toggles_aprox), main="Number of toggles Distribution")
+hist(ratios$router_ops, breaks=15, main="Number of Router operations")
+hist(ratios$point_ops, breaks=15, main="Number of Points operations")
 
 summary(ratios$number_of_commits)
 boxplot(ratios$number_of_commits, horizontal = TRUE)

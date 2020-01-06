@@ -3,7 +3,7 @@ library(magrittr) # To pipe with %>%
 library(ggplot2)
 library(dplyr)
 
-data <- read_csv("rq2-counts-history.csv")
+data <- read_csv("counts-history.csv")
 
 palette <- c("#28659C", "#800000", "#E69F00")
 

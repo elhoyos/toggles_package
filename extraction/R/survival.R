@@ -24,7 +24,7 @@ as_filenames <- function(projects_as_repos) {
 }
 
 paths <- paste(base_path, as_filenames(projects), sep="")
-filenames = dir(pattern="^rq3-survival.csv$", path = paths, full.names = TRUE, recursive = TRUE)
+filenames = dir(pattern="^survival.csv$", path = paths, full.names = TRUE, recursive = TRUE)
 survival <- data.frame()
 stable_points = data.frame(matrix(ncol = 3, nrow = 0))
 
@@ -96,7 +96,7 @@ boxplot(stable_points$survival * 100,
 dev.off()
 
 ops_per_type <- stable_points %>%
-  left_join(read_csv('analysis/merged/rqX-operations-per-type.csv')) %>%
+  left_join(read_csv('analysis/merged/operations-per-type.csv')) %>%
   left_join(read_csv('analysis/waffle_projects.csv')) %>%
   select(repo_name, num_toggles_aprox, number_of_commits, time, survival)
 

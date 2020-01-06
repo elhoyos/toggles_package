@@ -4,7 +4,7 @@ library(ggplot2)
 library(dplyr)
 library(reshape2)
 
-rq2_counts_per_type_history <- read_csv("rq2-counts-per-type-history.csv")
+rq2_counts_per_type_history <- read_csv("counts-per-type-history.csv")
 
 data <- melt(rq2_counts_per_type_history, id.vars = "row")
 

@@ -1,7 +1,7 @@
 library(readr)
 
 # Toggle effort
-commits <- read_csv('analysis/merged/rq1-commits.csv')
+commits <- read_csv('analysis/merged/commits.csv')
 
 print(summary(commits))
 
@@ -17,7 +17,7 @@ dev.off()
 
 
 # Coverage
-# loc <- read_csv('analysis/merged/rq1-loc.csv')
+# loc <- read_csv('analysis/merged/loc.csv')
 # print(summary(loc))
 # boxplot(loc$coverage)
 # print(boxplot.stats(loc$coverage))
