@@ -5,13 +5,13 @@ const json = fs.readFileSync(argv._[1]);
 const pathToRepository = argv._[2];
 const data = JSON.parse(json);
 const { exec } = require('child_process');
-const { resetCmd } = require('./common');
+const { resetCmd } = require('../common');
 
 /*
 * Prints a csv appropriate for a survival analysis of a projects's history
 *
 * Usage:
-* node rq3-survival.js repo_name history.json "path/to/repository"
+* node survival.js repo_name history.json "path/to/repository"
 */
 
 function getLastEpoch(callback) {

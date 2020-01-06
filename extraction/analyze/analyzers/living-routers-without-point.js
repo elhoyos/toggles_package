@@ -7,10 +7,10 @@ const data = JSON.parse(json);
 * Finds the living Routers that have no living Point
 *
 * Usage:
-* node rqX-living-routers-without-point.js history.json
+* node living-routers-without-point.js history.json
 *
 * Make the output more readable:
-* node rqX-living-routers-without-point.js history.json | jq -C '. | map({ id: .toggle.id, operation: .operation}) | flatten'
+* node living-routers-without-point.js history.json | jq -C '. | map({ id: .toggle.id, operation: .operation}) | flatten'
 */
 
 // Gather latest living versions of all toggles

@@ -5,13 +5,13 @@ const json = fs.readFileSync(argv._[1]);
 const pathToRepository = argv._[2];
 const data = JSON.parse(json);
 const { exec } = require('child_process');
-const { resetCmd } = require('./common');
+const { resetCmd } = require('../common');
 
 /*
 * Prints a csv with the toggled loc vs Python loc of the project
 *
 * Usage:
-* node rq1-loc.js repo_name history.json "path/to/repository"
+* node loc.js repo_name history.json "path/to/repository"
 */
 
 const locTypeComponent = {

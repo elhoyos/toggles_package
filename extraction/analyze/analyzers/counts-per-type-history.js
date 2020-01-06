@@ -7,7 +7,7 @@ const data = JSON.parse(json);
 * Prints a csv with the number of operations per toggle component
 *
 * Usage:
-* node rq2-counts-per-type-history.js repo_name history.json
+* node counts-per-type-history.js repo_name history.json
 */
 
 const counts = {

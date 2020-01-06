@@ -5,14 +5,14 @@ const json = fs.readFileSync(argv._[1]);
 const pathToRepository = argv._[2];
 const data = JSON.parse(json);
 const { exec } = require('child_process');
-const { resetCmd } = require('./common');
+const { resetCmd } = require('../common');
 
 /*
 * Prints a csv with the number of toggled commits, processed commits (as extractor does)
 * and calculates the toggled effort rate.
 *
 * Usage:
-* node rq1-commits.js repo_name history.json "path/to/repository"
+* node commits.js repo_name history.json "path/to/repository"
 */
 
 const uniqueCommits = new Map();

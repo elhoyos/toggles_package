@@ -1,12 +1,11 @@
 {
-  "name": "extraction",
+  "name": "analyze",
   "version": "1.0.0",
   "description": "",
-  "main": "rq2-counts-per-type-history.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Juan Hoyos",
   "license": "ISC",
   "devDependencies": {
     "minimist": "^1.2.0"
