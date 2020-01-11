@@ -65,6 +65,8 @@ const collect = async (repo_name, json, pathToRepository) => {
         toggle_id: sanitize(toggleId),
         original_id: sanitize(original_id),
         toggle_type: firstEvent.toggle.type,
+        added: t1,
+        lastSeen: t2,
         epoch_interval: t2 - t1,
         removed: (lastEvent.operation === 'DELETED' ? 1 : 0),
         commit_added: commitAdded,

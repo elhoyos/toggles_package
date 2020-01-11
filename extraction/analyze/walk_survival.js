@@ -304,7 +304,7 @@ function deleteObjectKeys(obj, keys) {
 
 const WEEKS_IN_SEC = 60 * 60 * 24 * 7;
 
-async function format(toggles, cwd) {
+async function formatRouter(toggles, cwd) {
   const formatted = [];
   const numberOfToggles = toggles.length;
   let position = 1;
@@ -351,7 +351,7 @@ async function format(toggles, cwd) {
   return formatted;
 }
 
-function format(cwd) {
+function formatRouter(cwd) {
   return async (router) => {
     const {
       toggle_id,
@@ -367,6 +367,7 @@ function format(cwd) {
     const fmtRouter = {
       name: asToggleName(toggle_id),
       ...router,
+      removed: router.removed === 1,
       weeks_survived: Math.ceil(epoch_interval / WEEKS_IN_SEC),
       commit_message_added: await getCommitMessage(commit_added, cwd),
       commit_message_deleted: commit_deleted ? await getCommitMessage(commit_deleted, cwd) : null,
@@ -381,12 +382,44 @@ function format(cwd) {
 
     return deleteObjectKeys(fmtRouter, [
       'epoch_interval',
-      'removed',
       'commit_added',
       'commit_deleted',
       'file_added',
       'file_deleted',
       'line_deleted']);
+  };
+}
+
+function formatToggle() {
+  return (toggle, index, toggles) => {
+    const {
+      routers
+    } = toggle;
+
+    const [minTsAdded, maxTsLastSeen] = routers.reduce((timestamps, router) => {
+      let [min, max] = timestamps;
+      const { added, lastSeen } = router;
+      if (min > added) min = added;
+      if (max < lastSeen) max = lastSeen;
+      return [min, max];
+    }, [Infinity, -Infinity]);
+
+    // Cleanup a bit more the routers
+    toggle.routers = routers.map((router) => deleteObjectKeys(router, [
+      'name',
+      'repo_name',
+      'added',
+      'lastSeen',
+    ]));
+
+    return {
+      ...toggle,
+      progress: `${index + 1} / ${toggles.length}`,
+      all_routers_removed: routers.every(r => r.removed),
+      first_seen_on: new Date(minTsAdded * 1000),
+      last_seen_on: new Date(maxTsLastSeen * 1000),
+      weeks_survived: Math.ceil((maxTsLastSeen - minTsAdded) / WEEKS_IN_SEC),
+    };
   };
 }
 
@@ -410,11 +443,6 @@ async function groupByToggleName(togglesPromise, routerPromise) {
   return toggles;
 }
 
-function addProgress(toggle, index, toggles) {
-  toggle.progress = `${index + 1} / ${toggles.length}`;
-  return toggle;
-}
-
 (async () => {
   const repo_name = argv._[0];
   const json = fs.readFileSync(argv._[1]);
@@ -425,10 +453,10 @@ function addProgress(toggle, index, toggles) {
   if (!toggles) {
     const survival = await collect(repo_name, json, pathToRepository);
     toggles = await survival.filter(toggle => toggle.toggle_type === 'Router')
-      .map(format(pathToRepository))
+      .map(formatRouter(pathToRepository))
       .reduce(groupByToggleName, Promise.resolve([]));
 
-    toggles = toggles.map(addProgress);
+    toggles = toggles.map(formatToggle());
   }
 
   walk(toggles, filename);
