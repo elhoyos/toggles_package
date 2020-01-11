@@ -351,17 +351,85 @@ async function format(toggles, cwd) {
   return formatted;
 }
 
+function format(cwd) {
+  return async (router) => {
+    const {
+      toggle_id,
+      repo_name,
+      epoch_interval,
+      commit_added,
+      commit_deleted,
+      file_added,
+      file_deleted,
+      line_added,
+    } = router;
+
+    const fmtRouter = {
+      name: asToggleName(toggle_id),
+      ...router,
+      weeks_survived: Math.ceil(epoch_interval / WEEKS_IN_SEC),
+      commit_message_added: await getCommitMessage(commit_added, cwd),
+      commit_message_deleted: commit_deleted ? await getCommitMessage(commit_deleted, cwd) : null,
+      commit_link_added: getCommitLink(repo_name, commit_added),
+      commit_link_deleted: commit_deleted ? getCommitLink(repo_name, commit_deleted) : null,
+      link_added: getLink(repo_name, commit_added, file_added, line_added),
+      git_diff_added: getGitDiffCmd(commit_added, file_added),
+      git_diff_deleted: commit_deleted ? getGitDiffCmd(commit_deleted, file_deleted) : null,
+    };
+
+    fmtRouter.suggested_type = getLameSuggestedType(fmtRouter);
+
+    return deleteObjectKeys(fmtRouter, [
+      'epoch_interval',
+      'removed',
+      'commit_added',
+      'commit_deleted',
+      'file_added',
+      'file_deleted',
+      'line_deleted']);
+  };
+}
+
+async function groupByToggleName(togglesPromise, routerPromise) {
+  const router = await routerPromise;
+  const { name, repo_name } = router;
+  const toggles = await togglesPromise;
+  const index = toggles.findIndex(t => t.name === name);
+  const toggle = index > -1 ? toggles[index] : {
+    progress: '',
+    name,
+    repo_name,
+    num_routers: 0,
+    routers: [],
+  };
+  
+  const { routers } = toggle;
+  routers.push(router);
+  toggle.num_routers++;
+  if (index === -1) toggles.push(toggle);
+  return toggles;
+}
+
+function addProgress(toggle, index, toggles) {
+  toggle.progress = `${index + 1} / ${toggles.length}`;
+  return toggle;
+}
+
 (async () => {
   const repo_name = argv._[0];
   const json = fs.readFileSync(argv._[1]);
   const pathToRepository = argv._[2];
   const filename = `${repo_name.replace('/', '__')}.json`;
 
-  let routers = await loadSavedTypes(filename);
-  if (!routers) {
+  let toggles = await loadSavedTypes(filename);
+  if (!toggles) {
     const survival = await collect(repo_name, json, pathToRepository);
-    routers = await format(survival.filter(toggle => toggle.toggle_type === 'Router'), pathToRepository);
+    toggles = await survival.filter(toggle => toggle.toggle_type === 'Router')
+      .map(format(pathToRepository))
+      .reduce(groupByToggleName, Promise.resolve([]));
+
+    toggles = toggles.map(addProgress);
   }
 
-  walk(routers, filename);
+  walk(toggles, filename);
 })();
