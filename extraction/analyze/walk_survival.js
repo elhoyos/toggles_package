@@ -117,10 +117,10 @@ const walk = (routers, filename) => {
   };
 
   function goToMode(key) {
-    if (key !== 'g' && state.mode !== 'goto') return;
+    if (key !== '>>ENTER<<' && state.mode !== 'goto') return;
 
     switch(key) {
-      case 'g':
+      case '>>ENTER<<':
         printGoToModeInstructions();
         state.mode = 'goto';
         break;
@@ -213,6 +213,10 @@ const walk = (routers, filename) => {
         break;
       case 'k':
         state.toggle = prevToggle();
+        break;
+      case 'g':
+        goToMode('>>ENTER<<');
+        if (state.mode) return;
         break;
       case '1':
       case '2':
