@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { asToggleName } = require('../common');
 const argv = require('minimist')(process.argv.slice(2));
 const repo_name = argv._[0];
 const json = fs.readFileSync(argv._[1]);
@@ -18,15 +19,6 @@ const counts = {
 };
 
 const names = new Set();
-const ID_TO_NAMES_REGEXS = [
-  /-[0-9a-f]+$/, // matches the hash in my_feature-009873937372abcdef
-  /.+\./, // matches everything until last dot in features.MY_FEATURE
-  /.+?\n/, // matches everything until the last newline in "waffle.WAFFLE_NAMESPACE, waffle.\nMY_FEATURE"
-  /\W/g, // matches non word characters in ('my_feature')
-];
-function asToggleName(_id) {
-  return ID_TO_NAMES_REGEXS.reduce((id, regex) => id.replace(regex, ''), _id);
-}
 
 Object.keys(counts).forEach((type) => {
   const components = data[type];
