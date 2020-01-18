@@ -11,6 +11,14 @@ const { inspect } = require('util');
 * node walk_survival.js repo_name history.json "path/to/repository"
 */
 
+const getArgs = () => {
+  return {
+    repo_name: argv._[0],
+    json: fs.readFileSync(argv._[1]),
+    pathToRepository: argv._[2],
+  };
+}
+
 const saveToggles = (toggles, filename) => {
   return new Promise((resolve, reject) => {
     const data = JSON.stringify(toggles, null, 2);
@@ -18,7 +26,7 @@ const saveToggles = (toggles, filename) => {
   });
 }
 
-const loadSavedTypes = (filename) => {
+const loadSavedToggles = (filename) => {
   return new Promise((resolve, reject) => {
     fs.readFile(filename, (err, data) => {
       if (err) {
@@ -31,8 +39,15 @@ const loadSavedTypes = (filename) => {
   });
 }
 
-const walk = (routers, filename) => {
+const walk = (toggles, filename) => {
   let index = -1;
+
+  const state = {
+    mode: '', // goto, random-type-set
+    index: 0,
+    toggle: null,
+    toggles,
+  };
 
   function printInstructions() {
     console.log([
@@ -48,6 +63,8 @@ const walk = (routers, filename) => {
       `If you need to fix the comment, use '&' to start over.`,
       '',
       `Press '-' to unset the toggle type.`,
+      '',
+      `Press 'r' to reload the toggles data from the extracted json.`,
       '',
       `Press 's' to save the set toggle types to a file.`,
       '',
@@ -76,11 +93,24 @@ const walk = (routers, filename) => {
   }
 
   function moveToToggle(ix) {
-    const toggle = routers[ix];
+    const toggle = state.toggles[ix];
     if (toggle) {
       index = ix;
     }
     return toggle;
+  }
+
+  function reloadTogglesData(extracted) {
+    const current = state.toggles;
+    state.toggles = extracted.map((toggle) => {
+      const { toggle_id } = toggle.routers[0];
+      const { type, type_comment } = current.find(({ routers }) => routers[0].toggle_id === toggle_id);
+      return {
+        ...toggle,
+        type,
+        type_comment,
+      };
+    });
   }
 
   function nextToggle() {
@@ -109,12 +139,6 @@ const walk = (routers, filename) => {
     toggle.type_comment = comment;
     return true;
   }
-
-  const state = {
-    mode: '', // goto, random-type-set
-    index: 0,
-    toggle: null,
-  };
 
   function goToMode(key) {
     if (key !== '>>ENTER<<' && state.mode !== 'goto') return;
@@ -236,9 +260,15 @@ const walk = (routers, filename) => {
           print(`Cannot unset a type to an unknown toggle, use 'j' or 'k' to move to a toggle.`);
         }
         break;
+      case 'r':
+        print('Reloading extracted toggles data...\n');
+        const { repo_name, json, pathToRepository } = getArgs();
+        const toggles = await loadTogglesFromExtraction(repo_name, json, pathToRepository);
+        await reloadTogglesData(toggles);
+        break;
       case 's':
         print(`Saving toggles types...\n`);
-        await saveToggles(routers, filename);
+        await saveToggles(state.toggles, filename);
         print(`Saved to ${filename}`);
         break;
       case '?':
@@ -306,54 +336,16 @@ function deleteObjectKeys(obj, keys) {
   return newObj;
 }
 
-const WEEKS_IN_SEC = 60 * 60 * 24 * 7;
+async function loadTogglesFromExtraction(repo_name, json, pathToRepository) {
+  const survival = await collect(repo_name, json, pathToRepository);
+  const toggles = await survival.filter(toggle => toggle.toggle_type === 'Router')
+    .map(formatRouter(pathToRepository))
+    .reduce(groupByToggleName, Promise.resolve([]));
 
-async function formatRouter(toggles, cwd) {
-  const formatted = [];
-  const numberOfToggles = toggles.length;
-  let position = 1;
-  for (const toggle of toggles) {
-    const {
-      toggle_id,
-      repo_name,
-      epoch_interval,
-      commit_added,
-      commit_deleted,
-      file_added,
-      file_deleted,
-      line_added,
-    } = toggle;
-    const fmtToggle = {
-      progress: `${position++} / ${numberOfToggles}`,
-      name: asToggleName(toggle_id),
-      ...toggle,
-      weeks_survived: Math.ceil(epoch_interval / WEEKS_IN_SEC),
-      commit_message_added: await getCommitMessage(commit_added, cwd),
-      commit_message_deleted: commit_deleted ? await getCommitMessage(commit_deleted, cwd) : null,
-      commit_link_added: getCommitLink(repo_name, commit_added),
-      commit_link_deleted: commit_deleted ? getCommitLink(repo_name, commit_deleted) : null,
-      link_added: getLink(repo_name, commit_added, file_added, line_added),
-      git_diff_added: getGitDiffCmd(commit_added, file_added),
-      git_diff_deleted: commit_deleted ? getGitDiffCmd(commit_deleted, file_deleted) : null,
-    };
-
-    fmtToggle.suggested_type = getLameSuggestedType(fmtToggle);
-
-    formatted.push(
-      deleteObjectKeys(fmtToggle, [
-        'epoch_interval',
-        'removed',
-        'commit_added',
-        'commit_deleted',
-        'file_added',
-        'file_deleted',
-        'line_added',
-        'line_deleted'])
-    );
-  }
-
-  return formatted;
+  return toggles.map(formatToggle());
 }
+
+const WEEKS_IN_SEC = 60 * 60 * 24 * 7;
 
 function formatRouter(cwd) {
   return async (router) => {
@@ -448,19 +440,12 @@ async function groupByToggleName(togglesPromise, routerPromise) {
 }
 
 (async () => {
-  const repo_name = argv._[0];
-  const json = fs.readFileSync(argv._[1]);
-  const pathToRepository = argv._[2];
+  const { repo_name, json, pathToRepository } = getArgs();
   const filename = `${repo_name.replace('/', '__')}.json`;
 
-  let toggles = await loadSavedTypes(filename);
+  let toggles = await loadSavedToggles(filename);
   if (!toggles) {
-    const survival = await collect(repo_name, json, pathToRepository);
-    toggles = await survival.filter(toggle => toggle.toggle_type === 'Router')
-      .map(formatRouter(pathToRepository))
-      .reduce(groupByToggleName, Promise.resolve([]));
-
-    toggles = toggles.map(formatToggle());
+    toggles = await loadTogglesFromExtraction(repo_name, json, pathToRepository);
   }
 
   walk(toggles, filename);

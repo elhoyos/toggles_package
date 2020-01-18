@@ -68,6 +68,8 @@ const collect = async (repo_name, json, pathToRepository) => {
         added: t1,
         lastSeen: t2,
         epoch_interval: t2 - t1,
+        num_ops: events.length,
+        num_modified_ops: events.filter(({ operation }) => operation === 'MODIFIED').length,
         removed: (lastEvent.operation === 'DELETED' ? 1 : 0),
         commit_added: commitAdded,
         commit_deleted: lastEvent.operation === 'DELETED' ? commitDeleted : null,
