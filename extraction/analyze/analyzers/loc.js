@@ -49,7 +49,7 @@ Object.keys(locTypeComponent).forEach((type) => {
 
 const command = [
   `(${resetCmd}) > /dev/null 2>&1`,
-  'cloc --quiet --include-lang=Python --json .',
+  'cloc --quiet --include-lang=Python,HTML --json .',
 ].join(' && ');
 
 exec(command, { cwd: pathToRepository }, (error, stdout, stderr) => {
@@ -60,7 +60,7 @@ exec(command, { cwd: pathToRepository }, (error, stdout, stderr) => {
 
   // TODO: use also the Router. If do not intersect, count.
   const toggledLOC = locType['Point'];
-  const projectLOC = JSON.parse(stdout)['Python'].code;
+  const projectLOC = JSON.parse(stdout)['SUM'].code;
   const coverage = toggledLOC/projectLOC;
 
   console.log('repo_name,toggled_loc,project_loc,coverage');
