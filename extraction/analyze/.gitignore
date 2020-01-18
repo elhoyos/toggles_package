@@ -1,0 +1,4 @@
+node_modules
+
+# Stored walk survival outputs
+*.json
