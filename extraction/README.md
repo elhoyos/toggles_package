@@ -1,12 +1,13 @@
 # extraction
 
-1. Extract the toggles from a set of projects using bulktractor.
+## 1. Extract the toggles from a set of projects using bulktractor
 
 It is important to notice that these tools and the analysis preparation below heavily depend on `git`. Our experiments were run with `git version 2.17.2 (Apple Git-113)`. We recommend using that one or any recent version. In our experience, some previous versions gave the same results and others, usually older, did not.
 
 Make sure you have installed [bulktractor@b259fbf](https://github.com/elhoyos/bulktractor/tree/b259fbf15d5c789218e689569098442320e79c94) and its dependencies correctly, and then run:
 
 ```bash
+$ cd /path/to/bulktractor
 $ DEBUG=commit-parser:progress \
 PYTHON_PATH=`pyenv which python` \
 SCRIPT_PATH=~/Projects/extractor-python \
@@ -16,18 +17,18 @@ REPOS_STORE=~/Projects/_repositories \
         toggles
 ```
 
-
-2. Install dependencies:
+## 2. Install dependencies
 
 ```bash
+$ cd /path/to/extraction/analyze
 $ npm install
 $ brew install cloc
 ```
 
-3. Prepare the toggles for a further analysis:
+## 3. Prepare the extracted toggles for further analysis
 
 ```bash
-$ REPOS_STORE=~/Projects/_repositories ./prepare-toggles.sh `ls -l bulktractor/toggles/ | awk '{if ($9 && $9 != "README.md") printf ("%9s ", $9) }' | sed 's/\.json//g'`
+$ REPOS_STORE=~/_repositories ./analyze/run.sh `ls -l /path/to/bulktractor/toggles/ | awk '{if ($9 && $9 != "README.md") printf ("%9s ", $9) }' | sed 's/\.json//g'`
 ```
 
 ### Useful scripts
