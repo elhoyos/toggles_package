@@ -20,6 +20,9 @@ OWNER_REPO_SEPARATOR="__"
 ANALYZERS_DIR="$BASE/analyzers"
 MERGE_SCRIPT="$BASE/../../identification/scripts/merge-results.sh"
 
+echo "Cleaning up..."
+rm -rf "$OUTPUT_RAW" "$OUTPUT_MERGED"
+
 for repo in "$@"
 do
   output="$OUTPUT_RAW/$repo"
@@ -48,6 +51,7 @@ do
   fi
 done
 
+mkdir -p "$OUTPUT_MERGED"
 declare -a merge_files=("commits" "loc" "operations-per-type")
 for filename in "${merge_files[@]}"
 do
