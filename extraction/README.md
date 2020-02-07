@@ -28,7 +28,7 @@ $ brew install cloc
 ## 3. Prepare the extracted toggles for further analysis
 
 ```bash
-$ REPOS_STORE=~/_repositories ./analyze/run.sh `ls -l /path/to/bulktractor/toggles/ | awk '{if ($9 && $9 != "README.md") printf ("%9s ", $9) }' | sed 's/\.json//g'`
+$ REPOS_STORE=~/_repositories EXTRACTION=/path/to/bulktractor/toggles ./analyze/run.sh `ls -l /path/to/bulktractor/toggles/ | awk '{if ($9 && $9 != "README.md") printf ("%9s ", $9) }' | sed 's/\.json//g'`
 ```
 
 ### Useful scripts
