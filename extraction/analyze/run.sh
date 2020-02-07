@@ -5,7 +5,7 @@
 # Analyze extracted toggles.
 #
 # Prepre and gzip output data
-# REPOS_STORE=repositories COMPRESS=true ./run.sh refocus MTC
+# REPOS_STORE=repositories EXTRACTION=toggles COMPRESS=true ./run.sh refocus MTC
 
 set -e
 
@@ -15,7 +15,6 @@ BASE=`dirname "$0"`
 OUTPUT_BASE_DIR="$BASE/../analysis"
 OUTPUT_RAW="$OUTPUT_BASE_DIR/raw"
 OUTPUT_MERGED="$OUTPUT_BASE_DIR/merged"
-EXTRACTION="/home/jim/research/bulktractor/analysis/raw"
 OWNER_REPO_SEPARATOR="__"
 ANALYZERS_DIR="$BASE/analyzers"
 MERGE_SCRIPT="$BASE/../../identification/scripts/merge-results.sh"

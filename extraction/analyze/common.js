@@ -8,10 +8,8 @@ const resetCmd = [
 ].join(' && ');
 
 const ID_TO_NAMES_REGEXS = [
-  /-[0-9a-f]+$/, // matches the hash in my_feature-009873937372abcdef
-  /.+\./, // matches everything until last dot in features.MY_FEATURE
-  /.+?\n/, // matches everything until the last newline in "waffle.WAFFLE_NAMESPACE, waffle.\nMY_FEATURE"
-  /\W/g, // matches non word characters in ('my_feature')
+  // text before the 64 char hex is already cleaned up
+  /-[0-9a-f]{64}(?:-\d+)?$/, // matches the hash in my_feature-with-dashes-009873937372abcdef-1234
 ];
 
 /*

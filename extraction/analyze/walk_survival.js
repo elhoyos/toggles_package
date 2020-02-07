@@ -101,16 +101,24 @@ const walk = (toggles, filename) => {
   }
 
   function reloadTogglesData(extracted) {
-    const current = state.toggles;
+    const current = [].concat(state.toggles);
     state.toggles = extracted.map((toggle) => {
       const { toggle_id } = toggle.routers[0];
-      const { type, type_comment } = current.find(({ routers }) => routers[0].toggle_id === toggle_id);
+      const currentToggle = current.find(({ routers }) => routers[0].toggle_id === toggle_id) || {};
+      currentToggle.__seen = true;
+      const { type, type_comment } = currentToggle;
+
       return {
         ...toggle,
         type,
         type_comment,
       };
     });
+
+    const notSeen = current.find(t => t.__seen !== true);
+    if (notSeen.length) {
+      throw new Error(`ERROR: Can't find extracted matches of ${notSeen.map(notSeen.name)}`);
+    }
   }
 
   function nextToggle() {
@@ -305,29 +313,6 @@ function getGitDiffCmd(hash, filepath) {
   return `git diff ${hash}^ ${hash} -- ${filepath}`;
 }
 
-/*
-* Suggests a type based on Hodgson's categories in a very lame way.
-*
-* This is lame because it only suggests RELEASE & OPS types, based on the
-* number of weeks the toggle has survived.
-*
-* RELEASE: generally a week or two, could remain longer if feature is product-centric
-* EXPERIMENT: several hours or weeks, depending on traffic
-* OPS: more than several weeks
-* PERMISSION: several months to years
-*
-* See: https://www.martinfowler.com/articles/feature-toggles.html
-*/
-function getLameSuggestedType(toggle) {
-  const weeks = toggle.weeks_survived;
-
-  if (weeks <= 2) {
-    return 'RELEASE';
-  } else {
-    return 'OPS';
-  }
-}
-
 function deleteObjectKeys(obj, keys) {
   const newObj = { ...obj };
   for (const key of keys) {
@@ -373,8 +358,6 @@ function formatRouter(cwd) {
       git_diff_added: getGitDiffCmd(commit_added, file_added),
       git_diff_deleted: commit_deleted ? getGitDiffCmd(commit_deleted, file_deleted) : null,
     };
-
-    fmtRouter.suggested_type = getLameSuggestedType(fmtRouter);
 
     return deleteObjectKeys(fmtRouter, [
       'epoch_interval',
