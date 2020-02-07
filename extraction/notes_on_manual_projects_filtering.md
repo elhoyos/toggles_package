@@ -65,3 +65,15 @@ https://github.com/hwjworld/xiaodun-platform/commit/252e566b848202d45a66e571520c
 ```
 $ jq -C '.Router | to_entries | map(.value) | flatten | map(select(.operation == "ADDED" and .commit.commit == "19c5eeaf25906e3c7c398a22246d1c5d9727016b") | .toggle)' analysis/raw/edx__edx-platform/edx__edx-platform.json | less -R
 ```
+
+## ccmtl/ssnm (Removed):
+
+This project was picked because it only contains an internal copy of django-waffle, no usages from it.
+
+```
+$ jq '.Router | to_entries | map(.value) | flatten | map(.toggle.file) | .[]' ~/research/toggles_package/extraction/analysis/raw/ccnmtl__ssnm/ccnmtl__ssnm.json | sort | uniq
+"ve/lib/python2.7/site-packages/waffle/helpers.py"
+"ve/lib/python2.7/site-packages/waffle/templatetags/waffle_tags.py"
+"ve/lib/python2.7/site-packages/waffle/tests/test_waffle.py"
+"ve/lib/python2.7/site-packages/waffle/views.py"
+```
