@@ -101,21 +101,47 @@ const walk = (toggles, filename) => {
   }
 
   function reloadTogglesData(extracted) {
-    const current = [].concat(state.toggles);
-    state.toggles = extracted.map((toggle) => {
-      const { toggle_id } = toggle.routers[0];
-      const currentToggle = current.find(({ routers }) => routers[0].toggle_id === toggle_id) || {};
-      currentToggle.__seen = true;
-      const { category, category_comment } = currentToggle;
+    const currents = [].concat(state.toggles);
+    
+    state.toggles = extracted
+      .map((toggle) => {
+        const { toggle_id } = toggle.routers[0];
 
-      return {
-        ...toggle,
-        category,
-        category_comment,
-      };
-    });
+        return currents
+          .filter(({ routers, group_as }) => {
+            return (
+              routers[0].toggle_id === toggle_id ||
+              group_as === toggle_id
+            );
+          })
+          .reduce((merged, current, _ix, { length }) => {
+            current.__seen = true;
+            const { category, category_comment, group_as } = current;
+            const isToggleWithGroupAs = length === 1
 
-    const notSeen = current.filter(t => t.__seen !== true);
+            // group_as is a hack to solve some cases where extractor is not capable
+            // to trace same toggles
+            let routers = [...merged.routers];
+            if (!isToggleWithGroupAs && group_as) {
+              const { routers: [{ toggle_id: currentToggleId }] } = current;
+              // use extracted routers to get a proper toggle formatting
+              const { routers: groupedRouters } = extracted.find(t => t.routers[0].toggle_id === currentToggleId);
+              routers = [...merged.routers, ...groupedRouters];
+            }
+
+            return {
+              ...merged,
+              routers,
+              category,
+              category_comment,
+              group_as: isToggleWithGroupAs ? group_as : undefined,
+            };
+          }, { ...toggle });
+      })
+      // computed formatting could have changed by group_as toggles
+      .map(formatToggle);
+
+    const notSeen = currents.filter(t => t.__seen !== true);
     if (notSeen.length) {
       throw new Error(`ERROR: Can't find extracted matches of ${notSeen.map(notSeen.name)}`);
     }
@@ -127,6 +153,10 @@ const walk = (toggles, filename) => {
 
   function prevToggle() {
     return moveToToggle(index - 1);
+  }
+
+  function getToggle() {
+    return state.toggles[index];
   }
 
   function setCategory(toggle, category) {
@@ -272,7 +302,8 @@ const walk = (toggles, filename) => {
         print('Reloading extracted toggles data...\n');
         const { repo_name, json, pathToRepository } = getArgs();
         const toggles = await loadTogglesFromExtraction(repo_name, json, pathToRepository);
-        await reloadTogglesData(toggles);
+        reloadTogglesData(toggles);
+        state.toggle = getToggle();
         break;
       case 's':
         print(`Saving toggles...\n`);
@@ -321,15 +352,6 @@ function deleteObjectKeys(obj, keys) {
   return newObj;
 }
 
-async function loadTogglesFromExtraction(repo_name, json, pathToRepository) {
-  const survival = await collect(repo_name, json, pathToRepository);
-  const toggles = await survival.filter(toggle => toggle.toggle_type === 'Router')
-    .map(formatRouter(pathToRepository))
-    .reduce(groupByToggleName, Promise.resolve([]));
-
-  return toggles.map(formatToggle());
-}
-
 const WEEKS_IN_SEC = 60 * 60 * 24 * 7;
 
 function formatRouter(cwd) {
@@ -369,39 +391,6 @@ function formatRouter(cwd) {
   };
 }
 
-function formatToggle() {
-  return (toggle, index, toggles) => {
-    const {
-      routers
-    } = toggle;
-
-    const [minTsAdded, maxTsLastSeen] = routers.reduce((timestamps, router) => {
-      let [min, max] = timestamps;
-      const { added, lastSeen } = router;
-      if (min > added) min = added;
-      if (max < lastSeen) max = lastSeen;
-      return [min, max];
-    }, [Infinity, -Infinity]);
-
-    // Cleanup a bit more the routers
-    toggle.routers = routers.map((router) => deleteObjectKeys(router, [
-      'name',
-      'repo_name',
-      'added',
-      'lastSeen',
-    ]));
-
-    return {
-      ...toggle,
-      progress: `${index + 1} / ${toggles.length}`,
-      all_routers_removed: routers.every(r => r.removed),
-      first_seen_on: new Date(minTsAdded * 1000),
-      last_seen_on: new Date(maxTsLastSeen * 1000),
-      weeks_survived: Math.ceil((maxTsLastSeen - minTsAdded) / WEEKS_IN_SEC),
-    };
-  };
-}
-
 async function groupByToggleName(togglesPromise, routerPromise) {
   const router = await routerPromise;
   const { name, repo_name } = router;
@@ -422,13 +411,64 @@ async function groupByToggleName(togglesPromise, routerPromise) {
   return toggles;
 }
 
+function formatToggle(toggle, index, toggles) {
+  const {
+    routers
+  } = toggle;
+
+  const [minTsAdded, maxTsLastSeen] = routers.reduce((timestamps, router) => {
+    let [min, max] = timestamps;
+    const { added, lastSeen } = router;
+    if (min > added) min = added;
+    if (max < lastSeen) max = lastSeen;
+    return [min, max];
+  }, [Infinity, -Infinity]);
+
+  // Cleanup a bit more the routers
+  toggle.routers = routers.map((router) => deleteObjectKeys(router, [
+    'name',
+    'repo_name',
+    'added',
+    'lastSeen',
+  ]));
+
+  const categoryData = {
+    category: toggle.category,
+    category_comment: toggle.category_comment,
+    group_as: toggle.group_as,
+  };
+
+  // keep category data at the bottom for easier access
+  delete toggle.category;
+  delete toggle.category_comment;
+  delete toggle.group_as;
+
+  return {
+    ...toggle,
+    progress: `${index + 1} / ${toggles.length}`,
+    all_routers_removed: routers.every(r => r.removed),
+    first_seen_on: new Date(minTsAdded * 1000),
+    last_seen_on: new Date(maxTsLastSeen * 1000),
+    weeks_survived: Math.ceil((maxTsLastSeen - minTsAdded) / WEEKS_IN_SEC),
+    ...categoryData,
+  };
+}
+
+async function loadTogglesFromExtraction(repo_name, json, pathToRepository) {
+  const survival = await collect(repo_name, json, pathToRepository);
+  return await survival.filter(toggle => toggle.toggle_type === 'Router')
+    .map(formatRouter(pathToRepository))
+    .reduce(groupByToggleName, Promise.resolve([]));
+}
+
 (async () => {
   const { repo_name, json, pathToRepository } = getArgs();
   const filename = `${repo_name.replace('/', '__')}.json`;
 
   let toggles = await loadSavedToggles(filename);
   if (!toggles) {
-    toggles = await loadTogglesFromExtraction(repo_name, json, pathToRepository);
+    toggles = await loadTogglesFromExtraction(repo_name, json, pathToRepository)
+      .map(formatToggle);
   }
 
   walk(toggles, filename);
