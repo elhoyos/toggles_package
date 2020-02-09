@@ -11,10 +11,7 @@ options(
 
 source("./R/get_stable_point.R")
 source("./R/projects.R")
-
-no_org <- function(repo_name) {
-  return(unlist(strsplit(repo_name, "/", fixed = TRUE))[2])
-}
+source("./R/commons.R")
 
 SECONDS = 86400 * 7 # Each week
 stabilization_delta = 0.01
