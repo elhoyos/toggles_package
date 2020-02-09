@@ -1,23 +1,9 @@
----
-title: "Survival of toggles by categories"
-output: rmarkdown::github_document
----
-
-```{r Load libraries, include=FALSE}
-library(readr)
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-source("./commons.R")
-```
-
-```{r Load data, include=FALSE}
-data <- read_csv('../analyze/categories.csv') %>%
-  mutate(repo_name = no_org(repo_name), category_comment = NULL)
-```
+Survival of toggles by categories
+================
 
 ### Survival of toggles for each project
-```{r}
+
+``` r
 data %>%
   ggplot( aes(x=repo_name, y=weeks_survived, fill=repo_name) ) +
     geom_violin(scale = "width", draw_quantiles = c(0.5)) +
@@ -31,10 +17,14 @@ data %>%
     ylab("Weeks survived")
 ```
 
+![](categories_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+
 ### Survival of removed toggles for each project, detailed by category
 
-Useful to determine if a toggle is living longer than the ones that have been already removed.
-```{r}
+Useful to determine if a toggle is living longer than the ones that have
+been already removed.
+
+``` r
 data %>%
   filter(all_routers_removed == TRUE) %>%
   ggplot( aes(x=repo_name, y=weeks_survived, fill=repo_name) ) +
@@ -47,8 +37,11 @@ data %>%
     ylab("Weeks survived")
 ```
 
+![](categories_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+
 # Survival of toggles per category
-```{r}
+
+``` r
 data %>%
   ggplot( aes(x=category, y=weeks_survived, fill=category) ) +
     geom_violin(scale = "width", draw_quantiles = c(0.5)) +
@@ -61,3 +54,4 @@ data %>%
     ylab("Weeks survived")
 ```
 
+![](categories_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
