@@ -1,7 +1,7 @@
 Survival of toggles by categories
 ================
 
-### Survival of toggles for each project
+### Toggles survival per project
 
 ``` r
 data %>%
@@ -19,10 +19,10 @@ data %>%
 
 ![](categories_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
-### Survival of removed toggles for each project, detailed by category
+### Survival time of removed toggles per category
 
-Useful to determine if a toggle is living longer than the ones that have
-been already removed.
+Useful to compare toggles lifetimes. For example, is a toggle living
+longer than the other of the same category in a project?
 
 ``` r
 data %>%
@@ -39,7 +39,9 @@ data %>%
 
 ![](categories_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
-# Survival of toggles per category
+# Categories of toggles and their removal
+
+How do categories compare? Whether toggles are removed or not.
 
 ``` r
 data %>%
