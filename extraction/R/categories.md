@@ -7,6 +7,7 @@ Survival of toggles by categories
 data %>%
   ggplot( aes(x=repo_name, y=weeks_survived, fill=repo_name) ) +
     geom_violin(scale = "width", draw_quantiles = c(0.5)) +
+    geom_jitter(height = 0, width = 0.1, size = 0.5) +
     theme(
       legend.position = "none"
     ) +
@@ -29,6 +30,7 @@ data %>%
   filter(all_routers_removed == TRUE) %>%
   ggplot( aes(x=repo_name, y=weeks_survived, fill=repo_name) ) +
     geom_violin(scale = "width", draw_quantiles = c(0.5)) +
+    geom_jitter(height = 0, width = 0.1, size = 0.5) +
     coord_flip() +
     scale_y_log10() +
     facet_grid(cols = vars(category)) +
@@ -47,7 +49,7 @@ How do categories compare? Whether toggles are removed or not.
 data %>%
   ggplot( aes(x=category, y=weeks_survived, fill=category) ) +
     geom_violin(scale = "width", draw_quantiles = c(0.5)) +
-    geom_jitter(height = 0, width = 0.1) +
+    geom_jitter(height = 0, width = 0.1, size = 0.5) +
     coord_flip() +
     scale_y_log10() +
     facet_grid(rows = vars(all_routers_removed)) +
