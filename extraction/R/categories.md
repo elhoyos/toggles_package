@@ -1,7 +1,9 @@
-Survival of toggles by categories
+Survival of toggles and their categories
 ================
 
-### Toggles survival per project
+## Toggles survival per project
+
+How many weeks the removed and living toggles have survived?
 
 ``` r
 data %>%
@@ -20,7 +22,26 @@ data %>%
 
 ![](categories_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
-### Survival time of removed toggles per category
+## Aggregated survival by categories of toggles
+
+How do categories of removed and living toggles compare?
+
+``` r
+data %>%
+  ggplot( aes(x=category, y=weeks_survived, fill=category) ) +
+    geom_violin(scale = "width", draw_quantiles = c(0.5)) +
+    geom_jitter(height = 0, width = 0.1, size = 0.5) +
+    coord_flip() +
+    scale_y_log10() +
+    facet_grid(cols = vars(all_routers_removed)) +
+    theme(legend.position = "none") +
+    xlab("") +
+    ylab("Weeks survived")
+```
+
+![](categories_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+
+## Survival time of removed toggles per category
 
 Useful to compare toggles lifetimes. For example, is a toggle living
 longer than the other of the same category in a project?
@@ -34,25 +55,6 @@ data %>%
     coord_flip() +
     scale_y_log10() +
     facet_grid(cols = vars(category)) +
-    theme(legend.position = "none") +
-    xlab("") +
-    ylab("Weeks survived")
-```
-
-![](categories_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
-
-# Categories of toggles and their removal
-
-How do categories compare? Whether toggles are removed or not.
-
-``` r
-data %>%
-  ggplot( aes(x=category, y=weeks_survived, fill=category) ) +
-    geom_violin(scale = "width", draw_quantiles = c(0.5)) +
-    geom_jitter(height = 0, width = 0.1, size = 0.5) +
-    coord_flip() +
-    scale_y_log10() +
-    facet_grid(rows = vars(all_routers_removed)) +
     theme(legend.position = "none") +
     xlab("") +
     ylab("Weeks survived")
