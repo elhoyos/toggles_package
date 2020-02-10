@@ -11,7 +11,7 @@ data %>%
       legend.position = "none"
     ) +
     coord_flip() +
-    facet_grid(rows = vars(all_routers_removed)) +
+    facet_grid(cols = vars(all_routers_removed)) +
     scale_y_log10() +
     xlab("") +
     ylab("Weeks survived")
