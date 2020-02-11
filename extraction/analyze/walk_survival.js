@@ -109,15 +109,16 @@ const walk = (toggles, filename) => {
 
         return currents
           .filter(({ routers, group_as }) => {
+            const groups = new Set([].concat(group_as));
             return (
               routers[0].toggle_id === toggle_id ||
-              group_as === toggle_id
+              groups.has(toggle_id)
             );
           })
           .reduce((merged, current, _ix, { length }) => {
             current.__seen = true;
             const { category, category_comment, group_as } = current;
-            const isToggleWithGroupAs = length === 1
+            const isToggleWithGroupAs = length === 1;
 
             // group_as is a hack to solve some cases where extractor is not capable
             // to trace same toggles
