@@ -230,8 +230,8 @@
     "first_seen_on": "2015-08-04T15:27:49.000Z",
     "last_seen_on": "2015-10-22T16:25:09.000Z",
     "weeks_survived": 12,
-    "category": "RELEASE",
-    "category_comment": "Product-centric. Reporter of parent ticket 1150222 indicates this is a feature expected to be launched on-time for a new release. However, this is an interesting case, because the author of the feature in the ticket 1150231 not only to be a product-centric toggle, but they expect to use it as a kill switch as well."
+    "category": "OPS",
+    "category_comment": "Reporter of parent ticket 1150222 indicates this is a feature expected to be launched on-time for a new release. However, this is an interesting case, because the author of the feature in the ticket 1150231 not only to be a product-centric toggle, but they expect to use it as a kill switch as well."
   },
   {
     "progress": "8 / 12",
