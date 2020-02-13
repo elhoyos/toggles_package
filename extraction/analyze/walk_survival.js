@@ -457,7 +457,7 @@ function formatToggle(toggle, index, toggles) {
 
 async function loadTogglesFromExtraction(repo_name, json, pathToRepository) {
   const survival = await collect(repo_name, json, pathToRepository);
-  return await survival.filter(toggle => toggle.toggle_type === 'Router')
+  return survival.filter(toggle => toggle.toggle_type === 'Router')
     .map(formatRouter(pathToRepository))
     .reduce(groupByToggleName, Promise.resolve([]));
 }
@@ -468,7 +468,7 @@ async function loadTogglesFromExtraction(repo_name, json, pathToRepository) {
 
   let toggles = await loadSavedToggles(filename);
   if (!toggles) {
-    toggles = await loadTogglesFromExtraction(repo_name, json, pathToRepository)
+    toggles = (await loadTogglesFromExtraction(repo_name, json, pathToRepository))
       .map(formatToggle);
   }
 
