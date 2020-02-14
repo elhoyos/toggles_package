@@ -8,12 +8,15 @@ library(readr)
 library(ggplot2)
 library(dplyr)
 library(tidyr)
+library(survival)
+library(GGally)
 source("./commons.R")
 ```
 
 ```{r Load data, include=FALSE}
 data <- read_csv('../analyze/categories.csv') %>%
   mutate(repo_name = no_org(repo_name), category_comment = NULL)
+  
 ```
 
 ## Toggles survival per project
@@ -24,7 +27,7 @@ How many weeks the removed and living toggles have survived?
 data %>%
   ggplot( aes(x=repo_name, y=weeks_survived, fill=repo_name) ) +
     geom_violin(scale = "width", draw_quantiles = c(0.5)) +
-    geom_jitter(height = 0, width = 0.1, size = 0.5) +
+    geom_jitter(height = 0, width = 0.1, size = 0.5)  +
     theme(
       legend.position = "none"
     ) +
@@ -34,6 +37,13 @@ data %>%
     xlab("") +
     ylab("Weeks survived")
 ```
+
+Preliminary notes:
+
+* Toggles not removed tend do live longer for most of the projects
+* Some projects like tndata_backend and Jiller do not remove most of their toggles
+* In general, most projects remove their toggles before 100 weeks
+
 
 ## Aggregated survival by categories of toggles
 
@@ -51,6 +61,14 @@ data %>%
     xlab("") +
     ylab("Weeks survived")
 ```
+
+Preliminary notes:
+
+* Remaining RELEASE and OPS toggles tend to live longer than the toggles already removed
+* Lifetime of RELEASE and OPS toggles distribute similarly. **Statistically different? See Kaplan-Meier analysis below**
+* OPS toggles are removed earlier than RELEASE toggles
+* In general, EXPERIMENT toggles are removed sooner than other categories of toggles
+
 
 ## Survival time of removed toggles per category
 
@@ -70,5 +88,98 @@ data %>%
     ylab("Weeks survived")
 ```
 
+## Kaplan-Meier estimates
 
+### All toggles
+
+```{r}
+sf.all.toggles <- data %>%
+  survfit(Surv(.$weeks_survived, .$all_routers_removed) ~ 1, data = .)
+
+summary(sf.all.toggles)
+
+ggsurv(sf.all.toggles)
+```
+
+## All toggles by category
+
+*TODO: Green (OPS) and blue (RELEASE) are indistinguisiable*
+
+```{r}
+sf.all.toggles.category <- data %>%
+  survfit(Surv(.$weeks_survived, .$all_routers_removed) ~ category, data = .)
+
+summary(sf.all.toggles.category)
+
+ggsurv(sf.all.toggles.category)
+```
+
+## All toggles per project
+
+*TODO: Green (OPS) and blue (RELEASE) are indistinguisiable*
+
+```{r}
+sf.all.toggles.project <- data %>%
+  survfit(Surv(.$weeks_survived, .$all_routers_removed) ~ repo_name, data = .)
+
+summary(sf.all.toggles.project)
+
+ggsurv(sf.all.toggles.project)
+```
+
+
+### Similarity of survival functions
+
+Are OPS and RELEASE statistically similar?
+
+Following are the logrank tests to compare the groups. The null hypothesis is the distributions are statistically equal. Evaulate using `alpha = 0.05`
+
+*Reminder:* if `p < alpha`, reject null hypothesis
+
+#### Per category
+```{r}
+data %>%
+  # filter(category %in% c("RELEASE", "OPS", "PERMISSION", "EXPERIMENT", "UNKNOWN")) %>%
+  survdiff(Surv(.$weeks_survived, .$all_routers_removed) ~ category, data = .)
+```
+
+Preliminary notes:
+
+* Survival curves per category are statistically similar
+* UNKNOWN is more similar to OPS than RELEASE
+* PERMISSION is more similar to UNKNOWN than RELEASE
+* EXPERIMENT toggles survivability is the most alike of the categories
+
+#### Per project
+
+```{r}
+data %>%
+  survdiff(Surv(.$weeks_survived, .$all_routers_removed) ~ repo_name, data = .)
+```
+
+Preliminary notes:
+
+* Survival of toggles across projects are very different
+
+**edX projects:**
+```{r}
+data %>%
+  filter(repo_name %in% c("course-discovery", "ecommerce", "edx-analytics-dashboard", "edx-platform")) %>%
+  survdiff(Surv(.$weeks_survived, .$all_routers_removed) ~ repo_name, data = .)
+```
+
+Preliminary notes:
+
+* Survival of toggles in edX projects is not statistically similar
+
+**mozilla projects:**
+```{r}
+data %>%
+  filter(repo_name %in% c("bedrock", "kitsune", "socorro")) %>%
+  survdiff(Surv(.$weeks_survived, .$all_routers_removed) ~ repo_name, data = .)
+```
+
+Preliminary notes:
+
+* Survival of toggles in mozilla projects is not statistically similar
 
