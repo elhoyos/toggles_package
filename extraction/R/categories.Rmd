@@ -159,7 +159,7 @@ data %>%
 
 Preliminary notes:
 
-* Survival of toggles across projects are very different
+* Survival of toggles across projects are statistically different
 
 **edX projects:**
 ```{r}

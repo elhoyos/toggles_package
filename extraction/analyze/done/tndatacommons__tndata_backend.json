@@ -27,8 +27,8 @@
     "first_seen_on": "2015-10-28T22:40:33.000Z",
     "last_seen_on": "2016-10-11T19:31:07.000Z",
     "weeks_survived": 50,
-    "category": "UNKNOWN",
-    "category_comment": "No PR, no issue. Code under the toggle is not sufficiently clear. Removal is not clear either. However, given this is a django command and the context of the functionality, this seems to be an OPS toggle."
+    "category": "EXPERIMENT",
+    "category_comment": "Code under the toggle is a django command. Author confirmed directly to me that: 'We A/B tested response rates for a lot of the \"goal notification\" features.'"
   },
   {
     "progress": "2 / 13",
@@ -58,8 +58,8 @@
     "first_seen_on": "2015-10-28T22:40:33.000Z",
     "last_seen_on": "2016-10-11T19:31:07.000Z",
     "weeks_survived": 50,
-    "category": "UNKNOWN",
-    "category_comment": "No PR, no issue. Code under the toggle is not sufficiently clear. Removal is not clear either. However, given this is a django command and the context of the functionality, this seems to be an OPS toggle."
+    "category": "EXPERIMENT",
+    "category_comment": "Code under the toggle is a django command. Author confirmed directly to me that: 'We A/B tested response rates for a lot of the \"goal notification\" features.'"
   },
   {
     "progress": "3 / 13",
@@ -106,8 +106,8 @@
     "first_seen_on": "2016-01-28T20:06:17.000Z",
     "last_seen_on": "2017-03-27T06:18:58.000Z",
     "weeks_survived": 61,
-    "category": "UNKNOWN",
-    "category_comment": "No PR, no issue. Code under the toggle is not sufficiently clear. Removal is not clear either. However, given this is a django command and the context of the functionality, this seems to be an OPS toggle."
+    "category": "EXPERIMENT",
+    "category_comment": "Code under the toggle is a django command. Author confirmed directly to me that: 'We A/B tested response rates for a lot of the \"goal notification\" features.'"
   },
   {
     "progress": "4 / 13",
@@ -138,7 +138,7 @@
     "last_seen_on": "2017-03-27T06:18:58.000Z",
     "weeks_survived": 59,
     "category": "OPS",
-    "category_comment": "When the flag is deactivated it hides a deprecated feature in case they 'need to' switch back. Notice the intention of the toggle as per 88ac7bab2 and the name prefix 'use', is contrary to how it is implemented."
+    "category_comment": "When the Waffle switch is deactivated it hides a deprecated feature in case they need to switch back. Notice this intention of the toggle as per 88ac7bab2 and the previous commit 1562a53ed7 that commented the code, and the name prefix 'use', is contrary to how it is implemented."
   },
   {
     "progress": "5 / 13",
@@ -169,7 +169,7 @@
     "last_seen_on": "2017-03-27T06:18:58.000Z",
     "weeks_survived": 59,
     "category": "UNKNOWN",
-    "category_comment": "Despite the code executing when the toggle is disabled has a deprecation notice, it is not clear if the usage case is to hide a partial feature, a product-centric feature or to asses the operational aspects of the system."
+    "category_comment": "Despite the code executing when the toggle is disabled has a deprecation notice, it is not clear if the usage case is to hide a partial feature, a product-centric feature or to asses the operational aspects of the system. Author did not make any comment on this toggle specifically."
   },
   {
     "progress": "6 / 13",
@@ -199,8 +199,8 @@
     "first_seen_on": "2016-02-22T22:25:21.000Z",
     "last_seen_on": "2017-03-27T06:18:58.000Z",
     "weeks_survived": 57,
-    "category": "UNKNOWN",
-    "category_comment": "Feature under the switch lowers the default page size of any read-only viewset of an api. An OPS would normally fit, but it is not clear the reasons to prioritize the user-requested page size above the default page size when the toggle is active."
+    "category": "OPS",
+    "category_comment": "Feature under the switch lowers the default page size of any read-only viewset of an api. It is not clear the reasons to prioritize the user-requested page size above the default page size when the toggle is active. However, author indicated to me this is an OPS toggle."
   },
   {
     "progress": "7 / 13",
@@ -440,7 +440,7 @@
     "last_seen_on": "2017-03-27T06:18:58.000Z",
     "weeks_survived": 28,
     "category": "OPS",
-    "category_comment": "This is very much a kill switch. This Waffle switch completely disables pre-cache the feed of a set of users. Interestingly, the toggle is redundant and useless in the management command."
+    "category_comment": "This is very much a kill switch. This Waffle switch completely disables pre-cache the feed of a set of users. Interestingly, the toggle is redundant and useless in the management command. Author confirmed the category directly to me."
   },
   {
     "progress": "12 / 13",
