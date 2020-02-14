@@ -1,5 +1,5 @@
 "name","repo_name","all_routers_removed","weeks_survived","category","category_comment"
-"allow_uploads","ccnmtl/wardenclyffe",false,3627,"OPS","Introduction commit message clearly states this toggle is to be used when the system is entering in maintenance mode."
+"allow_uploads","ccnmtl/wardenclyffe",false,362,"OPS","Introduction commit message clearly states this toggle is to be used when the system is entering in maintenance mode."
 "vital_uploads","ccnmtl/wardenclyffe",true,20,"OPS","VITAL is an external system that could be used for content publishing. The toggle helps disabling the publishing option to VITAL when needed. VITAL started around 2008 and was decomissioned in 2013 (http://ccnmtl.columbia.edu/vital/nsf/index.html)."
 "allow_zencoder","ccnmtl/wardenclyffe",true,11,"OPS","Initial experimental support was added to Zencoder at 1cc63c9. The toggle was added 50 days later."
 "enable_s3","ccnmtl/wardenclyffe",false,295,"OPS","Toggle was added altogether with the implementation to upload files to a third-party service, s3. A print comment under the toggle when not active says the uploads are temporarily disabled."

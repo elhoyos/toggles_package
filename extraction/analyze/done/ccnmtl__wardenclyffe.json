@@ -162,7 +162,7 @@
     "all_routers_removed": false,
     "first_seen_on": "2013-01-14T20:53:22.000Z",
     "last_seen_on": "2019-12-17T14:27:34.000Z",
-    "weeks_survived": 3627,
+    "weeks_survived": 362,
     "category": "OPS",
     "category_comment": "Introduction commit message clearly states this toggle is to be used when the system is entering in maintenance mode."
   },
