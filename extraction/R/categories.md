@@ -55,8 +55,6 @@ Preliminary notes:
   - Lifetime of RELEASE and OPS toggles distribute similarly.
     **Statistically different? See Kaplan-Meier analysis below**
   - OPS toggles are removed earlier than RELEASE toggles
-  - In general, EXPERIMENT toggles are removed sooner than other
-    categories of toggles
 
 ## Survival time of removed toggles per category
 
@@ -416,7 +414,7 @@ Preliminary notes:
   - Survival curves per category are statistically similar
   - UNKNOWN is more similar to OPS than RELEASE
   - PERMISSION is more similar to UNKNOWN than RELEASE
-  - EXPERIMENT toggles survivability is the most alike of the categories
+  - RELEASE toggles survivability is the most alike of the categories
 
 #### Per project
 
