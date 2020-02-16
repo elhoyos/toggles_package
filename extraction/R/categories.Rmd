@@ -10,14 +10,27 @@ library(dplyr)
 library(tidyr)
 library(survival)
 library(GGally)
+library(ggfortify)
 source("./commons.R")
 ```
 
 ```{r Load data, include=FALSE}
 data <- read_csv('../analyze/categories.csv') %>%
   mutate(repo_name = no_org(repo_name), category_comment = NULL)
-  
+
+edXProjects <- c("course-discovery", "ecommerce", "edx-analytics-dashboard", "edx-platform")
+mozillaProjects <- c("bedrock", "kitsune", "socorro")
 ```
+
+## Dataset overview
+```{r}
+summary(data)
+
+data %>%
+  ggplot( aes(x=category, y=weeks_survived, color=category) ) +
+    geom_jitter()
+```
+
 
 ## Toggles survival per project
 
@@ -75,110 +88,143 @@ Useful to compare toggles lifetimes. For example, is a toggle living longer than
 
 ```{r}
 data %>%
-  filter(all_routers_removed == TRUE) %>%
+  # filter(repo_name == "edx-platform") %>%
+  # filter(all_routers_removed == TRUE) %>%
   ggplot( aes(x=repo_name, y=weeks_survived, fill=repo_name) ) +
     geom_violin(scale = "width", draw_quantiles = c(0.5)) +
     geom_jitter(height = 0, width = 0.1, size = 0.5) +
     coord_flip() +
     scale_y_log10() +
-    facet_grid(cols = vars(category)) +
+    facet_grid(cols = vars(category), rows = vars(all_routers_removed)) +
+    # facet_grid(cols = vars(category)) +
     theme(legend.position = "none") +
     xlab("") +
     ylab("Weeks survived")
 ```
 
+
 ## Kaplan-Meier estimates
 
-### All toggles
+Notice that from now on `data.not.unknown` will be used as data source.
 
 ```{r}
-sf.all.toggles <- data %>%
-  survfit(Surv(.$weeks_survived, .$all_routers_removed) ~ 1, data = .)
+data.not.unknown <- data %>%
+  filter(category != "UNKNOWN")
 
-summary(sf.all.toggles)
+summary(data.not.unknown)
 
-ggsurv(sf.all.toggles)
-```
-
-## All toggles by category
-
-*TODO: Green (OPS) and blue (RELEASE) are indistinguisiable*
-
-```{r}
-sf.all.toggles.category <- data %>%
-  survfit(Surv(.$weeks_survived, .$all_routers_removed) ~ category, data = .)
-
-summary(sf.all.toggles.category)
-
-ggsurv(sf.all.toggles.category)
-```
-
-## All toggles per project
-
-*TODO: Green (OPS) and blue (RELEASE) are indistinguisiable*
-
-```{r}
-sf.all.toggles.project <- data %>%
-  survfit(Surv(.$weeks_survived, .$all_routers_removed) ~ repo_name, data = .)
-
-summary(sf.all.toggles.project)
-
-ggsurv(sf.all.toggles.project)
+data.not.unknown %>%
+  ggplot( aes(x=category, y=weeks_survived, color=category) ) +
+    geom_jitter()
 ```
 
 
 ### Similarity of survival functions
 
-Are OPS and RELEASE statistically similar?
+Here's a Cox Proportional Hazards Model. This will tell us which covariates are more responsible for the removal of toggles.
 
-Following are the logrank tests to compare the groups. The null hypothesis is the distributions are statistically equal. Evaulate using `alpha = 0.05`
-
-*Reminder:* if `p < alpha`, reject null hypothesis
-
-#### Per category
 ```{r}
-data %>%
-  # filter(category %in% c("RELEASE", "OPS", "PERMISSION", "EXPERIMENT", "UNKNOWN")) %>%
-  survdiff(Surv(.$weeks_survived, .$all_routers_removed) ~ category, data = .)
+cox <- data.not.unknown %>%
+  coxph(formula = Surv(weeks_survived, all_routers_removed) ~ repo_name + category, data = .)
+
+summary(cox)
+
+cox_fit <- survfit(cox)
+autoplot(cox_fit)
 ```
 
 Preliminary notes:
 
-* Survival curves per category are statistically similar
-* UNKNOWN is more similar to OPS than RELEASE
-* PERMISSION is more similar to UNKNOWN than RELEASE
-* RELEASE toggles survivability is the most alike of the categories
-
-#### Per project
-
-```{r}
-data %>%
-  survdiff(Surv(.$weeks_survived, .$all_routers_removed) ~ repo_name, data = .)
-```
-
-Preliminary notes:
-
+* Most projects significantly contribute to the removal of toggles
 * Survival of toggles across projects are statistically different
+* No category significantly contributes to the removal of toggles
+* Are OPS and RELEASE statistically similar? In general, no. Survival curves per category are statistically similar. See "Same for all projects?" sectio below.
+
+#### Projects of the same company
 
 **edX projects:**
 ```{r}
-data %>%
-  filter(repo_name %in% c("course-discovery", "ecommerce", "edx-analytics-dashboard", "edx-platform")) %>%
+data.not.unknown %>%
+  filter(repo_name %in% edXProjects) %>%
   survdiff(Surv(.$weeks_survived, .$all_routers_removed) ~ repo_name, data = .)
 ```
-
-Preliminary notes:
-
-* Survival of toggles in edX projects is not statistically similar
 
 **mozilla projects:**
 ```{r}
-data %>%
-  filter(repo_name %in% c("bedrock", "kitsune", "socorro")) %>%
+data.not.unknown %>%
+  filter(repo_name %in% mozillaProjects) %>%
   survdiff(Surv(.$weeks_survived, .$all_routers_removed) ~ repo_name, data = .)
 ```
 
 Preliminary notes:
 
-* Survival of toggles in mozilla projects is not statistically similar
+* Survival of toggles in edX projects is statistically different
+* Survival of toggles in mozilla projects are statistically similar
 
+
+
+#### Same for all projects?
+
+We know categories do not contribute for the overall survival of toggles, but now that we know we should study projects individually, this still stands for all the projects?
+
+Following are the logrank tests to compare the survival curves. The null hypothesis is the distributions are statistically equal. Evaulate using `alpha = 0.05`
+
+*Reminder:* if `p < alpha`, reject null hypothesis
+
+
+```{r}
+for (i in unique(data$repo_name)) {
+  dt <- data.not.unknown %>%
+    group_by(repo_name) %>%
+    filter(repo_name == i & n_distinct(category) > 1)
+  
+  if (nrow(dt) > 1) {
+    print(i)
+    print(survdiff(Surv(weeks_survived, all_routers_removed) ~ category, data = dt))
+    cat('\n')
+  }
+}
+```
+
+Preliminary notes:
+
+* The survival times by category distributes differently in wardenclyffe, edx-platform, kitsune and tndata_backend.
+
+**edx-platform**
+
+```{r}
+dt <- data.not.unknown %>%
+  filter(repo_name == "edx-platform")
+
+cox <- coxph(Surv(weeks_survived, all_routers_removed) ~ category, data = dt)
+
+summary(cox)
+
+cox_fit <- survfit(cox)
+autoplot(cox_fit)
+```
+
+Preliminary notes:
+
+* OPS does not appear in the list of covariates. *TODO: what does it mean?*
+* RELEASE is significantly associated with the length of toggles survival for edx-platform
+
+
+**kitsune**
+
+```{r}
+cox <- data.not.unknown %>%
+  filter(repo_name == "kitsune") %>%
+  coxph(formula = Surv(weeks_survived, all_routers_removed) ~ category, data = .)
+
+summary(cox)
+
+cox_fit <- survfit(cox)
+autoplot(cox_fit)
+```
+
+Preliminary notes:
+
+* EXPERIMENT is missing from the model. *TODO: what does it mean?*
+* Toggles survive differently for OPS and RELEASE, but they do not to contribute significantly to the Cox regression model.
+* Low Rsquare, the dependent and independent variables are not strongly correlated
