@@ -288,7 +288,9 @@
     "last_seen_on": "2019-12-16T14:41:01.000Z",
     "weeks_survived": 223,
     "category": "RELEASE",
-    "category_comment": "'Product-centric', operator of installation determines if feature is enabled. Called 'Feature Gate' in docs: https://edx-ecommerce.readthedocs.io/en/latest/additional_features/gate_ecommerce.html."
+    "category_comment": "'Product-centric', operator of installation determines if feature is enabled. Called 'Feature Gate' in docs: https://edx-ecommerce.readthedocs.io/en/latest/additional_features/gate_ecommerce.html.",
+    "expected_longevity": "long",
+    "expected_longevity_comment": "'Product-centric', operator of installation determines if feature is enabled. Called 'Feature Gate' in docs: https://edx-ecommerce.readthedocs.io/en/latest/additional_features/gate_ecommerce.html. An Open edX option."
   },
   {
     "progress": "6 / 49",
@@ -381,7 +383,9 @@
     "last_seen_on": "2016-02-02T05:17:20.000Z",
     "weeks_survived": 1,
     "category": "RELEASE",
-    "category_comment": "In PR#447 the author states 'This is primarily for the initial rollout. We want to ramp it up to make sure we don't break for everyone.'"
+    "category_comment": "In PR#447 the author states 'This is primarily for the initial rollout. We want to ramp it up to make sure we don't break for everyone.'",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "In PR#447 the author states 'This is primarily for the initial rollout. We want to ramp it up to make sure we don't break for everyone.'. Monitored Rollout."
   },
   {
     "progress": "9 / 49",
@@ -938,7 +942,9 @@
     "last_seen_on": "2017-08-02T18:46:04.000Z",
     "weeks_survived": 1,
     "category": "OPS",
-    "category_comment": "In PR#1419 author indicates the toggle is to determine a misbehavior"
+    "category_comment": "In PR#1419 author indicates the toggle is to determine a misbehavior",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "In PR#1419 author indicates the toggle is to determine a misbehavior"
   },
   {
     "progress": "22 / 49",
@@ -1226,7 +1232,9 @@
     "last_seen_on": "2018-05-10T14:58:30.000Z",
     "weeks_survived": 4,
     "category": "OPS",
-    "category_comment": "Created to verify a performance fix. Author of the removal indicates in LEARNER-5038 the reasons to remove the toggle are due to stabilization of the feature under the toggle"
+    "category_comment": "Created to verify a performance fix. Author of the removal indicates in LEARNER-5038 the reasons to remove the toggle are due to stabilization of the feature under the toggle",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "Created to verify a performance fix. Author of the removal indicates in LEARNER-5038 the reasons to remove the toggle are due to stabilization of the feature under the toggle."
   },
   {
     "progress": "28 / 49",
@@ -1658,7 +1666,9 @@
     "last_seen_on": "2019-12-16T14:41:01.000Z",
     "weeks_survived": 66,
     "category": "RELEASE",
-    "category_comment": "Renamed from PROGRAM_APPLICATOR_USE_FLAG."
+    "category_comment": "Renamed from PROGRAM_APPLICATOR_USE_FLAG. In PR1902 author indicates the 'flag migration didn't seem appropriate since this will most likely be a temporary flag, so that can be created in the admin page when this is live'. Also this toggle hides the feature being build in multiple tasks of the epic EG-3.",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "Renamed from PROGRAM_APPLICATOR_USE_FLAG. In PR1902 author indicates the 'flag migration didn't seem appropriate since this will most likely be a temporary flag, so that can be created in the admin page when this is live'. Also this toggle hides the feature being build in multiple tasks of the epic EG-3."
   },
   {
     "progress": "37 / 49",

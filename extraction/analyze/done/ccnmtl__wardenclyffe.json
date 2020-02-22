@@ -164,7 +164,9 @@
     "last_seen_on": "2019-12-17T14:27:34.000Z",
     "weeks_survived": 362,
     "category": "OPS",
-    "category_comment": "Introduction commit message clearly states this toggle is to be used when the system is entering in maintenance mode."
+    "category_comment": "Introduction commit message clearly states this toggle is to be used when the system is entering in maintenance mode.",
+    "expected_longevity": "long",
+    "expected_longevity_comment": "Introduction commit message clearly states this toggle is to be used when the system is entering in maintenance mode."
   },
   {
     "progress": "2 / 13",
@@ -467,7 +469,9 @@
     "last_seen_on": "2013-11-11T20:19:45.000Z",
     "weeks_survived": 20,
     "category": "OPS",
-    "category_comment": "VITAL is an external system that could be used for content publishing. The toggle helps disabling the publishing option to VITAL when needed. VITAL started around 2008 and was decomissioned in 2013 (http://ccnmtl.columbia.edu/vital/nsf/index.html)."
+    "category_comment": "VITAL is an external system that could be used for content publishing. The toggle helps disabling the publishing option to VITAL when needed. VITAL started around 2008 and was decomissioned in 2013 (http://ccnmtl.columbia.edu/vital/nsf/index.html).",
+    "expected_longevity": "long",
+    "expected_longevity_comment": "VITAL is an external system that could be used for content publishing. The toggle helps disabling the publishing option to VITAL when needed. VITAL started around 2008 and was decomissioned in 2013 (http://ccnmtl.columbia.edu/vital/nsf/index.html)."
   },
   {
     "progress": "3 / 13",
@@ -608,7 +612,9 @@
     "last_seen_on": "2019-12-17T14:27:34.000Z",
     "weeks_survived": 267,
     "category": "OPS",
-    "category_comment": "The feature was introduced to support both 480 and 720 encoding options. The toggle (switch) was introduced after 40 days to disable the 720 option. Also, the merged branch was named to disable the said option. All these conditions clearly indicate the toggle is used to keep the system performance under control."
+    "category_comment": "The feature was introduced to support both 480 and 720 encoding options. The toggle (switch) was 40 days after the feature was introduced to disable the 720 option. Also, the merged branch was named to disable the said option. All these conditions clearly indicate the toggle is used to keep the system performance under control.",
+    "expected_longevity": "long",
+    "expected_longevity_comment": "The feature was introduced to support both 480 and 720 encoding options. The toggle (switch) was 40 days after the feature was introduced to disable the 720 option. Also, the merged branch was named to disable the said option. All these conditions clearly indicate the toggle is used to keep the system performance under control. A kill switch."
   },
   {
     "progress": "7 / 13",
@@ -687,7 +693,9 @@
     "last_seen_on": "2019-12-17T14:27:34.000Z",
     "weeks_survived": 238,
     "category": "OPS",
-    "category_comment": "Author in PR89 says about the feature: 'is not well documented, so this is a bit of a shot in the dark. So it's behind a waffle flag.'"
+    "category_comment": "Author in PR89 says about the feature: 'is not well documented, so this is a bit of a shot in the dark. So it's behind a waffle flag.'",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "Author in PR89 also indicates they are console logging the output of the operation in an external system (elastic transcoder) to 'figure out the format'. The switch is being used to reverse engineer the said format and the reason to have the 'waffle flag' is because of this uncertainty and the expected behavior of the feature in the application."
   },
   {
     "progress": "9 / 13",
@@ -947,7 +955,9 @@
     "last_seen_on": "2019-12-17T14:27:34.000Z",
     "weeks_survived": 166,
     "category": "RELEASE",
-    "category_comment": "Author in PR496 clearly states this toggle should be turned on only when the implementation of the feature is ready in another system."
+    "category_comment": "Author in PR496 clearly states this toggle should be turned on only when the implementation of the feature is ready in another system.",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "The feature in the other system lands in the master branch 12 days later at https://github.com/ccnmtl/mediathread/commit/f40491bb1172bcfb430c2a2c3140d0faf63703a8."
   },
   {
     "progress": "13 / 13",

@@ -28,7 +28,9 @@
     "last_seen_on": "2015-08-07T08:50:32.000Z",
     "weeks_survived": 31,
     "category": "RELEASE",
-    "category_comment": "Product-centric. Author in PR and in the ticket report 1108632 mentions this is behind a toggle to hide the feature until the release date."
+    "category_comment": "Product-centric. Author in PR and in the ticket report 1108632 mentions this is behind a toggle to hide the feature until the release date.",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "Product-centric. Author in PR and in the ticket report 1108632 mentions this is behind a toggle to hide the feature until the release date."
   },
   {
     "progress": "2 / 12",
@@ -90,7 +92,9 @@
     "last_seen_on": "2015-04-03T17:46:27.000Z",
     "weeks_survived": 6,
     "category": "RELEASE",
-    "category_comment": "Product-centric. People involved in related tickets 1128587 (back-end) and 1120700 (front-end) mention the launch date for the feature and explain the switch hides the new feature in production, but is already 'active in the dev and stage environments'."
+    "category_comment": "Product-centric. People involved in related tickets 1128587 (back-end) and 1120700 (front-end) mention the launch date for the feature and explain the switch hides the new feature in production, but is already 'active in the dev and stage environments'.",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "Product-centric. People involved in related tickets 1128587 (back-end) and 1120700 (front-end) mention the launch date for the feature and explain the switch hides the new feature in production, but is already 'active in the dev and stage environments'."
   },
   {
     "progress": "4 / 12",
@@ -327,7 +331,9 @@
     "last_seen_on": "2016-04-14T13:03:35.000Z",
     "weeks_survived": 27,
     "category": "RELEASE",
-    "category_comment": "The reporter of the ticket 1217211 says the motivation to have this toggle is because the feature should be hidden (users will be redirected) for some short time for marketing reasons. The commit message indicates the redirect will occur while the toggle is on. Same tracking-protection."
+    "category_comment": "The reporter of the ticket 1217211 says the motivation to have this toggle is because the feature should be hidden (users will be redirected) for some short time for marketing reasons. The commit message indicates the redirect will occur while the toggle is on. Same tracking-protection-redirect.",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "The reporter of the ticket 1217211 says the motivation to have this toggle is because the feature should be hidden (users will be redirected) for some short time for marketing reasons. The commit message indicates the redirect will occur while the toggle is on. Same tracking-protection-redirect."
   },
   {
     "progress": "10 / 12",
@@ -390,7 +396,9 @@
     "last_seen_on": "2015-12-18T15:01:37.000Z",
     "weeks_survived": 2,
     "category": "EXPERIMENT",
-    "category_comment": "Code around the toggle and ticket 1226830 clearly indicates this toggle helps enabling an A/B test."
+    "category_comment": "Code around the toggle and ticket 1226830 clearly indicates this toggle helps enabling an A/B test.",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "Code around the toggle and ticket 1226830 clearly indicates this toggle helps enabling an A/B test."
   },
   {
     "progress": "12 / 12",
@@ -421,6 +429,8 @@
     "last_seen_on": "2016-03-09T10:08:25.000Z",
     "weeks_survived": 4,
     "category": "RELEASE",
-    "category_comment": "Author mentions in PR3829 'The product itself it totally changing, so it makes no sense to keep the old page around. we'll be using a waffle flag and switching the new template on for when the new version is released.'"
+    "category_comment": "Author mentions in PR3829 'The product itself it totally changing, so it makes no sense to keep the old page around. we'll be using a waffle flag and switching the new template on for when the new version is released.'",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "Author mentions in PR3829 'The product itself it totally changing, so it makes no sense to keep the old page around. we'll be using a waffle flag and switching the new template on for when the new version is released.'"
   }
 ]

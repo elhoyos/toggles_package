@@ -237,7 +237,9 @@
     "last_seen_on": "2018-12-21T18:41:49.000Z",
     "weeks_survived": 22,
     "category": "RELEASE",
-    "category_comment": "See EZID_SWITCH toggle"
+    "category_comment": "EZID_SWITCH is used to transition to other providers (From EZID to Datacite and Crossref). See EZID_SWITCH toggle",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "EZID_SWITCH is used to transition to other providers (From EZID to Datacite and Crossref). See EZID_SWITCH toggle. The toggled feature was merged into a feature branch at commit 0c311dd when version 0.145.0 was introduced (see CHANGELOG file). The transition was completed a week later in the next released version 0.146.0 according to the CHANGELOG file."
   },
   {
     "progress": "6 / 18",
@@ -268,7 +270,9 @@
     "last_seen_on": "2019-12-17T01:52:06.000Z",
     "weeks_survived": 73,
     "category": "RELEASE",
-    "category_comment": "Renamed to features.INSTITUTIONAL_LANDING_FLAG. Author indicates in PR8333 that the main purpose is to add navigation support and to QA to test the navigation is as expected. This clearly shows the toggle is meant to hide a feature from production before QA verifies the functionality."
+    "category_comment": "Renamed to features.INSTITUTIONAL_LANDING_FLAG. Author indicates in PR8333 that the main purpose is to add navigation support and to QA to test the navigation is as expected. This clearly shows the toggle is meant to hide a feature from production before QA verifies the functionality.",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "Renamed to features.INSTITUTIONAL_LANDING_FLAG. Author indicates in PR8333 that the main purpose is to add navigation support and to QA to test the navigation is as expected. This clearly shows the toggle is meant to hide a feature from production before QA verifies the functionality."
   },
   {
     "progress": "7 / 18",
@@ -446,7 +450,9 @@
     "last_seen_on": "2019-12-17T01:52:06.000Z",
     "weeks_survived": 65,
     "category": "OPS",
-    "category_comment": "Author says in PR8702 this is a 'feature' to temporarily disable a specific set of engagement emails. Disabling these engagement emails was made a feature in release 18.0.0. Not product-centric due to its temporary characteristic."
+    "category_comment": "Author says in PR8702 this is a 'feature' to temporarily disable a specific set of engagement emails. Disabling these engagement emails was made a feature in release 18.0.0. Not product-centric due to its temporary characteristic.",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "Author says in PR8702 this is a 'feature' to temporarily disable a specific set of engagement emails. Disabling these engagement emails was made a feature in release 18.0.0. Not product-centric due to its temporary characteristic."
   },
   {
     "progress": "10 / 18",
@@ -690,7 +696,9 @@
     "last_seen_on": "2018-12-21T18:41:49.000Z",
     "weeks_survived": 2,
     "category": "OPS",
-    "category_comment": "Author in PR8855 says the the toggle switch is used to prevent sending updates to another system while it goes through a scheduled downtime."
+    "category_comment": "Author in PR8855 says the the toggle switch is used to prevent sending updates to another system while it goes through a scheduled downtime.",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "Author in PR8855 says the the toggle switch is used to prevent sending updates to another system while it goes through a scheduled downtime."
   },
   {
     "progress": "14 / 18",
@@ -835,7 +843,9 @@
     "last_seen_on": "2019-12-17T01:52:06.000Z",
     "weeks_survived": 37,
     "category": "RELEASE",
-    "category_comment": "Product-centric toggle hiding a feature being released in 19.5.0. See PR8808."
+    "category_comment": "Product-centric toggle hiding a feature being released in 19.5.0. See PR8808.",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "Product-centric toggle hiding a feature being released in 19.5.0. See PR8808."
   },
   {
     "progress": "17 / 18",

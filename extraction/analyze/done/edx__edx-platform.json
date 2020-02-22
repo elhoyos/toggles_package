@@ -299,7 +299,9 @@
     "last_seen_on": "2017-04-11T15:48:17.000Z",
     "weeks_survived": 1,
     "category": "OPS",
-    "category_comment": "Deletion commit message indicates 'few days' was enough to stabilize the feature until confident"
+    "category_comment": "Deletion commit message indicates 'few days' was enough to stabilize the feature until confident",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "Deletion commit message indicates 'few days' was enough to stabilize the feature until confident"
   },
   {
     "progress": "8 / 23",
@@ -633,7 +635,9 @@
     "last_seen_on": "2017-08-30T10:06:46.000Z",
     "weeks_survived": 10,
     "category": "RELEASE",
-    "category_comment": "Product-centric toggle under LEARNER-1111. However, author says still had to solve an 'issue of caching programs'"
+    "category_comment": "Product-centric toggle under LEARNER-1111. However, author says still had to solve an 'issue of caching programs'",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "Product-centric toggle under LEARNER-1111. However, author says still had to solve an 'issue of caching programs'. Incremental Release."
   },
   {
     "progress": "16 / 23",
@@ -698,7 +702,9 @@
     "last_seen_on": "2017-08-30T10:06:46.000Z",
     "weeks_survived": 9,
     "category": "RELEASE",
-    "category_comment": "Product-centric toggle. Reviewer in LEARNER-1146 suggests the names of the toggles and says to the author he will be deleting the toggle when done."
+    "category_comment": "Reviewer in LEARNER-1146 says: 'The LMS will continue accessing the old cache key until we flip the utility switch, at which point it will start accessing the newly populated keys. Once this is stable, we can remove the switches and old code.'",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "Reviewer in LEARNER-1146 says: 'The LMS will continue accessing the old cache key until we flip the utility switch, at which point it will start accessing the newly populated keys. Once this is stable, we can remove the switches and old code.'. Monitored Rollout."
   },
   {
     "progress": "17 / 23",
@@ -729,7 +735,9 @@
     "last_seen_on": "2017-08-02T18:44:59.000Z",
     "weeks_survived": 2,
     "category": "OPS",
-    "category_comment": "Author in PR15664 says 'this seems to be an area with some uncertainty, I've added a waffle switch'."
+    "category_comment": "Author in PR15664 says 'this seems to be an area with some uncertainty, I've added a waffle switch'.",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "Author in PR15664 says 'this seems to be an area with some uncertainty, I've added a waffle switch'. Monitored Rollout."
   },
   {
     "progress": "18 / 23",
@@ -901,7 +909,9 @@
     "last_seen_on": "2019-11-04T19:40:26.000Z",
     "weeks_survived": 35,
     "category": "RELEASE",
-    "category_comment": "A comment in the code that lasted until removed indicates the feature enablement should be made with a non-toggle solution, which indicates the switch was used to hide work-in-progress"
+    "category_comment": "A comment in the code that lasted until removed indicates the feature enablement should be made with a non-toggle solution and the commit message says: 'Add a management command to experiment with Access Expiry reminder emails for FBE'. Used to experiment with work-in-progress.",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "A comment in the code that lasted until removed indicates the feature enablement should be made with a non-toggle solution and the commit message says: 'Add a management command to experiment with Access Expiry reminder emails for FBE'. Used to experiment with work-in-progress."
   },
   {
     "progress": "23 / 23",
@@ -932,6 +942,6 @@
     "last_seen_on": "2019-11-04T19:40:26.000Z",
     "weeks_survived": 35,
     "category": "RELEASE",
-    "category_comment": "A comment in the code that lasted until removed indicates the feature enablement should be made with a non-toggle solution, which indicates the switch was used to hide work-in-progress"
+    "category_comment": "A comment in the code that lasted until removed indicates the feature enablement should be made with a non-toggle solution and the commit (4c8cd60) message says: 'Add a management command to experiment with Access Expiry reminder emails for FBE'. Used to experiment with work-in-progress."
   }
 ]

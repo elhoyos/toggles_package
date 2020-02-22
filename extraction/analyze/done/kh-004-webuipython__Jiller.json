@@ -178,7 +178,9 @@
     "last_seen_on": "2017-03-15T09:11:35.000Z",
     "weeks_survived": 6,
     "category": "PERMISSION",
-    "category_comment": "README.md and init_data.json changes on first commit clearly show this toggle is used to enable the feature for users in the 'developer' or 'scrum' groups."
+    "category_comment": "README.md and init_data.json changes on first commit clearly show this toggle is used to enable the feature for users in the 'developer' or 'scrum' groups.",
+    "expected_longevity": "long",
+    "expected_longevity_comment": "README.md and init_data.json changes on first commit clearly show this toggle is used to enable the feature for users in the 'developer' or 'scrum' groups."
   },
   {
     "progress": "3 / 17",
@@ -339,7 +341,9 @@
     "last_seen_on": "2017-03-15T09:11:35.000Z",
     "weeks_survived": 6,
     "category": "PERMISSION",
-    "category_comment": "README.md and init_data.json changes on first commit clearly show this toggle is used to enable the feature for users in the 'scrum' and 'product owner' groups."
+    "category_comment": "README.md and init_data.json changes on first commit clearly show this toggle is used to enable the feature for users in the 'scrum' and 'product owner' groups.",
+    "expected_longevity": "long",
+    "expected_longevity_comment": "README.md and init_data.json changes on first commit clearly show this toggle is used to enable the feature for users in the 'scrum' and 'product owner' groups."
   },
   {
     "progress": "6 / 17",
@@ -455,7 +459,9 @@
     "last_seen_on": "2017-03-15T09:11:35.000Z",
     "weeks_survived": 6,
     "category": "PERMISSION",
-    "category_comment": "README.md and init_data.json changes on first commit clearly show this toggle is used to enable the feature for users in the 'scrum' and 'product owner' groups."
+    "category_comment": "README.md and init_data.json changes on first commit clearly show this toggle is used to enable the feature for users in the 'scrum' and 'product owner' groups.",
+    "expected_longevity": "long",
+    "expected_longevity_comment": "README.md and init_data.json changes on first commit clearly show this toggle is used to enable the feature for users in the 'scrum' and 'product owner' groups."
   },
   {
     "progress": "7 / 17",
@@ -1190,7 +1196,9 @@
     "last_seen_on": "2017-03-15T09:11:35.000Z",
     "weeks_survived": 4,
     "category": "PERMISSION",
-    "category_comment": "init_data.json changes on first commit clearly show this toggle is used to enable the feature for users in the 'developer' and 'scrum' group."
+    "category_comment": "init_data.json changes on first commit clearly show this toggle is used to enable the feature for users in the 'developer' and 'scrum' group.",
+    "expected_longevity": "long",
+    "expected_longevity_comment": "init_data.json changes on first commit clearly show this toggle is used to enable the feature for users in the 'developer' and 'scrum' group."
   },
   {
     "progress": "17 / 17",
@@ -1221,6 +1229,8 @@
     "last_seen_on": "2017-03-15T09:11:35.000Z",
     "weeks_survived": 1,
     "category": "PERMISSION",
-    "category_comment": "init_data.json changes on first commit clearly show this toggle is used to enable the feature for users in the 'scrum' group."
+    "category_comment": "init_data.json changes on first commit clearly show this toggle is used to enable the feature for users in the 'scrum' group.",
+    "expected_longevity": "long",
+    "expected_longevity_comment": "init_data.json changes on first commit clearly show this toggle is used to enable the feature for users in the 'scrum' group."
   }
 ]

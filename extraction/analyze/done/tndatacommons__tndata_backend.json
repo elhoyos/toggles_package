@@ -28,7 +28,9 @@
     "last_seen_on": "2016-10-11T19:31:07.000Z",
     "weeks_survived": 50,
     "category": "EXPERIMENT",
-    "category_comment": "Code under the toggle is a django command. Author confirmed directly to me that: 'We A/B tested response rates for a lot of the \"goal notification\" features.'"
+    "category_comment": "Code under the toggle is a django command. Author confirmed directly to me that: 'We A/B tested response rates for a lot of the \"goal notification\" features.'",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "Code under the toggle is a django command. Author confirmed directly to me that: 'We A/B tested response rates for a lot of the \"goal notification\" features.'"
   },
   {
     "progress": "2 / 13",
@@ -138,7 +140,9 @@
     "last_seen_on": "2017-03-27T06:18:58.000Z",
     "weeks_survived": 59,
     "category": "OPS",
-    "category_comment": "When the Waffle switch is deactivated it hides a deprecated feature in case they need to switch back. Notice this intention of the toggle as per 88ac7bab2 and the previous commit 1562a53ed7 that commented the code, and the name prefix 'use', is contrary to how it is implemented."
+    "category_comment": "When the Waffle switch is deactivated it hides a deprecated feature in case they need to switch back. Notice this intention of the toggle as per 88ac7bab2 and the previous commit 1562a53ed7 that commented the code, and the name prefix 'use', is contrary to how it is implemented.",
+    "expected_longevity": "long",
+    "expected_longevity_comment": "When the Waffle switch is deactivated it hides a deprecated feature in case they need to switch back. Notice this intention of the toggle as per 88ac7bab2 and the previous commit 1562a53ed7 that commented the code, and the name prefix 'use', is contrary to how it is implemented."
   },
   {
     "progress": "5 / 13",
@@ -231,7 +235,9 @@
     "last_seen_on": "2017-03-27T06:18:58.000Z",
     "weeks_survived": 54,
     "category": "OPS",
-    "category_comment": "This is very much a kill switch. This Waffle switch completely disables the creation of all kind of notifications."
+    "category_comment": "This is very much a kill switch. This Waffle switch completely disables the creation of all kind of notifications.",
+    "expected_longevity": "long",
+    "expected_longevity_comment": "This is very much a kill switch. This Waffle switch completely disables the creation of all kind of notifications."
   },
   {
     "progress": "8 / 13",
@@ -262,7 +268,9 @@
     "last_seen_on": "2017-03-27T06:18:58.000Z",
     "weeks_survived": 54,
     "category": "OPS",
-    "category_comment": "This is very much a kill switch. This Waffle switch completely disables the expiration of all kind of notifications."
+    "category_comment": "This is very much a kill switch. This Waffle switch completely disables the expiration of all kind of notifications.",
+    "expected_longevity": "long",
+    "expected_longevity_comment": "This is very much a kill switch. This Waffle switch completely disables the expiration of all kind of notifications."
   },
   {
     "progress": "9 / 13",
@@ -519,6 +527,8 @@
     "last_seen_on": "2017-03-27T06:18:58.000Z",
     "weeks_survived": 10,
     "category": "OPS",
-    "category_comment": "This is very much a kill switch. This Waffle switch completely disables the sending SMS notifications."
+    "category_comment": "This is very much a kill switch. This Waffle switch completely disables the sending SMS notifications.",
+    "expected_longevity": "long",
+    "expected_longevity_comment": "This is very much a kill switch. This Waffle switch completely disables the sending SMS notifications."
   }
 ]

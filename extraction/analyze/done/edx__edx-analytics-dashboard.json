@@ -76,7 +76,9 @@
     "last_seen_on": "2014-09-17T21:18:41.000Z",
     "weeks_survived": 7,
     "category": "RELEASE",
-    "category_comment": "On removal (PR103), the README indicates the toggle shows experimental content."
+    "category_comment": "On removal (PR103), the README indicates the toggle shows experimental content.",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "On removal (PR103), the README indicates the toggle shows experimental content."
   },
   {
     "progress": "3 / 20",
@@ -158,7 +160,9 @@
     "last_seen_on": "2019-10-22T19:25:44.000Z",
     "weeks_survived": 268,
     "category": "RELEASE",
-    "category_comment": "On creation (PR82), author says the toggle is not 'intended to be long-lived and is only used in one location.'. It has transitioned to be a 'product-centric' toggle to be used on a specific product/configuration. Is still under the Feature Gating section of current README."
+    "category_comment": "On creation (PR82), author says the toggle is not 'intended to be long-lived and is only used in one location.'. It has transitioned from a 'product-centric' toggle to be used on a specific product/configuration. Is still under the Feature Gating section of current README.",
+    "expected_longevity": "long",
+    "expected_longevity_comment": "On creation (PR82), author says the toggle is not 'intended to be long-lived and is only used in one location.'. It has transitioned from a 'product-centric' toggle to be used on a specific product/configuration as it documented under the Feature Gating section of the README. An Open edX option."
   },
   {
     "progress": "4 / 20",
@@ -305,7 +309,9 @@
     "last_seen_on": "2014-11-25T16:35:58.000Z",
     "weeks_survived": 1,
     "category": "RELEASE",
-    "category_comment": "A reviewer asks if the 'feature flag' is necessary' and the author responds: 'While the code is complete, the copy has not been reviewed. This isn't quite ready for release.'"
+    "category_comment": "A reviewer asks if the 'feature flag' is necessary' and the author responds: 'While the code is complete, the copy has not been reviewed. This isn't quite ready for release.'",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "A reviewer asks if the 'feature flag' is necessary' and the author responds: 'While the code is complete, the copy has not been reviewed. This isn't quite ready for release.'. An Incremental Rollout."
   },
   {
     "progress": "6 / 20",
@@ -401,7 +407,9 @@
     "last_seen_on": "2019-10-22T19:25:44.000Z",
     "weeks_survived": 253,
     "category": "OPS",
-    "category_comment": "Code under the toggle uses another system to retrieve partial data, which could potentially affect the installation's behavior."
+    "category_comment": "Toggle is documented in the README. An Open edX option.",
+    "expected_longevity": "long",
+    "expected_longevity_comment": "Toggle is documented in the README. An Open edX option."
   },
   {
     "progress": "8 / 20",
@@ -542,7 +550,9 @@
     "last_seen_on": "2017-01-18T15:57:52.000Z",
     "weeks_survived": 70,
     "category": "RELEASE",
-    "category_comment": "Comment in PR351 indicates this is a partial feature."
+    "category_comment": "Toggle is documented in the README. An Open edX option.",
+    "expected_longevity": "long",
+    "expected_longevity_comment": "Toggle is documented in the README. An Open edX option."
   },
   {
     "progress": "12 / 20",

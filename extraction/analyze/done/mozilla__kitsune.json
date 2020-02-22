@@ -28,7 +28,9 @@
     "last_seen_on": "2011-08-31T21:54:23.000Z",
     "weeks_survived": 20,
     "category": "OPS",
-    "category_comment": "Reporter of 649992 says: 'it needs to be hidden behind Waffle so we can dial it up and watch the load'."
+    "category_comment": "Reporter of 649992 says: 'it needs to be hidden behind Waffle so we can dial it up and watch the load'.",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "Reporter of 649992 says: 'it needs to be hidden behind Waffle so we can dial it up and watch the load'."
   },
   {
     "progress": "2 / 20",
@@ -209,7 +211,9 @@
     "last_seen_on": "2011-08-31T21:54:23.000Z",
     "weeks_survived": 17,
     "category": "RELEASE",
-    "category_comment": "Author says in 682265 when removing: 'Private messaging has been rolled out for a while. It's not a resource-intensive feature that needs to be turned off'"
+    "category_comment": "Author says in 682265 when removing: 'Private messaging has been rolled out for a while. It's not a resource-intensive feature that needs to be turned off'",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "Author says in 682265 when removing: 'Private messaging has been rolled out for a while. It's not a resource-intensive feature that needs to be turned off'"
   },
   {
     "progress": "4 / 20",
@@ -1146,7 +1150,9 @@
     "last_seen_on": "2019-12-16T15:39:53.000Z",
     "weeks_survived": 363,
     "category": "OPS",
-    "category_comment": "This is a toggle to control the visibility of a user-facing feature prone to abuse."
+    "category_comment": "This is a toggle to control the visibility of a user-facing feature prone to abuse.",
+    "expected_longevity": "long",
+    "expected_longevity_comment": "This is a toggle to control the visibility of a user-facing feature prone to abuse."
   },
   {
     "progress": "15 / 20",
@@ -1321,7 +1327,9 @@
     "last_seen_on": "2013-09-24T12:32:26.000Z",
     "weeks_survived": 5,
     "category": "RELEASE",
-    "category_comment": "Toggle used to integrate a new feature into the system."
+    "category_comment": "Toggle used to integrate a new feature into the system.",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "Toggle used to integrate a new feature into the system."
   },
   {
     "progress": "19 / 20",
@@ -1352,7 +1360,9 @@
     "last_seen_on": "2019-12-16T15:39:53.000Z",
     "weeks_survived": 228,
     "category": "EXPERIMENT",
-    "category_comment": "Reporter says in 1183422 that users 'should get either the old or new AAQ, based on a waffle flag, so we can compare the performance of the two. The resulting page should be distinguishable in Google Analytics so we can easily track this.'"
+    "category_comment": "Reporter says in 1183422 that users 'should get either the old or new AAQ, based on a waffle flag, so we can compare the performance of the two. The resulting page should be distinguishable in Google Analytics so we can easily track this.'",
+    "expected_longevity": "short",
+    "expected_longevity_comment": "Reporter says in 1183422 that users 'should get either the old or new AAQ, based on a waffle flag, so we can compare the performance of the two. The resulting page should be distinguishable in Google Analytics so we can easily track this.'"
   },
   {
     "progress": "20 / 20",
