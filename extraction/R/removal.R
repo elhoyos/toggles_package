@@ -3,6 +3,7 @@ library(effsize)
 library(magrittr)
 library(dplyr)
 library(tidyr)
+library(beanplot)
 
 source("./R/projects.R")
 
@@ -48,8 +49,8 @@ ratios <- data %>%
 
 # How different are ratios of Routers and Points?
 # Disable wilcox test temporarily (warning erroring)
-# wilcox.test(ratios$del_routers,ratios$del_points)
-# cliff.delta(ratios$del_routers,ratios$del_points)
+wilcox.test(ratios$del_routers,ratios$del_points, exact = FALSE)
+cliff.delta(ratios$del_routers,ratios$del_points)
 
 par(mfrow=c(2, 1))
 summary(ratios$num_toggles_aprox)
@@ -63,16 +64,27 @@ hist(ratios$point_ops, breaks=15, main="Number of Points operations")
 summary(ratios$number_of_commits)
 boxplot(ratios$number_of_commits, horizontal = TRUE)
 title("Number of commits")
-
 # Projects with more Routers deleted
 more_routers_deleted = ratios %>% filter(remaining_diff < 0) %>% arrange(desc(remaining_diff))
 more_routers_deleted
 summary(more_routers_deleted$remaining_diff)
 
 # Projects with more Points deleted
-more_points_deleted = ratios %>% filter(remaining_diff > 0) %>% arrange(desc(remaining_ratio))
-more_points_deleted
+# Use the following jq script to go through these Routers:
+# node analyze/analyzers/living-routers-without-point.js analysis/raw/edx__course-discovery/edx__course-discovery.json | jq -C '. | map({ id: .toggle.id, operation: .operation, link: "https://github.com/edx/course-discovery/blob/\(.commit.commit)/\(.toggle.file)#L\(.toggle.start.line)"}) | flatten'
+more_points_deleted <- ratios %>% filter(remaining_diff > 0) %>% arrange(desc(remaining_ratio))
 summary(more_points_deleted$remaining_ratio)
+beanplot(more_points_deleted$remaining_ratio, beanlines = "quantiles")
+
+
+# Number of routers per point
+ratio_added_components <- ratios %>%
+  mutate(routers_per_point = routers/points) %>%
+  select(repo_name, routers_per_point, remaining_ratio)
+
+summary(ratio_added_components)
+par(mfrow=c(1, 1))
+beanplot(ratio_added_components$routers_per_point, beanlines = "quantiles")
 
 # Projects with 100% removal
 ratios %>% filter(del_routers_ratio == 1 & del_points_ratio == 1)
@@ -89,25 +101,38 @@ summary(ratios$del_routers_ratio)
 del_routers_ratio <- ratios %>%
   mutate(component = "Routers") %>%
   select(
+    repo_name,
     component,
     ratio = del_routers_ratio)
 del_points_ratio <- ratios %>%
   mutate(component = "Points") %>%
   select(
+    repo_name,
     component,
     ratio = del_points_ratio)
 joined_ratios <- union_all(del_routers_ratio, del_points_ratio) %>%
   arrange(!is.na(component))
 
-pdf("figure_removed_ratio_by_component.pdf", width=2.5, height=4)
-par(mar=c(3, 4, 0.5, 0.6))
-boxplot(joined_ratios$ratio ~ joined_ratios$component,
-        horizontal = FALSE,
-        xlab = "",
-        ann = FALSE,
-        col = "grey")
+# pdf("figure_removed_ratio_by_component.pdf", width=2.5, height=4)
+# par(mar=c(3, 4, 0.5, 0.6))
+# boxplot(joined_ratios$ratio ~ joined_ratios$component,
+#         horizontal = FALSE,
+#         xlab = "",
+#         ann = FALSE,
+#         col = "grey")
+# mtext("% removed components", side = 2, line = 2.5)
+# dev.off()
+
+summary(del_points_ratio$ratio)
+
+pdf("figure_removed_points_ratio.pdf", width=2.5, height=4)
+par(mar=c(0.5, 4, 0.5, 0.6))
+beanplot(del_points_ratio$ratio)
 mtext("% removed components", side = 2, line = 2.5)
 dev.off()
+
+hist(del_points_ratio$ratio, breaks = 12)
+plot(density(del_points_ratio$ratio, bw = "SJ"))
 
 pdf("figure_removed_ratio_by_toggles_commits.pdf", width=6, height=3.2)
 ratio_range <- range(c(ratios$del_routers_ratio, ratios$del_points_ratio))

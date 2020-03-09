@@ -26,10 +26,10 @@ Object.keys(counts).forEach((type) => {
   Object.values(components).forEach((events) => {
     events.forEach((event) => {
       const { operation, toggle } = event;
-      const { id } = toggle;
+      const { original_id } = toggle;
 
       if (operation === 'ADDED' && type === 'Router') {
-        names.add(asToggleName(id));
+        names.add(asToggleName(original_id));
       }
 
       counts[type][operation] += 1;

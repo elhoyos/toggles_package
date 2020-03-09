@@ -22,39 +22,32 @@ as_filenames <- function(projects_as_repos) {
 
 paths <- paste(base_path, as_filenames(projects), sep="")
 filenames = dir(pattern="^survival.csv$", path = paths, full.names = TRUE, recursive = TRUE)
-survival <- data.frame()
-stable_points = data.frame(matrix(ncol = 3, nrow = 0))
 
 # Colors
 col = 1:4
 
 # Full set
-pdf(paste("figure_survival_all_projects.pdf", sep=""), width=6.83, height=12.35)
-par(mfrow = c(8, 5), mar=c(2.5,2,1.5,2), oma=c(0,0,3,0))
+pdf(paste("figure_survival_all_projects.pdf", sep=""), width=6.83, height=5)
+par(mfrow = c(3, 4), mar=c(2.5,2,1.5,2), oma=c(0,0,3,0))
 
+all_points <- tibble()
 for (i in 1:length(filenames)) {
-  data <- read.csv(filenames[i])
+  data <- read.csv(filenames[i]) %>%
+    filter(toggle_type == "Point") %>%
+    mutate(weeks_survived = ceiling(epoch_interval/SECONDS)) %>%
+    group_by(repo_name, original_id) %>%
+    summarize(weeks_survived = max(weeks_survived), removed = max(removed))
+
+  all_points <- union_all(all_points, data)
   repo_name <- data$repo_name[1]
   print(repo_name)
 
-  survival <- rbind(survival, data)
+  kmsurvival <- survfit(Surv(ceiling(data$weeks_survived), data$removed) ~ 1)
+  print(summary(kmsurvival))
 
-  kmsurvival <- survfit(Surv(ceiling(data$epoch_interval/SECONDS), data$removed) ~ 1)
-  print(summary(kmsurvival, censored=TRUE))
-
-  # project = sub("\\.", "_", sub("/", "__", repo_name))
-  # pdf(paste("survival_", project, ".pdf", sep=""), width=5, height=4)
-  # # par needs to be here so the pdf gets the right margins
-  # par(mar=c(4, 3.5, 2, 0))
   plot(kmsurvival, col=col)
-  # title(main=no_org(repo_name), ylab="Survival Function", xlab="Weeks", mgp=c(2.5, 0, 0), cex.lab=1.2, cex.main=2)
   title(main=no_org(repo_name), mgp=c(2.5, 0, 0), cex.lab=1.2, cex.main=1)
   box(lwd=1.95)
-  # legend("topright", inset=c(0.01, 0), legend=c("Estimate","Lower 95%","Upper 95%"), col=col, lty=1, bty="n", cex=0.8, y.intersp=1.2)
-  # dev.off()
-
-  stable_point <- c(list(repo_name=repo_name), get_stable_point(kmsurvival, stabilization_delta))
-  stable_points = rbind(stable_points, data.frame(stable_point))
 }
 
 par(fig = c(0, 1, 0, 1),
@@ -70,42 +63,43 @@ legend("top",
        inset = c(0, 0),
        lty = 1,
        cex = 0.8)
+
 dev.off()
 
-summary(stable_points)
+summary(all_points$weeks_survived)
 
-options(scipen=999) # Disable scientific notation
-
-pdf("figure_removal_stabilization.pdf",  width=3, height=2)
-par(mgp=c(2.3, 1, 0), mar=c(3.5, 0.1, 0.1, 0.1))
-boxplot(stable_points$time,
-        horizontal = TRUE,
-        xlab="Weeks to stop removing components",
-        col = "grey")
+pdf("figure_points_weeks_survived.pdf", width=2.5, height=4)
+par(mar=c(0.5, 4, 0.5, 0.6))
+beanplot(all_points$weeks_survived, overallline = "median", ll = 0)
+mtext("Weeks survived", side = 2, line = 2.5)
 dev.off()
 
-pdf("figure_survival_stabilization.pdf",  width=3, height=2)
-par(mgp=c(2.3, 1, 0), mar=c(3.5, 0.1, 0.1, 0.1))
-boxplot(stable_points$survival * 100,
-        horizontal = TRUE,
-        xlab="% remaining components",
-        col = "grey")
-dev.off()
+# how many components remain after the 3rd quartile?
+third_q <- quantile(all_points$weeks_survived, names = TRUE)["75%"]
+points_by_repo <- all_points %>% group_by(repo_name) %>% summarize(n_points = n())
+removed_after_3rdQ <- all_points %>%
+  left_join(points_by_repo, by = "repo_name") %>%
+  group_by(repo_name) %>%
+  summarize(n = sum(weeks_survived > third_q), n_points = max(n_points)) %>%
+  mutate(ratio = n/n_points)
 
-ops_per_type <- stable_points %>%
-  left_join(read_csv('analysis/merged/operations-per-type.csv')) %>%
-  left_join(read_csv('analysis/waffle_projects.csv')) %>%
-  select(repo_name, num_toggles_aprox, number_of_commits, time, survival)
+# how many sampled short/long toggles' survived weeks deviate from the 3rd quartile and the project's own median?
+local_medians <- all_points %>%
+  group_by(repo_name) %>%
+  summarize(local_median = median(weeks_survived))
 
-pdf("figure_survival_vs_toggles_vs_commits.pdf", width=5, height=4)
-par(mfrow=c(1, 2))
-plot(ops_per_type$num_toggles_aprox,
-     ops_per_type$survival * 100,
-     xlab = "Number of toggles",
-     ylab = "")
-plot(ops_per_type$number_of_commits,
-     ops_per_type$survival * 100,
-     xlab = "Number of commits",
-     ylab = "")
-dev.off()
+short_long_toggles <- read.csv("./analyze/short_long.csv") %>%
+  left_join(local_medians, by = "repo_name") %>%
+  group_by(repo_name, expected_longevity) %>%
+  summarize(
+    n = n(),
+    lte_third_q = sum(weeks_survived <= third_q),
+    gt_third_q = sum(weeks_survived > third_q),
+    local_median = max(local_median),
+    lte_local_median = sum(weeks_survived <= local_median),
+    gt_local_median = sum(weeks_survived > local_median)
+  )
 
+abnormal_longevity <- short_long_toggles %>%
+  filter(expected_longevity == "short", gt_third_q > 0) %>%
+  select(repo_name, gt_third_q)
