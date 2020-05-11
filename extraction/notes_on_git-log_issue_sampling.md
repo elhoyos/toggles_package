@@ -91,12 +91,12 @@ For each Router:
 #### Highlights
 
 * The fallback strategy fail was found in 31.25% of the samples.
-* The name normalization fail was found in 12.5% of the samples.
+* The name normalization fail was found in 2 of the samples.
 * Both failures were found in one sample (~6%).
 
 ## Conclusions
 
-The results indicate that the normalization mitigation could help to solve about 40% of the fallback strategy failures at analysis time if Routers are used.
+The results indicate that the normalization mitigation can help mitigate about 80% of the fallback strategy failures at analysis time if Routers are used.
 
 Another interesting takeaway is that the issues in Routers and Points fail at the same rate for each toggle component type. This means that whenever a Router is added->deleted and then wrongly added again, the history of the associated Point is the same. Because of this reason and because we work with proportions, the routers-points ratio analysis is not affected by this issue.
 
