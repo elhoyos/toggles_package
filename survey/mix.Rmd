@@ -1,0 +1,185 @@
+---
+title: "Mix: experience, position and usage of feature toggles"
+output: rmarkdown::github_document
+---
+
+This analysis combines the experience, position and usage of feature toggles reported by the survey participants.
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+```
+
+```{r warning=FALSE}
+usages_names <- data.frame(
+  "long" = c(
+    "Trunk-based development / WIP",
+    "A/B or Mutivariate Testing",
+    "Canary Releases",
+    "Dark Launches",
+    "Kill Switch",
+    "Blue-green Deployments",
+    NA
+  ),
+  "short" = c(
+    "Trunk-based",
+    "A/B",
+    "Canary",
+    "Dark",
+    "Kill",
+    "Blue-green",
+    "Other"
+  ))
+
+positions_names <- data.frame(
+  "long" = c(
+    "Software Engineer / Developer",
+    "Software Architect",
+    "CTO",
+    NA
+  ),
+  "short" = c(
+    "Developer",
+    "Architect",
+    "CTO",
+    "Other"
+  ))
+
+experiences_names <- data.frame(
+  "long" = c(
+    "Between 1 and 3 Years",
+    "Between 4 and 5 Years",
+    "More than 5 Years",
+    NA
+  ),
+  "short" = c(
+    "1 to 3",
+    "4 to 5",
+    "gt 5",
+    "Unknown"
+  ))
+
+separator <- ";"
+
+renameme <- function(list, names) {
+  # rename, it is easier to analyze shorter texts
+  reasons <- sort(unlist(strsplit(list, separator)))
+  return(paste(names$short[match(reasons, names$long, nomatch = length(names$short))], collapse = separator))
+}
+
+as.usages <- function(usages) {
+  return(renameme(usages, usages_names))
+}
+
+as.position <- function(positions) {
+  return(renameme(positions, positions_names))
+}
+
+as.experience <- function(experiences) {
+  return(renameme(experiences, experiences_names))
+}
+
+data <- read_csv("./results/Toggle Debt survey_merged_201901161456.csv",) %>%
+  mutate(
+    respondent = row_number(),
+    experience = sapply(`How many years of professional experience do you have?`, as.experience),
+    position = sapply(`How would you best describe your profession?`, as.position),
+    usages = sapply(`When/for what reason do you introduce toggles in your project?`, as.usages),
+  ) %>%
+  dplyr::select(
+    respondent,
+    experience,
+    position,
+    usages,
+  ) %>%
+  separate_rows(usages, sep = ";")
+```
+
+### Heatmap
+We have 3 variables, let's give a try to a heatmap:
+
+```{r}
+heatmap_data <- data %>%
+  group_by(respondent, position, usages) %>%
+  summarize(
+    experience_scaled = case_when(
+      experience == "1 to 3" ~ 1,
+      experience == "4 to 5" ~ 2,
+      experience == "gt 5" ~ 3,
+      TRUE ~ -1 # Bang!
+    ),
+  )
+
+ggplot(heatmap_data, aes(usages, position, fill = experience_scaled)) +
+  geom_tile()
+```
+
+Heatmaps are not quite the way to go here. Seems like heatmaps are made for non-categorical/discrete variables.
+
+### Multiple Correspondence Analysis
+
+PCA or Principal Component Analysis apparently can be used for categorical variables: https://stats.stackexchange.com/a/5777/244050
+
+TODO: Something to try
+
+### 3-way table
+
+```{r}
+library(Hmisc)
+
+n_respondents <- max(data$respondent)
+contingency_tbl <- data %>%
+  group_by(usages, experience, position) %>%
+  tally() %>%
+  pivot_wider(
+    names_from = c("position", "experience"),
+    values_from = c("n"),
+    values_fill = list(n = 0),
+  ) %>%
+  ungroup() %>% 
+  mutate(
+    total = rowSums(.[-1]),
+    share = round(total / n_respondents, digits = 3) * 100,
+    total_share = sprintf("%d (%2.1f)", total, share),
+    # usages_total_share = sprintf("%s %s", usages, total_share),
+  ) %>%
+  arrange(desc(share)) %>%
+  select(
+    usages,
+    "Total Share" = total_share,
+    # Reorder these
+    starts_with("Developer"),
+    starts_with("Architect"),
+    starts_with("CTO"),
+    starts_with("Other"),
+  )
+
+rownames(contingency_tbl) <- NULL
+
+fmt <- function(names) {
+  return(sub("_", "\n", names))
+}
+
+latex_tbl <- latex(
+  contingency_tbl,
+  # Original
+  # colheads = fmt(colnames(contingency_tbl)),
+  # vbar = TRUE,
+  file = "table_position_experience_usages.tex",
+  rowname = NULL,
+
+  # Take 2
+  cgroup = c("", "Developer", "Architect", "CTO", "Other"),
+  colheads = c("Usages", "", "1 to 3", "4 to 5", "gt 5", "gt 5", "gt 5", "gt 5"),
+  n.cgroup = c(2, 3, 1, 1, 1),
+  first.hline.double = FALSE,
+  # multicol = FALSE,
+  table.env = FALSE,
+  center = "none",
+  # col.just = strsplit("@{}lr|ccc|c|c|c@{}", "")[[1]],
+  col.just = strsplit("rrcccccccccc", "")[[1]],
+)
+# latex_tbl
+```
