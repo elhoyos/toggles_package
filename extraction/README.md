@@ -45,3 +45,52 @@ Prepare all extracted toggle components and summarize:
 $ REPOS_STORE=~/_repositories ./prepare-toggles.sh `ls -l bulktractor/toggles/ | awk '{if ($9) printf ("%9s ", $9) }' | sed 's/\.json//g'`
 ```
 
+
+## Traversal of extracted components
+
+We manually walked the resulting feature toggles to group and classfiy the toggles and gain more insights from their removal. In the `analyze` folder you can find a set of scripts that will help you traverse and augment the extracted feature toggles of a project.
+
+### Walk toggles
+
+Traversing the toggles from the extracted JSON files can be tricky. `walk_survival.js` is a REPL tool that will help you:
+- move through a list of toggles
+- consolidate the components of a single feature toggle (same component type only)
+- set a Hodgson classification
+- save the resulting changes
+
+To walk the Mozilla Bedrock routers you can run, for example:
+
+```bash
+$ node analyze/walk_survival.js \
+    mozilla__bedrock analysis/raw/mozilla__bedrock/mozilla__bedrock.json \
+    /home/me/research/repositories/mozilla__bedrock \
+    Router
+
+Walk a list of Routers/Points of a survival analysis.
+
+Press 'j' (next) and 'k' (previous) to move along the list.
+Press 'g' to enter into go-to-mode.
+
+Press the number to set the toggle category:
+1:RELEASE / 2:EXPERIMENT / 3:OPS / 4:PERMISSION / 0:UNKNOWN
+Then, add a commment explaining the evidence to set the given category and press 'enter' to finish.
+If you need to fix the comment, use '&' to start over.
+
+Press '-' to unset the toggle category.
+
+Press 'r' to reload the toggles data from the extracted json.
+
+Press 's' to save the set toggles to a file.
+
+Press Ctrl+C to exit.
+
+> 
+```
+
+### Save the walked result to CSV
+
+After walking and saving the compacted toggles of all projects in JSON files, you can convert these into a consolidated CSV file this way:
+
+```bash
+$ jq --slurp --raw-output --from-file analyze/short_long_as_csv.jq analysis/manual_walk/*.json > analysis/short_long.csv
+```
