@@ -6951,7 +6951,12 @@
     "last_seen_on": "2013-12-19T18:31:35.000Z",
     "weeks_survived": 36,
     "category": "",
-    "category_comment": ""
+    "category_comment": "",
+    "group_as": [
+      "in-app-sandbox-422f26c11c2ae14449ba4fcbe9ce91f49690cc1707096b28e4bbc6daf74dd537",
+      "allow-b2g-paid-submission-f71cf4dbf5f6f49a14481518e33630e3856deb95a969e3084199ef41ea1531d4",
+      "allow-refund-1e19a14334ca9c301b549a1a9538ca2296a330114c2e47eaf88e09bf56f02ae6"
+    ]
   },
   {
     "progress": "55 / 84",
@@ -7664,7 +7669,12 @@
     "last_seen_on": "2013-12-19T18:31:35.000Z",
     "weeks_survived": 28,
     "category": "",
-    "category_comment": ""
+    "category_comment": "",
+    "group_as": [
+      "in-app-sandbox-422f26c11c2ae14449ba4fcbe9ce91f49690cc1707096b28e4bbc6daf74dd537",
+      "allow-refund-1e19a14334ca9c301b549a1a9538ca2296a330114c2e47eaf88e09bf56f02ae6",
+      "allow-b2g-paid-submission-f71cf4dbf5f6f49a14481518e33630e3856deb95a969e3084199ef41ea1531d4"
+    ]
   },
   {
     "progress": "61 / 84",

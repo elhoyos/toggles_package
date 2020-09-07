@@ -8,7 +8,7 @@ flatten |
 [
   "name", "repo_name", "all_routers_removed",
   "weeks_survived", "category", "expected_longevity",
-  "expected_longevity_comment"] as $cols |
+  "all_routers_removed"] as $cols |
 map(
   select(
     .expected_longevity != null and

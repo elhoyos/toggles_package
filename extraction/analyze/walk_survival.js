@@ -6,9 +6,9 @@ const { asToggleName } = require('./common');
 const { inspect } = require('util');
 
 /*
-* Walk a list of Routers of a survival analysis
+* Walk a list of Routers/Points of a survival analysis
 *
-* node walk_survival.js repo_name history.json "path/to/repository"
+* node walk_survival.js repo_name history.json "path/to/repository" [Router|Point]
 */
 
 const getArgs = () => {
@@ -16,6 +16,7 @@ const getArgs = () => {
     repo_name: argv._[0],
     json: fs.readFileSync(argv._[1]),
     pathToRepository: argv._[2],
+    componentType: argv._[3] || 'Router',
   };
 }
 
@@ -52,7 +53,7 @@ const walk = (toggles, filename) => {
   function printInstructions() {
     console.log([
       '',
-      `Walk a list of Routers of a survival analysis.`,
+      `Walk a list of Routers/Points of a survival analysis.`,
       '',
       `Press 'j' (next) and 'k' (previous) to move along the list.`,
       `Press 'g' to enter into go-to-mode.`,
@@ -301,8 +302,7 @@ const walk = (toggles, filename) => {
         break;
       case 'r':
         print('Reloading extracted toggles data...\n');
-        const { repo_name, json, pathToRepository } = getArgs();
-        const toggles = await loadTogglesFromExtraction(repo_name, json, pathToRepository);
+        const toggles = await loadTogglesFromExtraction(getArgs());
         reloadTogglesData(toggles);
         state.toggle = getToggle();
         break;
@@ -355,10 +355,9 @@ function deleteObjectKeys(obj, keys) {
 
 const WEEKS_IN_SEC = 60 * 60 * 24 * 7;
 
-function formatRouter(cwd) {
-  return async (router) => {
+function formatComponent(cwd, nameFn) {
+  return async (component) => {
     const {
-      toggle_id,
       repo_name,
       epoch_interval,
       commit_added,
@@ -366,12 +365,12 @@ function formatRouter(cwd) {
       file_added,
       file_deleted,
       line_added,
-    } = router;
+    } = component;
 
     const fmtRouter = {
-      name: asToggleName(toggle_id),
-      ...router,
-      removed: router.removed === 1,
+      name: nameFn(component),
+      ...component,
+      removed: component.removed === 1,
       weeks_survived: Math.ceil(epoch_interval / WEEKS_IN_SEC),
       commit_message_added: await getCommitMessage(commit_added, cwd),
       commit_message_deleted: commit_deleted ? await getCommitMessage(commit_deleted, cwd) : null,
@@ -384,9 +383,9 @@ function formatRouter(cwd) {
 
     return deleteObjectKeys(fmtRouter, [
       'epoch_interval',
-      'commit_added',
+      // 'commit_added', // need this for groupByDeletedWhenAdded
       'commit_deleted',
-      'file_added',
+      // 'file_added', // need this for groupByDeletedWhenAdded
       'file_deleted',
       'line_deleted']);
   };
@@ -407,6 +406,27 @@ async function groupByToggleName(togglesPromise, routerPromise) {
   
   const { routers } = toggle;
   routers.push(router);
+  toggle.num_routers++;
+  if (index === -1) toggles.push(toggle);
+  return toggles;
+}
+
+async function groupByDeletedWhenAdded(togglesPromise, componentPromise) {
+  const component = await componentPromise;
+  const { name, commit_added, file_added, repo_name } = component;
+  const toggles = await togglesPromise;
+  // name is commit_deleted_file_added
+  const index = toggles.findIndex(t => t.name === `${commit_added}_${file_added}`);
+  const toggle = index > -1 ? toggles[index] : {
+    progress: '',
+    name,
+    repo_name,
+    num_routers: 0,
+    routers: [],
+  };
+  
+  const { routers } = toggle;
+  routers.push(component);
   toggle.num_routers++;
   if (index === -1) toggles.push(toggle);
   return toggles;
@@ -455,20 +475,40 @@ function formatToggle(toggle, index, toggles) {
   };
 }
 
-async function loadTogglesFromExtraction(repo_name, json, pathToRepository) {
+const nameFnByComponentType = (componentType) => {
+  switch(componentType) {
+    case 'Point':
+      return ({ commit_deleted, file_deleted }) => `${commit_deleted}_${file_deleted}`;
+    case 'Router':
+    default:
+      return ({ toggle_id }) => asToggleName(toggle_id);
+  }
+};
+
+const groupFnByComponentType = (componentType) => {
+  return {
+    'Router': groupByToggleName,
+    'Point': groupByDeletedWhenAdded,
+  }[componentType];
+}
+
+async function loadTogglesFromExtraction({ repo_name, json, pathToRepository, componentType }) {
   const survival = await collect(repo_name, json, pathToRepository);
-  return survival.filter(toggle => toggle.toggle_type === 'Router')
-    .map(formatRouter(pathToRepository))
-    .reduce(groupByToggleName, Promise.resolve([]));
+  const format = formatComponent(pathToRepository, nameFnByComponentType(componentType));
+  const group = groupFnByComponentType(componentType);
+  return survival.filter(toggle => toggle.toggle_type === componentType)
+    .map(format)
+    .reduce(group, Promise.resolve([]));
 }
 
 (async () => {
-  const { repo_name, json, pathToRepository } = getArgs();
+  const args = getArgs();
+  const { repo_name } = args;
   const filename = `${repo_name.replace('/', '__')}.json`;
 
   let toggles = await loadSavedToggles(filename);
   if (!toggles) {
-    toggles = (await loadTogglesFromExtraction(repo_name, json, pathToRepository))
+    toggles = (await loadTogglesFromExtraction(args))
       .map(formatToggle);
   }
 

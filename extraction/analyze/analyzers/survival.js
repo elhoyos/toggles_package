@@ -64,6 +64,7 @@ const collect = async (repo_name, json, pathToRepository) => {
         repo_name,
         toggle_id: sanitize(toggleId),
         original_id: sanitize(original_id),
+        // TODO: should be component type
         toggle_type: firstEvent.toggle.type,
         added: t1,
         lastSeen: t2,
