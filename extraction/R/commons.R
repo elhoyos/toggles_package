@@ -3,3 +3,7 @@
 no_org <- function(repo_name) {
   return(sub(".*/", "", repo_name))
 }
+
+org <- function(repo_name) {
+  return(sub("/.*", "", repo_name))
+}

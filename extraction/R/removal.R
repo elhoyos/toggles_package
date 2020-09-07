@@ -52,12 +52,21 @@ ratios <- data %>%
 wilcox.test(ratios$del_routers,ratios$del_points, exact = FALSE)
 cliff.delta(ratios$del_routers,ratios$del_points)
 
-par(mfrow=c(2, 1))
 summary(ratios$num_toggles_aprox)
-boxplot(ratios$num_toggles_aprox, horizontal = TRUE)
-title("Number of toggles (aprox.)")
-hist(ratios$num_toggles_aprox, breaks=15, main="Number of toggles Distribution")
+# boxplot(ratios$num_toggles_aprox, horizontal = TRUE)
+# title("Number of toggles (aprox.)")
+pdf("figure_hist_num_toggles_approx_72_projects.pdf", width=4, height=2.5)
+par(mfrow=c(1, 1), mar=c(4, 4, 1, 1))
+hist(
+  ratios$num_toggles_aprox,
+  breaks = 80,
+  ylim = range(0, 40),
+  main = NULL,
+  xlab = "Number of toggles (approximate)")
+dev.off()
 # plot(density(ratios$num_toggles_aprox), main="Number of toggles Distribution")
+
+par(mfrow=c(2, 1))
 hist(ratios$router_ops, breaks=15, main="Number of Router operations")
 hist(ratios$point_ops, breaks=15, main="Number of Points operations")
 
