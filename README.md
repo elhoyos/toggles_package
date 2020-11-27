@@ -1,5 +1,6 @@
 # On the Removal of Feature Toggles
-## A Study of Python Projects and Practitioners Motivations
+
+A Study of Python Projects and Practitioners Motivations
 
 ## Reproduction Package
 
