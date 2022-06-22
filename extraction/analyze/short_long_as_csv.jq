@@ -7,15 +7,14 @@
 flatten |
 [
   "name", "repo_name", "all_routers_removed",
-  "weeks_survived", "category", "expected_longevity",
-  "all_routers_removed"] as $cols |
+  "weeks_survived", "expected_longevity",
+  "expected_longevity_comment"] as $cols |
 map(
   select(
-    .expected_longevity != null and
     (has("group_as") | not)
   ) as $row |
   $cols |
-  map($row[.])
+  map($row[.] | if type == "array" then tojson else . end)
 ) as $rows |
 $cols, $rows[] |
 @csv

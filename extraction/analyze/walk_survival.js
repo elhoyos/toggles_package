@@ -432,6 +432,26 @@ async function groupByDeletedWhenAdded(togglesPromise, componentPromise) {
   return toggles;
 }
 
+async function groupByOriginalId(togglesPromise, componentPromise) {
+  const component = await componentPromise;
+  const { original_id, repo_name } = component;
+  const toggles = await togglesPromise;
+  const index = toggles.findIndex(t => t.original_id === original_id);
+  const toggle = index > -1 ? toggles[index] : {
+    progress: '',
+    name: original_id,
+    repo_name,
+    num_routers: 0,
+    routers: [],
+  };
+  
+  const { routers } = toggle;
+  routers.push(component);
+  toggle.num_routers++;
+  if (index === -1) toggles.push(toggle);
+  return toggles;
+}
+
 function formatToggle(toggle, index, toggles) {
   const {
     routers
@@ -488,7 +508,7 @@ const nameFnByComponentType = (componentType) => {
 const groupFnByComponentType = (componentType) => {
   return {
     'Router': groupByToggleName,
-    'Point': groupByDeletedWhenAdded,
+    'Point': groupByOriginalId,
   }[componentType];
 }
 

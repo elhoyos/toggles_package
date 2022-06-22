@@ -44,8 +44,11 @@ for (i in 1:length(filenames)) {
 
   data_routers <- read.csv(filenames[i]) %>%
     filter(toggle_type == "Router") %>%
-    mutate(weeks_survived = ceiling(epoch_interval/SECONDS)) %>%
-    group_by(repo_name, original_id) %>%
+    mutate(
+      weeks_survived = ceiling(epoch_interval/SECONDS),
+      name = sub("-[0-9a-f]{64}(?:-\\d+)?$", "", toggle_id)
+    ) %>%
+    group_by(repo_name, name) %>%
     summarize(weeks_survived = max(weeks_survived), removed = max(removed))
 
   all_points <- union_all(all_points, data)
@@ -89,6 +92,14 @@ beanplot(all_points$weeks_survived, overallline = "median", ll = 0)
 mtext("Weeks survived", side = 2, line = 2.5)
 dev.off()
 
+summary(all_routers$weeks_survived)
+
+pdf("figure_routers_weeks_survived.pdf", width=2.5, height=4)
+par(mar=c(0.5, 4, 0.5, 0.6))
+beanplot(all_routers$weeks_survived, overallline = "median", ll = 0)
+mtext("Weeks survived", side = 2, line = 2.5)
+dev.off()
+
 # how many components remain after the 3rd quartile?
 third_q <- quantile(all_points$weeks_survived, names = TRUE)["75%"]
 points_by_repo <- all_points %>% group_by(repo_name) %>% summarize(n_points = n())
@@ -97,6 +108,14 @@ removed_after_3rdQ <- all_points %>%
   group_by(repo_name) %>%
   summarize(n = sum(weeks_survived > third_q), n_points = max(n_points)) %>%
   mutate(ratio = n/n_points)
+
+third_q_routers <- quantile(all_routers$weeks_survived, names = TRUE)["75%"]
+routers_by_repo <- all_routers %>% group_by(repo_name) %>% summarize(n_routers = n())
+removed_routers_after_3rdQ <- all_routers %>%
+  left_join(routers_by_repo, by = "repo_name") %>%
+  group_by(repo_name) %>%
+  summarize(n = sum(weeks_survived > third_q_routers), n_routers = max(n_routers)) %>%
+  mutate(ratio = n/n_routers)
 
 # how many sampled short/long toggles' survived weeks deviate from the 3rd quartile and the project's own median?
 local_medians <- all_points %>%
